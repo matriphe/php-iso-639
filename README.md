@@ -1,6 +1,6 @@
 # PHP ISO-639
 
-PHP library to convert ISO-639-1 code to language name. Based on Wikipedia's [List of ISO 639-1 codes](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes).
+PHP library to convert ISO-639-1 code to language name, based on Wikipedia's [List of ISO 639-1 codes](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes).
 
 ## Installation
 
