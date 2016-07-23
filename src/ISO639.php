@@ -194,6 +194,16 @@ class ISO639
         array('za', 'zha', 'zha', 'zha', 'Zhuang, Chuang', 'Saɯ cueŋƅ, Saw cuengh'),
         array('zu', 'zul', 'zul', 'zul', 'Zulu', 'isiZulu')
     );
+
+    /*
+     * Get all language data
+     *
+     * @return (array)
+    */
+    public function allLanguages()
+    {
+        return $this->languages;
+    }
     
     /*
      * Get language name from ISO-639-1 (two-letters code)
