@@ -160,4 +160,79 @@ class ISO639Test extends PHPUnit_Framework_TestCase {
 		$this->assertSame('Basa Sunda', $this->iso->nativeByCode3('sun'));
 	}
 
+  public function testISO6391Language()
+  {
+    $this->assertSame('en', $this->iso->code1ByLanguage('English'));
+    $this->assertSame('fr', $this->iso->code1ByLanguage('French'));
+    $this->assertSame('es', $this->iso->code1ByLanguage('Spanish'));
+    $this->assertSame('id', $this->iso->code1ByLanguage('Indonesian'));
+    $this->assertSame('jv', $this->iso->code1ByLanguage('Javanese'));
+    $this->assertSame('hi', $this->iso->code1ByLanguage('Hindi'));
+    $this->assertSame('th', $this->iso->code1ByLanguage('Thai'));
+    $this->assertSame('ko', $this->iso->code1ByLanguage('Korean'));
+    $this->assertSame('ja', $this->iso->code1ByLanguage('Japanese'));
+    $this->assertSame('zh', $this->iso->code1ByLanguage('Chinese'));
+    $this->assertSame('ru', $this->iso->code1ByLanguage('Russian'));
+    $this->assertSame('ar', $this->iso->code1ByLanguage('Arabic'));
+    $this->assertSame('vi', $this->iso->code1ByLanguage('Vietnamese'));
+    $this->assertSame('ms', $this->iso->code1ByLanguage('Malay'));
+    $this->assertSame('su', $this->iso->code1ByLanguage('Sundanese'));
+  }
+
+  public function testISO6392tLanguage()
+  {
+    $this->assertSame('eng', $this->iso->code2tByLanguage('English'));
+    $this->assertSame('fra', $this->iso->code2tByLanguage('French'));
+    $this->assertSame('spa', $this->iso->code2tByLanguage('Spanish'));
+    $this->assertSame('ind', $this->iso->code2tByLanguage('Indonesian'));
+    $this->assertSame('jav', $this->iso->code2tByLanguage('Javanese'));
+    $this->assertSame('hin', $this->iso->code2tByLanguage('Hindi'));
+    $this->assertSame('tha', $this->iso->code2tByLanguage('Thai'));
+    $this->assertSame('kor', $this->iso->code2tByLanguage('Korean'));
+    $this->assertSame('jpn', $this->iso->code2tByLanguage('Japanese'));
+    $this->assertSame('zho', $this->iso->code2tByLanguage('Chinese'));
+    $this->assertSame('rus', $this->iso->code2tByLanguage('Russian'));
+    $this->assertSame('ara', $this->iso->code2tByLanguage('Arabic'));
+    $this->assertSame('vie', $this->iso->code2tByLanguage('Vietnamese'));
+    $this->assertSame('msa', $this->iso->code2tByLanguage('Malay'));
+    $this->assertSame('sun', $this->iso->code2tByLanguage('Sundanese'));
+  }
+
+  public function testISO6392bLanguage()
+  {
+    $this->assertSame('eng', $this->iso->code2bByLanguage('English'));
+    $this->assertSame('fre', $this->iso->code2bByLanguage('French'));
+    $this->assertSame('spa', $this->iso->code2bByLanguage('Spanish'));
+    $this->assertSame('ind', $this->iso->code2bByLanguage('Indonesian'));
+    $this->assertSame('jav', $this->iso->code2bByLanguage('Javanese'));
+    $this->assertSame('hin', $this->iso->code2bByLanguage('Hindi'));
+    $this->assertSame('tha', $this->iso->code2bByLanguage('Thai'));
+    $this->assertSame('kor', $this->iso->code2bByLanguage('Korean'));
+    $this->assertSame('jpn', $this->iso->code2bByLanguage('Japanese'));
+    $this->assertSame('chi', $this->iso->code2bByLanguage('Chinese'));
+    $this->assertSame('rus', $this->iso->code2bByLanguage('Russian'));
+    $this->assertSame('ara', $this->iso->code2bByLanguage('Arabic'));
+    $this->assertSame('vie', $this->iso->code2bByLanguage('Vietnamese'));
+    $this->assertSame('may', $this->iso->code2bByLanguage('Malay'));
+    $this->assertSame('sun', $this->iso->code2bByLanguage('Sundanese'));
+  }
+
+  public function testISO6393Language()
+  {
+    $this->assertSame('eng', $this->iso->code3ByLanguage('English'));
+    $this->assertSame('fra', $this->iso->code3ByLanguage('French'));
+    $this->assertSame('spa', $this->iso->code3ByLanguage('Spanish'));
+    $this->assertSame('ind', $this->iso->code3ByLanguage('Indonesian'));
+    $this->assertSame('jav', $this->iso->code3ByLanguage('Javanese'));
+    $this->assertSame('hin', $this->iso->code3ByLanguage('Hindi'));
+    $this->assertSame('tha', $this->iso->code3ByLanguage('Thai'));
+    $this->assertSame('kor', $this->iso->code3ByLanguage('Korean'));
+    $this->assertSame('jpn', $this->iso->code3ByLanguage('Japanese'));
+    $this->assertSame('zho', $this->iso->code3ByLanguage('Chinese'));
+    $this->assertSame('rus', $this->iso->code3ByLanguage('Russian'));
+    $this->assertSame('ara', $this->iso->code3ByLanguage('Arabic'));
+    $this->assertSame('vie', $this->iso->code3ByLanguage('Vietnamese'));
+    $this->assertSame('msa', $this->iso->code3ByLanguage('Malay'));
+    $this->assertSame('sun', $this->iso->code3ByLanguage('Sundanese'));
+  }
 }
