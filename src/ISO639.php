@@ -372,4 +372,88 @@ class ISO639
         
         return $result;
     }
+
+    /*
+     * Get ISO-639-1 (two-letters code) from language name
+     *
+     * @return (string)
+     */
+    public function code1ByLanguage($language)
+    {
+        $language_key = ucwords(strtolower($language));
+        
+        $result = '';
+        
+        foreach ($this->languages as $lang) {
+            if (in_array($language_key, explode(', ', $lang[4]))) {
+                $result = $lang[0];
+                break;
+            }
+        }
+        
+        return $result;
+    }
+
+    /*
+     * Get ISO-639-2/t (three-letter codes) terminologic from language name
+     *
+     * @return (string)
+     */
+    public function code2tByLanguage($language)
+    {
+        $language_key = ucwords(strtolower($language));
+        
+        $result = '';
+        
+        foreach ($this->languages as $lang) {
+            if (in_array($language_key, explode(', ', $lang[4]))) {
+                $result = $lang[1];
+                break;
+            }
+        }
+        
+        return $result;
+    }
+
+    /*
+     * Get ISO-639-2/b (three-letter codes) bibliographic from language name
+     *
+     * @return (string)
+     */
+    public function code2bByLanguage($language)
+    {
+        $language_key = ucwords(strtolower($language));
+        
+        $result = '';
+        
+        foreach ($this->languages as $lang) {
+            if (in_array($language_key, explode(', ', $lang[4]))) {
+                $result = $lang[2];
+                break;
+            }
+        }
+        
+        return $result;
+    }
+  
+    /*
+     * Get ISO-639-3 (three-letter codes) from language name
+     *
+     * @return (string)
+     */
+    public function code3ByLanguage($language)
+    {
+        $language_key = ucwords(strtolower($language));
+        
+        $result = '';
+        
+        foreach ($this->languages as $lang) {
+            if (in_array($language_key, explode(', ', $lang[4]))) {
+                $result = $lang[3];
+                break;
+            }
+        }
+        
+        return $result;
+    }
 }
