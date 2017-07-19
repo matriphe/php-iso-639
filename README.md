@@ -12,7 +12,9 @@ Using composer: `composer require matriphe/iso-639`
 
 ```php
 <?php
-required 'src/ISO639.php'
+
+required 'src/ISO639.php';
+//required 'vendor/autoload.php'; // If using composer
 
 $iso = new Matriphe\ISO639\ISO639;
 
