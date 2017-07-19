@@ -1,4 +1,5 @@
 <?php
+
 namespace Matriphe\ISO639;
 
 class ISO639
@@ -192,7 +193,7 @@ class ISO639
         array('yi', 'yid', 'yid', 'yid', 'Yiddish', 'ייִדיש'),
         array('yo', 'yor', 'yor', 'yor', 'Yoruba', 'Yorùbá'),
         array('za', 'zha', 'zha', 'zha', 'Zhuang, Chuang', 'Saɯ cueŋƅ, Saw cuengh'),
-        array('zu', 'zul', 'zul', 'zul', 'Zulu', 'isiZulu')
+        array('zu', 'zul', 'zul', 'zul', 'Zulu', 'isiZulu'),
     );
 
     /*
@@ -204,7 +205,7 @@ class ISO639
     {
         return $this->languages;
     }
-    
+
     /*
      * Get language name from ISO-639-1 (two-letters code)
      *
@@ -213,19 +214,19 @@ class ISO639
     public function languageByCode1($code)
     {
         $code = strtolower($code);
-        
+
         $result = '';
-        
+
         foreach ($this->languages as $lang) {
             if ($lang[0] == $code) {
                 $result = $lang[4];
                 break;
             }
         }
-        
+
         return $result;
     }
-    
+
     /*
      * Get native language name from ISO-639-1 (two-letters code)
      *
@@ -234,19 +235,19 @@ class ISO639
     public function nativeByCode1($code)
     {
         $code = strtolower($code);
-        
+
         $result = '';
-        
+
         foreach ($this->languages as $lang) {
             if ($lang[0] == $code) {
                 $result = $lang[5];
                 break;
             }
         }
-        
+
         return $result;
     }
-    
+
     /*
      * Get language name from ISO-639-2/t (three-letter codes) terminologic
      *
@@ -255,19 +256,19 @@ class ISO639
     public function languageByCode2t($code)
     {
         $code = strtolower($code);
-        
+
         $result = '';
-        
+
         foreach ($this->languages as $lang) {
             if ($lang[1] == $code) {
                 $result = $lang[4];
                 break;
             }
         }
-        
+
         return $result;
     }
-    
+
     /*
      * Get native language name from ISO-639-2/t (three-letter codes) terminologic
      *
@@ -276,19 +277,19 @@ class ISO639
     public function nativeByCode2t($code)
     {
         $code = strtolower($code);
-        
+
         $result = '';
-        
+
         foreach ($this->languages as $lang) {
             if ($lang[1] == $code) {
                 $result = $lang[5];
                 break;
             }
         }
-        
+
         return $result;
     }
-    
+
     /*
      * Get language name from ISO-639-2/b (three-letter codes) bibliographic
      *
@@ -297,19 +298,19 @@ class ISO639
     public function languageByCode2b($code)
     {
         $code = strtolower($code);
-        
+
         $result = '';
-        
+
         foreach ($this->languages as $lang) {
             if ($lang[2] == $code) {
                 $result = $lang[4];
                 break;
             }
         }
-        
+
         return $result;
     }
-    
+
     /*
      * Get native language name from ISO-639-2/b (three-letter codes) bibliographic
      *
@@ -318,19 +319,19 @@ class ISO639
     public function nativeByCode2b($code)
     {
         $code = strtolower($code);
-        
+
         $result = '';
-        
+
         foreach ($this->languages as $lang) {
             if ($lang[2] == $code) {
                 $result = $lang[5];
                 break;
             }
         }
-        
+
         return $result;
     }
-    
+
     /*
      * Get language name from ISO-639-3 (three-letter codes)
      *
@@ -339,19 +340,19 @@ class ISO639
     public function languageByCode3($code)
     {
         $code = strtolower($code);
-        
+
         $result = '';
-        
+
         foreach ($this->languages as $lang) {
             if ($lang[3] == $code) {
                 $result = $lang[4];
                 break;
             }
         }
-        
+
         return $result;
     }
-    
+
     /*
      * Get native language name from ISO-639-3 (three-letter codes)
      *
@@ -360,16 +361,16 @@ class ISO639
     public function nativeByCode3($code)
     {
         $code = strtolower($code);
-        
+
         $result = '';
-        
+
         foreach ($this->languages as $lang) {
             if ($lang[3] == $code) {
                 $result = $lang[5];
                 break;
             }
         }
-        
+
         return $result;
     }
 
@@ -381,16 +382,16 @@ class ISO639
     public function code1ByLanguage($language)
     {
         $language_key = ucwords(strtolower($language));
-        
+
         $result = '';
-        
+
         foreach ($this->languages as $lang) {
             if (in_array($language_key, explode(', ', $lang[4]))) {
                 $result = $lang[0];
                 break;
             }
         }
-        
+
         return $result;
     }
 
@@ -402,16 +403,16 @@ class ISO639
     public function code2tByLanguage($language)
     {
         $language_key = ucwords(strtolower($language));
-        
+
         $result = '';
-        
+
         foreach ($this->languages as $lang) {
             if (in_array($language_key, explode(', ', $lang[4]))) {
                 $result = $lang[1];
                 break;
             }
         }
-        
+
         return $result;
     }
 
@@ -423,19 +424,19 @@ class ISO639
     public function code2bByLanguage($language)
     {
         $language_key = ucwords(strtolower($language));
-        
+
         $result = '';
-        
+
         foreach ($this->languages as $lang) {
             if (in_array($language_key, explode(', ', $lang[4]))) {
                 $result = $lang[2];
                 break;
             }
         }
-        
+
         return $result;
     }
-  
+
     /*
      * Get ISO-639-3 (three-letter codes) from language name
      *
@@ -444,16 +445,16 @@ class ISO639
     public function code3ByLanguage($language)
     {
         $language_key = ucwords(strtolower($language));
-        
+
         $result = '';
-        
+
         foreach ($this->languages as $lang) {
             if (in_array($language_key, explode(', ', $lang[4]))) {
                 $result = $lang[3];
                 break;
             }
         }
-        
+
         return $result;
     }
 }
