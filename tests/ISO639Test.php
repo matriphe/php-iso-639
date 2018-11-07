@@ -236,4 +236,17 @@ class ISO639Test extends PHPUnit_Framework_TestCase
         $this->assertSame('msa', $this->iso->code3ByLanguage('Malay'));
         $this->assertSame('sun', $this->iso->code3ByLanguage('Sundanese'));
     }
+
+    public function testGetLanguageByIsoCode2B()
+    {
+        $result = ['en', 'eng', 'eng', 'eng', 'English', 'English'];
+        $this->assertSame($result, $this->iso->getLanguageByIsoCode2b('eng'));
+        $result = ['fr', 'fra', 'fre', 'fra', 'French', 'français, langue française'];
+        $this->assertSame($result, $this->iso->getLanguageByIsoCode2b('fre'));
+        $result = ['id', 'ind', 'ind', 'ind', 'Indonesian', 'Bahasa Indonesia'];
+        $this->assertSame($result, $this->iso->getLanguageByIsoCode2b('ind'));
+
+        $this->assertNull($this->iso->getLanguageByIsoCode2b('null'));
+    }
+
 }
