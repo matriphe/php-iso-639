@@ -196,6 +196,26 @@ class ISO639
         array('zu', 'zul', 'zul', 'zul', 'Zulu', 'isiZulu'),
     );
 
+    public $indexIso639_1 = 0;
+    public $indexIso639_2t = 1;
+    public $indexIso639_2b = 2;
+    public $indexIso639_3 = 3;
+    public $indexEnglishName = 4;
+    public $indexNativeName = 5;
+
+    public function getLanguageByIsoCode2b($code)
+    {
+        $code = strtolower($code);
+
+        foreach ($this->languages as $lang) {
+            if ($lang[$this->indexIso639_2b] === $code) {
+                return $lang;
+            }
+        }
+
+        return null;
+    }
+
     /*
      * Get all language data
      *
