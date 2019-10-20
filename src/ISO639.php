@@ -196,6 +196,13 @@ class ISO639
         array('zu', 'zul', 'zul', 'zul', 'Zulu', 'isiZulu'),
     );
 
+    public $indexIso639_1 = 0;
+    public $indexIso639_2t = 1;
+    public $indexIso639_2b = 2;
+    public $indexIso639_3 = 3;
+    public $indexEnglishName = 4;
+    public $indexNativeName = 5;
+
     /*
      * Get all language data
      *
@@ -213,18 +220,15 @@ class ISO639
      */
     public function languageByCode1($code)
     {
-        $code = strtolower($code);
-
-        $result = '';
+        $code = strtolower(trim($code));
 
         foreach ($this->languages as $lang) {
-            if ($lang[0] == $code) {
-                $result = $lang[4];
-                break;
+            if ($lang[$this->indexIso639_1] === $code) {
+                return $lang[$this->indexEnglishName];
             }
         }
 
-        return $result;
+        return '';
     }
 
     /*
@@ -234,18 +238,15 @@ class ISO639
      */
     public function nativeByCode1($code)
     {
-        $code = strtolower($code);
-
-        $result = '';
+        $code = strtolower(trim($code));
 
         foreach ($this->languages as $lang) {
-            if ($lang[0] == $code) {
-                $result = $lang[5];
-                break;
+            if ($lang[$this->indexIso639_1] === $code) {
+                return $lang[$this->indexNativeName];
             }
         }
 
-        return $result;
+        return '';
     }
 
     /*
@@ -255,18 +256,15 @@ class ISO639
      */
     public function languageByCode2t($code)
     {
-        $code = strtolower($code);
-
-        $result = '';
+        $code = strtolower(trim($code));
 
         foreach ($this->languages as $lang) {
-            if ($lang[1] == $code) {
-                $result = $lang[4];
-                break;
+            if ($lang[$this->indexIso639_2t] === $code) {
+                return $lang[$this->indexEnglishName];
             }
         }
 
-        return $result;
+        return '';
     }
 
     /*
@@ -276,18 +274,15 @@ class ISO639
      */
     public function nativeByCode2t($code)
     {
-        $code = strtolower($code);
-
-        $result = '';
+        $code = strtolower(trim($code));
 
         foreach ($this->languages as $lang) {
-            if ($lang[1] == $code) {
-                $result = $lang[5];
-                break;
+            if ($lang[$this->indexIso639_2t] === $code) {
+                return $lang[$this->indexNativeName];
             }
         }
 
-        return $result;
+        return '';
     }
 
     /*
@@ -297,18 +292,15 @@ class ISO639
      */
     public function languageByCode2b($code)
     {
-        $code = strtolower($code);
-
-        $result = '';
+        $code = strtolower(trim($code));
 
         foreach ($this->languages as $lang) {
-            if ($lang[2] == $code) {
-                $result = $lang[4];
-                break;
+            if ($lang[$this->indexIso639_2b] === $code) {
+                return $lang[$this->indexEnglishName];
             }
         }
 
-        return $result;
+        return '';
     }
 
     /*
@@ -318,18 +310,15 @@ class ISO639
      */
     public function nativeByCode2b($code)
     {
-        $code = strtolower($code);
-
-        $result = '';
+        $code = strtolower(trim($code));
 
         foreach ($this->languages as $lang) {
-            if ($lang[2] == $code) {
-                $result = $lang[5];
-                break;
+            if ($lang[$this->indexIso639_2b] === $code) {
+                return $lang[$this->indexNativeName];
             }
         }
 
-        return $result;
+        return '';
     }
 
     /*
@@ -339,18 +328,15 @@ class ISO639
      */
     public function languageByCode3($code)
     {
-        $code = strtolower($code);
-
-        $result = '';
+        $code = strtolower(trim($code));
 
         foreach ($this->languages as $lang) {
-            if ($lang[3] == $code) {
-                $result = $lang[4];
-                break;
+            if ($lang[$this->indexIso639_3] === $code) {
+                return $lang[$this->indexEnglishName];
             }
         }
 
-        return $result;
+        return '';
     }
 
     /*
@@ -360,18 +346,15 @@ class ISO639
      */
     public function nativeByCode3($code)
     {
-        $code = strtolower($code);
-
-        $result = '';
+        $code = strtolower(trim($code));
 
         foreach ($this->languages as $lang) {
-            if ($lang[3] == $code) {
-                $result = $lang[5];
-                break;
+            if ($lang[$this->indexIso639_3] === $code) {
+                return $lang[$this->indexNativeName];
             }
         }
 
-        return $result;
+        return '';
     }
 
     /*
@@ -383,16 +366,13 @@ class ISO639
     {
         $language_key = ucwords(strtolower($language));
 
-        $result = '';
-
         foreach ($this->languages as $lang) {
-            if (in_array($language_key, explode(', ', $lang[4]))) {
-                $result = $lang[0];
-                break;
+            if (in_array($language_key, explode(', ', $lang[$this->indexEnglishName]))) {
+                return $lang[$this->indexIso639_1];
             }
         }
 
-        return $result;
+        return '';
     }
 
     /*
@@ -404,16 +384,14 @@ class ISO639
     {
         $language_key = ucwords(strtolower($language));
 
-        $result = '';
 
         foreach ($this->languages as $lang) {
-            if (in_array($language_key, explode(', ', $lang[4]))) {
-                $result = $lang[1];
-                break;
+            if (in_array($language_key, explode(', ', $lang[$this->indexEnglishName]))) {
+                return $lang[$this->indexIso639_2t];
             }
         }
 
-        return $result;
+        return '';
     }
 
     /*
@@ -425,16 +403,14 @@ class ISO639
     {
         $language_key = ucwords(strtolower($language));
 
-        $result = '';
-
         foreach ($this->languages as $lang) {
-            if (in_array($language_key, explode(', ', $lang[4]))) {
-                $result = $lang[2];
+            if (in_array($language_key, explode(', ', $lang[$this->indexEnglishName]))) {
+                return $lang[$this->indexIso639_2b];
                 break;
             }
         }
 
-        return $result;
+        return '';
     }
 
     /*
@@ -446,15 +422,32 @@ class ISO639
     {
         $language_key = ucwords(strtolower($language));
 
-        $result = '';
-
         foreach ($this->languages as $lang) {
-            if (in_array($language_key, explode(', ', $lang[4]))) {
-                $result = $lang[3];
-                break;
+            if (in_array($language_key, explode(', ', $lang[$this->indexEnglishName]))) {
+                return $lang[$this->indexIso639_3];
             }
         }
 
-        return $result;
+        return '';
     }
+
+    /**
+     * Gat language array from ISO-639-2/b (three-letter code)
+     *
+     * @param $code
+     * @return array|null
+     */
+    public function getLanguageByIsoCode2b($code)
+    {
+        $code = strtolower(trim($code));
+
+        foreach ($this->languages as $lang) {
+            if ($lang[$this->indexIso639_2b] === $code) {
+                return $lang;
+            }
+        }
+
+        return null;
+    }
+
 }

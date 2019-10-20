@@ -60,6 +60,10 @@ echo $iso->nativeByCode3('eng'); // English
 echo $iso->nativeByCode3('ind'); // Bahasa Indonesia
 echo $iso->nativeByCode3('jav'); // basa Jawa
 
+// Get language array from ISO-639-2b code
+echo $iso->getLanguageByIsoCode2b('eng'); // ['en', 'eng', 'eng', 'eng', 'English', 'English']
+echo $iso->getLanguageByIsoCode2b('ind'); // ['id', 'ind', 'ind', 'ind', 'Indonesian', 'Bahasa Indonesia']
+echo $iso->getLanguageByIsoCode2b('jav'); // ['jv', 'jav', 'jav', 'jav', 'Javanese', 'basa Jawa']
 ```
 
 ## To Do
