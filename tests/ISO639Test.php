@@ -249,4 +249,12 @@ class ISO639Test extends PHPUnit_Framework_TestCase
         $this->assertNull($this->iso->getLanguageByIsoCode2b('null'));
     }
 
+    public function testCode2tByCode1()
+    {
+        $this->assertSame('fra', $this->iso->code2tByCode1('fr'));
+        $this->assertSame('eng', $this->iso->code2tByCode1('en'));
+        $this->assertSame('spa', $this->iso->code2tByCode1('es'));
+        $this->assertSame('ind', $this->iso->code2tByCode1('id'));
+    }
+
 }
