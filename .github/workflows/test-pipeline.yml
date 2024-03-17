@@ -41,11 +41,13 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-php-${{ matrix.php-version }}
 
-      - name: Show version
-        run: composer --version
-
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress
+
+      - name: Setup PHP ${{ inputs.php_version }}
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ inputs.php_version }}
 
       - name: Run test
         run: vendor/bin/phpunit
