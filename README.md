@@ -1,6 +1,6 @@
 # PHP ISO-639
 
-[![Build Status](https://travis-ci.org/matriphe/php-iso-639.svg)](https://travis-ci.org/matriphe/php-iso-639)
+[![Run Test](https://github.com/matriphe/php-iso-639/actions/workflows/test-pipeline.yml/badge.svg?branch=master)](https://github.com/matriphe/php-iso-639/actions/workflows/test-pipeline.yml)
 [![Total Download](https://img.shields.io/packagist/dt/matriphe/iso-639.svg)](https://packagist.org/packages/matriphe/iso-639)
 [![Latest Stable Version](https://img.shields.io/packagist/v/matriphe/iso-639.svg)](https://packagist.org/packages/matriphe/iso-639)
 
@@ -8,7 +8,17 @@ PHP library to convert ISO-639-1 code to language name, based on Wikipedia's [Li
 
 ## Installation
 
-Using composer: `composer require matriphe/iso-639`
+For PHP 8.1 or latest:
+
+```shell
+composer require matriphe/iso-639
+```
+
+For older PHP version:
+
+```shell
+composer require matriphe/iso-639:1.3
+```
 
 ## Usage Example
 
