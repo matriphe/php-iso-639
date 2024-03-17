@@ -8,7 +8,7 @@ class ISO639
      * Language database, based on Wikipedia.
      * Source: https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
      */
-    protected $languages = array(
+    protected array $languages = array(
         array('ab', 'abk', 'abk', 'abk', 'Abkhaz', 'аҧсуа бызшәа, аҧсшәа'),
         array('aa', 'aar', 'aar', 'aar', 'Afar', 'Afaraf'),
         array('af', 'afr', 'afr', 'afr', 'Afrikaans', 'Afrikaans'),
@@ -196,29 +196,25 @@ class ISO639
         array('zu', 'zul', 'zul', 'zul', 'Zulu', 'isiZulu'),
     );
 
-    public $indexIso639_1 = 0;
-    public $indexIso639_2t = 1;
-    public $indexIso639_2b = 2;
-    public $indexIso639_3 = 3;
-    public $indexEnglishName = 4;
-    public $indexNativeName = 5;
+    public int $indexIso639_1 = 0;
+    public int $indexIso639_2t = 1;
+    public int $indexIso639_2b = 2;
+    public int $indexIso639_3 = 3;
+    public int $indexEnglishName = 4;
+    public int $indexNativeName = 5;
 
     /*
      * Get all language data
-     *
-     * @return (array)
     */
-    public function allLanguages()
+    public function allLanguages(): array
     {
         return $this->languages;
     }
 
     /*
      * Get language name from ISO-639-1 (two-letters code)
-     *
-     * @return (string)
      */
-    public function languageByCode1($code)
+    public function languageByCode1($code): string
     {
         $code = strtolower(trim($code));
 
@@ -233,10 +229,8 @@ class ISO639
 
     /*
      * Get native language name from ISO-639-1 (two-letters code)
-     *
-     * @return (string)
      */
-    public function nativeByCode1($code)
+    public function nativeByCode1($code): string
     {
         $code = strtolower(trim($code));
 
@@ -251,10 +245,8 @@ class ISO639
 
     /*
      * Get language name from ISO-639-2/t (three-letter codes) terminologic
-     *
-     * @return (string)
      */
-    public function languageByCode2t($code)
+    public function languageByCode2t($code): string
     {
         $code = strtolower(trim($code));
 
@@ -269,10 +261,8 @@ class ISO639
 
     /*
      * Get native language name from ISO-639-2/t (three-letter codes) terminologic
-     *
-     * @return (string)
      */
-    public function nativeByCode2t($code)
+    public function nativeByCode2t($code): string
     {
         $code = strtolower(trim($code));
 
@@ -287,10 +277,8 @@ class ISO639
 
     /*
      * Get language name from ISO-639-2/b (three-letter codes) bibliographic
-     *
-     * @return (string)
      */
-    public function languageByCode2b($code)
+    public function languageByCode2b($code): string
     {
         $code = strtolower(trim($code));
 
@@ -305,10 +293,8 @@ class ISO639
 
     /*
      * Get native language name from ISO-639-2/b (three-letter codes) bibliographic
-     *
-     * @return (string)
      */
-    public function nativeByCode2b($code)
+    public function nativeByCode2b($code): string
     {
         $code = strtolower(trim($code));
 
@@ -323,10 +309,8 @@ class ISO639
 
     /*
      * Get language name from ISO-639-3 (three-letter codes)
-     *
-     * @return (string)
      */
-    public function languageByCode3($code)
+    public function languageByCode3($code): string
     {
         $code = strtolower(trim($code));
 
@@ -341,10 +325,8 @@ class ISO639
 
     /*
      * Get native language name from ISO-639-3 (three-letter codes)
-     *
-     * @return (string)
      */
-    public function nativeByCode3($code)
+    public function nativeByCode3($code): string
     {
         $code = strtolower(trim($code));
 
@@ -359,10 +341,8 @@ class ISO639
 
     /*
      * Get ISO-639-1 (two-letters code) from language name
-     *
-     * @return (string)
      */
-    public function code1ByLanguage($language)
+    public function code1ByLanguage($language): string
     {
         $language_key = ucwords(strtolower($language));
 
@@ -377,10 +357,8 @@ class ISO639
 
     /*
      * Get ISO-639-2/t (three-letter codes) terminologic from language name
-     *
-     * @return (string)
      */
-    public function code2tByLanguage($language)
+    public function code2tByLanguage($language): string
     {
         $language_key = ucwords(strtolower($language));
 
@@ -396,17 +374,14 @@ class ISO639
 
     /*
      * Get ISO-639-2/b (three-letter codes) bibliographic from language name
-     *
-     * @return (string)
      */
-    public function code2bByLanguage($language)
+    public function code2bByLanguage($language): string
     {
         $language_key = ucwords(strtolower($language));
 
         foreach ($this->languages as $lang) {
             if (in_array($language_key, explode(', ', $lang[$this->indexEnglishName]))) {
                 return $lang[$this->indexIso639_2b];
-                break;
             }
         }
 
@@ -415,10 +390,8 @@ class ISO639
 
     /*
      * Get ISO-639-3 (three-letter codes) from language name
-     *
-     * @return (string)
      */
-    public function code3ByLanguage($language)
+    public function code3ByLanguage($language): string
     {
         $language_key = ucwords(strtolower($language));
 
@@ -433,11 +406,8 @@ class ISO639
 
     /**
      * Gat language array from ISO-639-2/b (three-letter code)
-     *
-     * @param $code
-     * @return array|null
      */
-    public function getLanguageByIsoCode2b($code)
+    public function getLanguageByIsoCode2b(string $code): ?array
     {
         $code = strtolower(trim($code));
 
@@ -452,11 +422,8 @@ class ISO639
 
     /**
      * Get ISO-639-2t code from ISO-639-1 code
-     *
-     * @param string $code
-     * @return string
      */
-    public function code2tByCode1($code)
+    public function code2tByCode1(string $code): string
     {
         $code = strtolower($code);
 

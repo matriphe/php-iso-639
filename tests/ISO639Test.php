@@ -1,10 +1,11 @@
 <?php
 
 use Matriphe\ISO639\ISO639;
+use PHPUnit\Framework\TestCase;
 
-class ISO639Test extends PHPUnit_Framework_TestCase
+class ISO639Test extends TestCase
 {
-    public function __construct()
+    public function setUp(): void
     {
         $this->iso = new ISO639();
     }
