@@ -37,7 +37,7 @@ class ISO639Test extends PHPUnit_Framework_TestCase
         $this->assertSame('basa Jawa', $this->iso->nativeByCode1('jv'));
         $this->assertSame('हिन्दी, हिंदी', $this->iso->nativeByCode1('hi'));
         $this->assertSame('ไทย', $this->iso->nativeByCode1('th'));
-        $this->assertSame('한국어, 조선어', $this->iso->nativeByCode1('ko'));
+        $this->assertSame('한국어', $this->iso->nativeByCode1('ko'));
         $this->assertSame('日本語 (にほんご)', $this->iso->nativeByCode1('ja'));
         $this->assertSame('中文 (Zhōngwén), 汉语, 漢語', $this->iso->nativeByCode1('zh'));
         $this->assertSame('Русский', $this->iso->nativeByCode1('ru'));
@@ -75,7 +75,7 @@ class ISO639Test extends PHPUnit_Framework_TestCase
         $this->assertSame('basa Jawa', $this->iso->nativeByCode2t('jav'));
         $this->assertSame('हिन्दी, हिंदी', $this->iso->nativeByCode2t('hin'));
         $this->assertSame('ไทย', $this->iso->nativeByCode2t('tha'));
-        $this->assertSame('한국어, 조선어', $this->iso->nativeByCode2t('kor'));
+        $this->assertSame('한국어', $this->iso->nativeByCode2t('kor'));
         $this->assertSame('日本語 (にほんご)', $this->iso->nativeByCode2t('jpn'));
         $this->assertSame('中文 (Zhōngwén), 汉语, 漢語', $this->iso->nativeByCode2t('zho'));
         $this->assertSame('Русский', $this->iso->nativeByCode2t('rus'));
@@ -113,7 +113,7 @@ class ISO639Test extends PHPUnit_Framework_TestCase
         $this->assertSame('basa Jawa', $this->iso->nativeByCode2b('jav'));
         $this->assertSame('हिन्दी, हिंदी', $this->iso->nativeByCode2b('hin'));
         $this->assertSame('ไทย', $this->iso->nativeByCode2b('tha'));
-        $this->assertSame('한국어, 조선어', $this->iso->nativeByCode2b('kor'));
+        $this->assertSame('한국어', $this->iso->nativeByCode2b('kor'));
         $this->assertSame('日本語 (にほんご)', $this->iso->nativeByCode2b('jpn'));
         $this->assertSame('中文 (Zhōngwén), 汉语, 漢語', $this->iso->nativeByCode2b('chi'));
         $this->assertSame('Русский', $this->iso->nativeByCode2b('rus'));
@@ -151,7 +151,7 @@ class ISO639Test extends PHPUnit_Framework_TestCase
         $this->assertSame('basa Jawa', $this->iso->nativeByCode3('jav'));
         $this->assertSame('हिन्दी, हिंदी', $this->iso->nativeByCode3('hin'));
         $this->assertSame('ไทย', $this->iso->nativeByCode3('tha'));
-        $this->assertSame('한국어, 조선어', $this->iso->nativeByCode3('kor'));
+        $this->assertSame('한국어', $this->iso->nativeByCode3('kor'));
         $this->assertSame('日本語 (にほんご)', $this->iso->nativeByCode3('jpn'));
         $this->assertSame('中文 (Zhōngwén), 汉语, 漢語', $this->iso->nativeByCode3('zho'));
         $this->assertSame('Русский', $this->iso->nativeByCode3('rus'));
