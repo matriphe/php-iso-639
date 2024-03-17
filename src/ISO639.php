@@ -382,7 +382,6 @@ class ISO639
         foreach ($this->languages as $lang) {
             if (in_array($language_key, explode(', ', $lang[$this->indexEnglishName]))) {
                 return $lang[$this->indexIso639_2b];
-                break;
             }
         }
 
