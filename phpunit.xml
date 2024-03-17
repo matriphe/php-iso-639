@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit bootstrap="src/ISO639.php">
+<phpunit bootstrap="vendor/autoload.php">
     <testsuites>
         <testsuite name="ISO-639 Test Unit">
-            <directory>tests/ISO639Test.php</directory>
+            <directory suffix=".php">tests</directory>
         </testsuite>
     </testsuites>
-
 </phpunit>
