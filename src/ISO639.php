@@ -450,4 +450,26 @@ class ISO639
         return null;
     }
 
+    /**
+     * Get ISO-639-2t code from ISO-639-1 code
+     *
+     * @param string $code
+     * @return string
+     */
+    public function code2tByCode1($code)
+    {
+        $code = strtolower($code);
+
+        $result = '';
+
+        foreach ($this->languages as $lang) {
+            if($lang[0] === $code) {
+                $result = $lang[1];
+                break;
+            }
+        }
+
+        return $result;
+    }
+
 }
