@@ -94,7 +94,7 @@ class ISO639
         array('ky', 'kir', 'kir', 'kir', 'Kyrgyz', 'Кыргызча, Кыргыз тили'),
         array('kv', 'kom', 'kom', 'kom', 'Komi', 'коми кыв'),
         array('kg', 'kon', 'kon', 'kon', 'Kongo', 'Kikongo'),
-        array('ko', 'kor', 'kor', 'kor', 'Korean', '한국어, 조선어'),
+        array('ko', 'kor', 'kor', 'kor', 'Korean', '한국어'),
         array('ku', 'kur', 'kur', 'kur', 'Kurdish', 'Kurdî, كوردی‎'),
         array('kj', 'kua', 'kua', 'kua', 'Kwanyama, Kuanyama', 'Kuanyama'),
         array('la', 'lat', 'lat', 'lat', 'Latin', 'latine, lingua latina'),
