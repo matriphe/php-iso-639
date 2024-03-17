@@ -44,10 +44,8 @@ jobs:
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress
 
-      - name: Setup PHP ${{ inputs.php_version }}
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ inputs.php_version }}
+      - name: Check PHP
+        run: php -v
 
       - name: Run test
         run: vendor/bin/phpunit
