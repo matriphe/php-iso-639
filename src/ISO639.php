@@ -401,7 +401,7 @@ class ISO639
      */
     public function getLanguageByIsoCode2b(string $code): ?array
     {
-        return $this->code2bToLang[$this->toLower(trim($code))] ?? null;
+        return $this->code2bToLang[$this->toLower($code)] ?? null;
     }
 
     /**
@@ -409,7 +409,7 @@ class ISO639
      */
     public function code2tByCode1(string $code): string
     {
-        return $this->code2tToCode1[$this->toLower(trim($code))] ?? '';
+        return $this->code2tToCode1[$this->toLower($code)] ?? '';
     }
 
 }
