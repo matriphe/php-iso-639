@@ -326,6 +326,7 @@ class ISO639Test extends TestCase
     {
         return [
             ['null'],
+            ['abc']
         ];
     }
 
@@ -347,6 +348,7 @@ class ISO639Test extends TestCase
     }
 
     /** @dataProvider code2tByCode1DataProvider */
+    #[\PHPUnit\Framework\Attributes\DataProvider('code2tByCode1DataProvider')]
     public function testCode2tByCode1(string $expected, string $code): void
     {
         $this->assertSame($expected, $this->iso->code2tByCode1($code));
