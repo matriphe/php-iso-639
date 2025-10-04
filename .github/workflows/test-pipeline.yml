@@ -20,11 +20,8 @@ jobs:
           - "8.3"
           - "8.2"
           - "8.1"
-        extension:
-          - mbstring
-          - :mbstring # Disable mbstring by adding a colon before its name
 
-    name: PHP ${{ matrix.php-version }}${{ !startsWith(matrix.extension, ':') && format(' {0}', matrix.extension) || '' }}
+    name: PHP ${{ matrix.php-version }}
     runs-on: ${{ matrix.operating-system }}
 
     steps:
@@ -34,7 +31,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-version }}
-          extensions: ${{ matrix.extension }}
+          extensions: mbstring
           tools: composer:v2
 
       - name: Check PHP extensions
