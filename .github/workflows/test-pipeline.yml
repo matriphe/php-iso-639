@@ -37,6 +37,9 @@ jobs:
           extensions: ${{ matrix.extension }}
           tools: composer:v2
 
+      - name: Check PHP extensions
+        run: php -m
+
       - name: Validate composer.json and composer.lock
         run: composer validate --strict
 
