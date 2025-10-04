@@ -20,8 +20,11 @@ jobs:
           - "8.3"
           - "8.2"
           - "8.1"
+        extension:
+          - mbstring
+          - ""
 
-    name: PHP ${{ matrix.php-version }}
+    name: PHP ${{ matrix.php-version }} {{ matrix.extension }}
     runs-on: ${{ matrix.operating-system }}
 
     steps:
@@ -31,7 +34,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-version }}
-          extensions: mbstring
+          extensions: ${{ matrix.extension }}
           tools: composer:v2
 
       - name: Validate composer.json and composer.lock
