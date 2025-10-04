@@ -10,7 +10,7 @@ permissions:
   contents: read
 
 jobs:
-  test-without-mbstring:
+  run-test:
     strategy:
       fail-fast: false
       matrix:
@@ -21,12 +21,13 @@ jobs:
           - "8.2"
           - "8.1"
 
-    name: PHP ${{ matrix.php-version }} (without mbstring)
+    name: PHP ${{ matrix.php-version }}
     runs-on: ${{ matrix.operating-system }}
 
     steps:
       - uses: actions/checkout@v3
 
+<<<<<<< HEAD
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -37,6 +38,8 @@ jobs:
       - name: Check PHP extensions
         run: php -m
 
+=======
+>>>>>>> parent of cdee547 ([AI] Update test GHA to test with mbstring)
       - name: Validate composer.json and composer.lock
         run: composer validate --strict
 
@@ -45,13 +48,14 @@ jobs:
         uses: actions/cache@v3
         with:
           path: vendor
-          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}-no-mbstring
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
-            ${{ runner.os }}-php-${{ matrix.php-version }}-no-mbstring
+            ${{ runner.os }}-php-${{ matrix.php-version }}
 
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress
 
+<<<<<<< HEAD
       - name: Verify mbstring is disabled
         run: |
           php -m | grep -i mbstring && exit 1 || echo "mbstring is disabled as expected"
@@ -104,4 +108,7 @@ jobs:
           echo "mbstring is enabled as expected"
 
       - name: Run test with mbstring
+=======
+      - name: Run test
+>>>>>>> parent of cdee547 ([AI] Update test GHA to test with mbstring)
         run: vendor/bin/phpunit
