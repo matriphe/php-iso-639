@@ -31,7 +31,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-version }}
-          extensions: dom, curl, libxml, xml, xmlreader, xmlwriter, zip, zlib
+          extensions: -mbstring
           tools: composer:v2
 
       - name: Validate composer.json and composer.lock
@@ -77,7 +77,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-version }}
-          extensions: dom, curl, libxml, mbstring, xml, xmlreader, xmlwriter, zip, zlib
+          extensions: mbstring
           tools: composer:v2
 
       - name: Validate composer.json and composer.lock
