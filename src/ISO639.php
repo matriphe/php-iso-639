@@ -4,6 +4,20 @@ namespace Matriphe\ISO639;
 
 class ISO639
 {
+    const INDEX_ISO639_1 = 0;
+    const INDEX_ISO639_2T = 1;
+    const INDEX_ISO639_2B = 2;
+    const INDEX_ISO639_3 = 3;
+    const INDEX_ENGLISH_NAME = 4;
+    const INDEX_NATIVE_NAME = 5;
+
+    const KEY_CODE_1 = 'code1';
+    const KEY_CODE_2T = 'code2t';
+    const KEY_CODE_2B = 'code2b';
+    const KEY_CODE_3 = 'code3';
+    const KEY_ENGLISH = 'english';
+    const KEY_NATIVE = 'native';
+
     /*
      * Language database, based on Wikipedia.
      * Source: https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
@@ -196,12 +210,6 @@ class ISO639
         array('zu', 'zul', 'zul', 'zul', 'Zulu', 'isiZulu'),
     );
 
-    public int $indexIso639_1 = 0;
-    public int $indexIso639_2t = 1;
-    public int $indexIso639_2b = 2;
-    public int $indexIso639_3 = 3;
-    public int $indexEnglishName = 4;
-    public int $indexNativeName = 5;
 
     /**
      * Whether mbstring extension is available
@@ -214,6 +222,8 @@ class ISO639
     public function __construct()
     {
         $this->hasMbstring = extension_loaded('mbstring');
+
+        $this->buildHashmap();
     }
 
     /**
@@ -221,6 +231,8 @@ class ISO639
      */
     private function toLower(string $string): string
     {
+        $string = trim($string);
+
         if ($this->hasMbstring) {
             return mb_strtolower($string, 'UTF-8');
         }
@@ -240,6 +252,46 @@ class ISO639
         return ucwords($string);
     }
 
+    private array $iso639_1 = [];
+    private array $iso639_2t = [];
+    private array $iso639_2b = [];
+    private array $iso639_3 = [];
+    private array $langEnglish = [];
+    private array $code2tToCode1 = [];
+    private array $code2bToLang = [];
+    
+    private function buildHashmap(): void
+    {
+        foreach ($this->languages as $lang) {
+            $iso639_1 = $this->toLower($lang[self::INDEX_ISO639_1]);
+            $iso639_2t = $this->toLower($lang[self::INDEX_ISO639_2T]);
+            $iso639_2b = $this->toLower($lang[self::INDEX_ISO639_2B]);
+            $iso639_3 = $this->toLower($lang[self::INDEX_ISO639_3]);
+
+            $english = $lang[self::INDEX_ENGLISH_NAME];
+            $native = $lang[self::INDEX_NATIVE_NAME];
+
+            $val = [self::KEY_ENGLISH => $english, self::KEY_NATIVE => $native];
+
+            $this->iso639_1[$iso639_1] = $val;
+            $this->iso639_2t[$iso639_2t] = $val;
+            $this->iso639_2b[$iso639_2b] = $val;
+            $this->iso639_3[$iso639_3] = $val;
+
+            $codes = [
+                self::KEY_CODE_1 => $iso639_1,
+                self::KEY_CODE_2T => $iso639_2t,
+                self::KEY_CODE_2B => $iso639_2b,
+                self::KEY_CODE_3 => $iso639_3,
+            ];
+
+            $this->langEnglish[$this->toLower($english)] = $codes;
+            $this->code2tToCode1[$iso639_2t] = $iso639_1;
+            $this->code2bToLang[$iso639_2b] = $lang;
+        }
+    }
+
+
     /*
      * Get all language data
     */
@@ -251,81 +303,41 @@ class ISO639
     /*
      * Get language name from ISO-639-1 (two-letters code)
      */
-    public function languageByCode1($code): string
+    public function languageByCode1(string $code): string
     {
-        $code = $this->toLower(trim($code));
-
-        foreach ($this->languages as $lang) {
-            if ($lang[$this->indexIso639_1] === $code) {
-                return $lang[$this->indexEnglishName];
-            }
-        }
-
-        return '';
+        return $this->iso639_1[$this->toLower($code)][self::KEY_ENGLISH] ?? '';
     }
 
     /*
      * Get native language name from ISO-639-1 (two-letters code)
      */
-    public function nativeByCode1($code): string
+    public function nativeByCode1(string $code): string
     {
-        $code = $this->toLower(trim($code));
-
-        foreach ($this->languages as $lang) {
-            if ($lang[$this->indexIso639_1] === $code) {
-                return $lang[$this->indexNativeName];
-            }
-        }
-
-        return '';
+        return $this->iso639_1[$this->toLower($code)][self::KEY_NATIVE] ?? '';
     }
 
     /*
      * Get language name from ISO-639-2/t (three-letter codes) terminologic
      */
-    public function languageByCode2t($code): string
+    public function languageByCode2t(string $code): string
     {
-        $code = $this->toLower(trim($code));
-
-        foreach ($this->languages as $lang) {
-            if ($lang[$this->indexIso639_2t] === $code) {
-                return $lang[$this->indexEnglishName];
-            }
-        }
-
-        return '';
+        return $this->iso639_2t[$this->toLower($code)][self::KEY_ENGLISH] ?? '';
     }
 
     /*
      * Get native language name from ISO-639-2/t (three-letter codes) terminologic
      */
-    public function nativeByCode2t($code): string
+    public function nativeByCode2t(string $code): string
     {
-        $code = $this->toLower(trim($code));
-
-        foreach ($this->languages as $lang) {
-            if ($lang[$this->indexIso639_2t] === $code) {
-                return $lang[$this->indexNativeName];
-            }
-        }
-
-        return '';
+        return $this->iso639_2t[$this->toLower($code)][self::KEY_NATIVE] ?? '';
     }
 
     /*
      * Get language name from ISO-639-2/b (three-letter codes) bibliographic
      */
-    public function languageByCode2b($code): string
+    public function languageByCode2b(string $code): string
     {
-        $code = $this->toLower(trim($code));
-
-        foreach ($this->languages as $lang) {
-            if ($lang[$this->indexIso639_2b] === $code) {
-                return $lang[$this->indexEnglishName];
-            }
-        }
-
-        return '';
+        return $this->iso639_2b[$this->toLower($code)][self::KEY_ENGLISH] ?? '';
     }
 
     /*
@@ -333,15 +345,7 @@ class ISO639
      */
     public function nativeByCode2b($code): string
     {
-        $code = $this->toLower(trim($code));
-
-        foreach ($this->languages as $lang) {
-            if ($lang[$this->indexIso639_2b] === $code) {
-                return $lang[$this->indexNativeName];
-            }
-        }
-
-        return '';
+       return $this->iso639_2b[$this->toLower($code)][self::KEY_NATIVE] ?? '';
     }
 
     /*
@@ -349,47 +353,23 @@ class ISO639
      */
     public function languageByCode3($code): string
     {
-        $code = $this->toLower(trim($code));
-
-        foreach ($this->languages as $lang) {
-            if ($lang[$this->indexIso639_3] === $code) {
-                return $lang[$this->indexEnglishName];
-            }
-        }
-
-        return '';
+       return $this->iso639_3[$this->toLower($code)][self::KEY_ENGLISH] ?? '';
     }
 
     /*
      * Get native language name from ISO-639-3 (three-letter codes)
      */
-    public function nativeByCode3($code): string
+    public function nativeByCode3(string $code): string
     {
-        $code = $this->toLower(trim($code));
-
-        foreach ($this->languages as $lang) {
-            if ($lang[$this->indexIso639_3] === $code) {
-                return $lang[$this->indexNativeName];
-            }
-        }
-
-        return '';
+        return $this->iso639_3[$this->toLower($code)][self::KEY_NATIVE] ?? '';
     }
 
     /*
      * Get ISO-639-1 (two-letters code) from language name
      */
-    public function code1ByLanguage($language): string
+    public function code1ByLanguage(string$language): string
     {
-        $language_key = $this->toTitleCase($this->toLower($language));
-
-        foreach ($this->languages as $lang) {
-            if (in_array($language_key, explode(', ', $lang[$this->indexEnglishName]))) {
-                return $lang[$this->indexIso639_1];
-            }
-        }
-
-        return '';
+        return $this->langEnglish[$this->toLower($language)][self::KEY_CODE_1] ?? '';
     }
 
     /*
@@ -397,16 +377,7 @@ class ISO639
      */
     public function code2tByLanguage($language): string
     {
-        $language_key = $this->toTitleCase($this->toLower($language));
-
-
-        foreach ($this->languages as $lang) {
-            if (in_array($language_key, explode(', ', $lang[$this->indexEnglishName]))) {
-                return $lang[$this->indexIso639_2t];
-            }
-        }
-
-        return '';
+        return $this->langEnglish[$this->toLower($language)][self::KEY_CODE_2T] ?? '';
     }
 
     /*
@@ -414,15 +385,7 @@ class ISO639
      */
     public function code2bByLanguage($language): string
     {
-        $language_key = $this->toTitleCase($this->toLower($language));
-
-        foreach ($this->languages as $lang) {
-            if (in_array($language_key, explode(', ', $lang[$this->indexEnglishName]))) {
-                return $lang[$this->indexIso639_2b];
-            }
-        }
-
-        return '';
+        return $this->langEnglish[$this->toLower($language)][self::KEY_CODE_2B] ?? '';
     }
 
     /*
@@ -430,15 +393,7 @@ class ISO639
      */
     public function code3ByLanguage($language): string
     {
-        $language_key = $this->toTitleCase($this->toLower($language));
-
-        foreach ($this->languages as $lang) {
-            if (in_array($language_key, explode(', ', $lang[$this->indexEnglishName]))) {
-                return $lang[$this->indexIso639_3];
-            }
-        }
-
-        return '';
+        return $this->langEnglish[$this->toLower($language)][self::KEY_CODE_3] ?? '';
     }
 
     /**
@@ -446,15 +401,7 @@ class ISO639
      */
     public function getLanguageByIsoCode2b(string $code): ?array
     {
-        $code = $this->toLower(trim($code));
-
-        foreach ($this->languages as $lang) {
-            if ($lang[$this->indexIso639_2b] === $code) {
-                return $lang;
-            }
-        }
-
-        return null;
+        return $this->code2bToLang[$this->toLower(trim($code))] ?? null;
     }
 
     /**
@@ -462,18 +409,7 @@ class ISO639
      */
     public function code2tByCode1(string $code): string
     {
-        $code = $this->toLower($code);
-
-        $result = '';
-
-        foreach ($this->languages as $lang) {
-            if($lang[0] === $code) {
-                $result = $lang[1];
-                break;
-            }
-        }
-
-        return $result;
+        return $this->code2tToCode1[$this->toLower(trim($code))] ?? '';
     }
 
 }
