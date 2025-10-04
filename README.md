@@ -25,7 +25,7 @@ composer require matriphe/iso-639:1.3
 - PHP 8.0 or higher
 - **Optional**: `ext-mbstring` extension for better multibyte character support
 
-The library will work without the mbstring extension, but for optimal handling of multibyte characters (like accented characters, Cyrillic, Arabic, etc.) in language names, it's recommended to install the mbstring extension.
+The library will work without the `mbstring` extension, but for optimal handling of multibyte characters (like accented characters, Cyrillic, Arabic, etc.) in language names, it's recommended to install the `mbstring` extension.
 
 ## Usage Example
 
