@@ -1,8 +1,10 @@
 name: Create Release
 
 on:
-  push:
-    branches: [ "master" ]
+  workflow_run:
+    workflows: ["Run Test"]
+    types: [completed]
+    branches: [master]
   workflow_dispatch:
 
 permissions:
@@ -12,6 +14,8 @@ permissions:
 jobs:
   create-release:
     runs-on: ubuntu-latest
+    # Only run if the test workflow completed successfully
+    if: github.event.workflow_run.conclusion == 'success'
     
     steps:
       - name: Checkout code
@@ -19,9 +23,28 @@ jobs:
         with:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
+          ref: ${{ github.event.workflow_run.head_sha }}
+
+      - name: Check if triggered by PR merge to master
+        id: check-trigger
+        run: |
+          # Check if this was triggered by a PR merge to master
+          # workflow_run events don't have direct PR info, so we check the commit message
+          COMMIT_MESSAGE=$(git log -1 --pretty=%B)
+          echo "Commit message: $COMMIT_MESSAGE"
+          
+          # Check if this looks like a merge commit (contains "Merge pull request")
+          if echo "$COMMIT_MESSAGE" | grep -q "Merge pull request"; then
+            echo "Triggered by PR merge to master"
+            echo "is-pr-merge=true" >> $GITHUB_OUTPUT
+          else
+            echo "Not triggered by PR merge, skipping release"
+            echo "is-pr-merge=false" >> $GITHUB_OUTPUT
+          fi
 
       - name: Check if changes are only in workflow files
         id: check-changes
+        if: steps.check-trigger.outputs.is-pr-merge == 'true'
         run: |
           # Get the list of changed files in the last commit
           CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD)
@@ -49,7 +72,7 @@ jobs:
 
       - name: Get latest release
         id: get-latest-release
-        if: steps.check-changes.outputs.skip-release == 'false'
+        if: steps.check-trigger.outputs.is-pr-merge == 'true' && steps.check-changes.outputs.skip-release == 'false'
         run: |
           # Get the latest release tag
           LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
@@ -65,7 +88,7 @@ jobs:
 
       - name: Determine version bump
         id: version-bump
-        if: steps.check-changes.outputs.skip-release == 'false'
+        if: steps.check-trigger.outputs.is-pr-merge == 'true' && steps.check-changes.outputs.skip-release == 'false'
         run: |
           LATEST_TAG="${{ steps.get-latest-release.outputs.latest-tag }}"
           
@@ -104,7 +127,7 @@ jobs:
 
       - name: Calculate new version
         id: calculate-version
-        if: steps.check-changes.outputs.skip-release == 'false'
+        if: steps.check-trigger.outputs.is-pr-merge == 'true' && steps.check-changes.outputs.skip-release == 'false'
         run: |
           LATEST_TAG="${{ steps.get-latest-release.outputs.latest-tag }}"
           
@@ -135,31 +158,31 @@ jobs:
 
       - name: Generate changelog
         id: changelog
-        if: steps.check-changes.outputs.skip-release == 'false'
+        if: steps.check-trigger.outputs.is-pr-merge == 'true' && steps.check-changes.outputs.skip-release == 'false'
         run: |
           LATEST_TAG="${{ steps.get-latest-release.outputs.latest-tag }}"
           
           # Generate changelog from commits
           if [ "${{ steps.get-latest-release.outputs.is-first-release }}" = "true" ]; then
             COMMITS=$(git log --oneline --no-merges --reverse)
-            CHANGELOG="## Initial Release
-
-$COMMITS"
+            echo "## Initial Release" > CHANGELOG.md
+            echo "" >> CHANGELOG.md
+            echo "$COMMITS" >> CHANGELOG.md
           else
             COMMITS=$(git log --oneline --no-merges --reverse ${LATEST_TAG}..HEAD)
-            CHANGELOG="## Changes
-
-$COMMITS"
+            echo "## Changes" > CHANGELOG.md
+            echo "" >> CHANGELOG.md
+            echo "$COMMITS" >> CHANGELOG.md
           fi
           
-          # Save changelog to file for release notes
-          echo "$CHANGELOG" > CHANGELOG.md
+          # Read changelog for output
+          CHANGELOG=$(cat CHANGELOG.md)
           echo "changelog<<EOF" >> $GITHUB_OUTPUT
           echo "$CHANGELOG" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Create Release
-        if: steps.check-changes.outputs.skip-release == 'false'
+        if: steps.check-trigger.outputs.is-pr-merge == 'true' && steps.check-changes.outputs.skip-release == 'false'
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -170,7 +193,12 @@ $COMMITS"
           draft: false
           prerelease: false
 
-      - name: Skip Release
-        if: steps.check-changes.outputs.skip-release == 'true'
+      - name: Skip Release - Not PR Merge
+        if: steps.check-trigger.outputs.is-pr-merge == 'false'
+        run: |
+          echo "Skipping release as this was not triggered by a PR merge"
+
+      - name: Skip Release - Workflow Only
+        if: steps.check-trigger.outputs.is-pr-merge == 'true' && steps.check-changes.outputs.skip-release == 'true'
         run: |
           echo "Skipping release as only workflow files were changed"
