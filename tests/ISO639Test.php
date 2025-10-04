@@ -5,6 +5,8 @@ use PHPUnit\Framework\TestCase;
 
 class ISO639Test extends TestCase
 {
+    private ISO639 $iso;
+
     public function setUp(): void
     {
         $this->iso = new ISO639();
