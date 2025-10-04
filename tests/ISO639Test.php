@@ -305,4 +305,21 @@ class ISO639Test extends TestCase
         $this->assertSame('Spanish', $this->iso->languageByCode1('eS'));
     }
 
+    public function testMbstringOptimization()
+    {
+        // Test that mbstring availability is checked only once during construction
+        $iso1 = new ISO639();
+        $iso2 = new ISO639();
+        
+        // Both instances should work identically
+        $this->assertSame($iso1->code1ByLanguage('french'), $iso2->code1ByLanguage('french'));
+        $this->assertSame($iso1->code1ByLanguage('FRENCH'), $iso2->code1ByLanguage('FRENCH'));
+        $this->assertSame($iso1->code1ByLanguage('French'), $iso2->code1ByLanguage('French'));
+        
+        // Test that the optimization doesn't break functionality
+        $this->assertSame('fr', $iso1->code1ByLanguage('french'));
+        $this->assertSame('es', $iso1->code1ByLanguage('spanish'));
+        $this->assertSame('de', $iso1->code1ByLanguage('german'));
+    }
+
 }

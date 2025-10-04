@@ -204,11 +204,16 @@ class ISO639
     public int $indexNativeName = 5;
 
     /**
-     * Check if mbstring extension is available
+     * Whether mbstring extension is available
      */
-    private function hasMbstring(): bool
+    private bool $hasMbstring;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
     {
-        return extension_loaded('mbstring');
+        $this->hasMbstring = extension_loaded('mbstring');
     }
 
     /**
@@ -216,7 +221,7 @@ class ISO639
      */
     private function toLower(string $string): string
     {
-        if ($this->hasMbstring()) {
+        if ($this->hasMbstring) {
             return mb_strtolower($string, 'UTF-8');
         }
         
@@ -228,7 +233,7 @@ class ISO639
      */
     private function toTitleCase(string $string): string
     {
-        if ($this->hasMbstring()) {
+        if ($this->hasMbstring) {
             return mb_convert_case($string, MB_CASE_TITLE, 'UTF-8');
         }
         
