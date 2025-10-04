@@ -22,9 +22,9 @@ jobs:
           - "8.1"
         extension:
           - mbstring
-          - ""
+          - :mbstring # Disable mbstring by adding a colon before its name
 
-    name: PHP ${{ matrix.php-version }} ${{ matrix.extension }}
+    name: PHP ${{ matrix.php-version }}${{ !startsWith(matrix.extension, ':') && format(' {0}', matrix.extension) || '' }}
     runs-on: ${{ matrix.operating-system }}
 
     steps:
