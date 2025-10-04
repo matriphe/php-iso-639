@@ -24,7 +24,7 @@ jobs:
           - mbstring
           - ""
 
-    name: PHP ${{ matrix.php-version }} {{ matrix.extension }}
+    name: PHP ${{ matrix.php-version }} ${{ matrix.extension }}
     runs-on: ${{ matrix.operating-system }}
 
     steps:
