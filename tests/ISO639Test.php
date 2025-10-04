@@ -12,83 +12,115 @@ class ISO639Test extends TestCase
         $this->iso = new ISO639();
     }
 
-    public function testLanguageISO6391()
+    public static function languageByCode1DataProvider(): array
     {
-        $this->assertSame('English', $this->iso->languageByCode1('en'));
-        $this->assertSame('French', $this->iso->languageByCode1('fr'));
-        $this->assertSame('Spanish', $this->iso->languageByCode1('es'));
-        $this->assertSame('Indonesian', $this->iso->languageByCode1('id'));
-        $this->assertSame('Javanese', $this->iso->languageByCode1('jv'));
-        $this->assertSame('Hindi', $this->iso->languageByCode1('hi'));
-        $this->assertSame('Thai', $this->iso->languageByCode1('th'));
-        $this->assertSame('Korean', $this->iso->languageByCode1('ko'));
-        $this->assertSame('Japanese', $this->iso->languageByCode1('ja'));
-        $this->assertSame('Chinese', $this->iso->languageByCode1('zh'));
-        $this->assertSame('Russian', $this->iso->languageByCode1('ru'));
-        $this->assertSame('Arabic', $this->iso->languageByCode1('ar'));
-        $this->assertSame('Vietnamese', $this->iso->languageByCode1('vi'));
-        $this->assertSame('Malay', $this->iso->languageByCode1('ms'));
-        $this->assertSame('Sundanese', $this->iso->languageByCode1('su'));
+        return [
+            ['en', 'English'],
+            ['fr', 'French'],
+            ['es', 'Spanish'],
+            ['id', 'Indonesian'],
+            ['jv', 'Javanese'],
+            ['hi', 'Hindi'],
+            ['th', 'Thai'],
+            ['ko', 'Korean'],
+            ['ja', 'Japanese'],
+            ['zh', 'Chinese'],
+            ['ru', 'Russian'],
+            ['ar', 'Arabic'],
+            ['vi', 'Vietnamese'],
+            ['ms', 'Malay'],
+            ['su', 'Sundanese'],
+        ];
     }
 
-    public function testNativeISO6391()
+    /** @dataProvider languageByCode1DataProvider */
+    #[\PHPUnit\Framework\Attributes\DataProvider('languageByCode1DataProvider')]
+    public function testLanguageISO6391(string $code, string $expected): void
     {
-        $this->assertSame('English', $this->iso->nativeByCode1('en'));
-        $this->assertSame('français, langue française', $this->iso->nativeByCode1('fr'));
-        $this->assertSame('español', $this->iso->nativeByCode1('es'));
-        $this->assertSame('Bahasa Indonesia', $this->iso->nativeByCode1('id'));
-        $this->assertSame('basa Jawa', $this->iso->nativeByCode1('jv'));
-        $this->assertSame('हिन्दी, हिंदी', $this->iso->nativeByCode1('hi'));
-        $this->assertSame('ไทย', $this->iso->nativeByCode1('th'));
-        $this->assertSame('한국어', $this->iso->nativeByCode1('ko'));
-        $this->assertSame('日本語 (にほんご)', $this->iso->nativeByCode1('ja'));
-        $this->assertSame('中文 (Zhōngwén), 汉语, 漢語', $this->iso->nativeByCode1('zh'));
-        $this->assertSame('Русский', $this->iso->nativeByCode1('ru'));
-        $this->assertSame('العربية', $this->iso->nativeByCode1('ar'));
-        $this->assertSame('Việt Nam', $this->iso->nativeByCode1('vi'));
-        $this->assertSame('bahasa Melayu, بهاس ملايو‎', $this->iso->nativeByCode1('ms'));
-        $this->assertSame('Basa Sunda', $this->iso->nativeByCode1('su'));
+        $this->assertSame($expected, $this->iso->languageByCode1($code));
     }
 
-    public function testLanguageISO6392t()
+
+    public static function nativeByCode1DataProvider(): array
     {
-        $this->assertSame('English', $this->iso->languageByCode2t('eng'));
-        $this->assertSame('French', $this->iso->languageByCode2t('fra'));
-        $this->assertSame('Spanish', $this->iso->languageByCode2t('spa'));
-        $this->assertSame('Indonesian', $this->iso->languageByCode2t('ind'));
-        $this->assertSame('Javanese', $this->iso->languageByCode2t('jav'));
-        $this->assertSame('Hindi', $this->iso->languageByCode2t('hin'));
-        $this->assertSame('Thai', $this->iso->languageByCode2t('tha'));
-        $this->assertSame('Korean', $this->iso->languageByCode2t('kor'));
-        $this->assertSame('Japanese', $this->iso->languageByCode2t('jpn'));
-        $this->assertSame('Chinese', $this->iso->languageByCode2t('zho'));
-        $this->assertSame('Russian', $this->iso->languageByCode2t('rus'));
-        $this->assertSame('Arabic', $this->iso->languageByCode2t('ara'));
-        $this->assertSame('Vietnamese', $this->iso->languageByCode2t('vie'));
-        $this->assertSame('Malay', $this->iso->languageByCode2t('msa'));
-        $this->assertSame('Sundanese', $this->iso->languageByCode2t('sun'));
+        return [
+            ['en', 'English'],
+            ['fr', 'français, langue française'],
+            ['es', 'español'],
+            ['id', 'Bahasa Indonesia'],
+            ['jv', 'basa Jawa'],
+            ['hi', 'हिन्दी, हिंदी'],
+            ['th', 'ไทย'],
+            ['ko', '한국어'],
+            ['ja', '日本語 (にほんご)'],
+            ['zh', '中文 (Zhōngwén), 汉语, 漢語'],
+            ['ru', 'Русский'],
+            ['ar', 'العربية'],
+            ['vi', 'Việt Nam'],
+            ['ms', 'bahasa Melayu, بهاس ملايو‎'],
+            ['su', 'Basa Sunda'],
+        ];
     }
 
-    public function testNativeISO6392t()
+    /** @dataProvider nativeByCode1DataProvider */
+    #[\PHPUnit\Framework\Attributes\DataProvider('nativeByCode1DataProvider')]
+    public function testNativeISO6391(string $code, string $expected): void
     {
-        $this->assertSame('English', $this->iso->nativeByCode2t('eng'));
-        $this->assertSame('français, langue française', $this->iso->nativeByCode2t('fra'));
-        $this->assertSame('español', $this->iso->nativeByCode2t('spa'));
-        $this->assertSame('Bahasa Indonesia', $this->iso->nativeByCode2t('ind'));
-        $this->assertSame('basa Jawa', $this->iso->nativeByCode2t('jav'));
-        $this->assertSame('हिन्दी, हिंदी', $this->iso->nativeByCode2t('hin'));
-        $this->assertSame('ไทย', $this->iso->nativeByCode2t('tha'));
-        $this->assertSame('한국어', $this->iso->nativeByCode2t('kor'));
-        $this->assertSame('日本語 (にほんご)', $this->iso->nativeByCode2t('jpn'));
-        $this->assertSame('中文 (Zhōngwén), 汉语, 漢語', $this->iso->nativeByCode2t('zho'));
-        $this->assertSame('Русский', $this->iso->nativeByCode2t('rus'));
-        $this->assertSame('العربية', $this->iso->nativeByCode2t('ara'));
-        $this->assertSame('Việt Nam', $this->iso->nativeByCode2t('vie'));
-        $this->assertSame('bahasa Melayu, بهاس ملايو‎', $this->iso->nativeByCode2t('msa'));
-        $this->assertSame('Basa Sunda', $this->iso->nativeByCode2t('sun'));
+        $this->assertSame($expected, $this->iso->nativeByCode1($code));
     }
 
-    public function testLanguageISO6392b()
+    public static function nativeByCode2tDataProvider(): array
+    {
+        return [
+            ['eng', 'English'],
+            ['fra', 'français, langue française'],
+            ['spa', 'español'],
+            ['ind', 'Bahasa Indonesia'],
+            ['jav', 'basa Jawa'],
+            ['hin', 'हिन्दी, हिंदी'],
+            ['tha', 'ไทย'],
+            ['kor', '한국어'],
+            ['jpn', '日本語 (にほんご)'],
+            ['zho', '中文 (Zhōngwén), 汉语, 漢語'],
+            ['rus', 'Русский'],
+            ['ara', 'العربية'],
+            ['vie', 'Việt Nam'],
+            ['msa', 'bahasa Melayu, بهاس ملايو‎'],
+            ['sun', 'Basa Sunda'],
+        ];
+    }
+
+    /** @dataProvider nativeByCode2tDataProvider */
+    #[\PHPUnit\Framework\Attributes\DataProvider('nativeByCode2tDataProvider')]
+    public function testNativeISO6392t(string $code, string $expected): void
+    {
+        $this->assertSame($expected, $this->iso->nativeByCode2t($code));
+    }
+
+    public static function nativeByCode2bDataProvider(): array
+    {
+        return [
+            ['eng', 'English'],
+            ['fre', 'français, langue française'],
+            ['spa', 'español'],
+            ['ind', 'Bahasa Indonesia'],
+            ['jav', 'basa Jawa'],
+            ['hin', 'हिन्दी, हिंदी'],
+            ['tha', 'ไทย'],
+            ['kor', '한국어'],
+            ['jpn', '日本語 (にほんご)'],
+            ['chi', '中文 (Zhōngwén), 汉语, 漢語'],
+            ['rus', 'Русский'],
+            ['ara', 'العربية'],
+            ['vie', 'Việt Nam'],
+            ['may', 'bahasa Melayu, بهاس ملايو‎'],
+            ['sun', 'Basa Sunda'],
+        ];
+    }
+
+    /** @dataProvider nativeByCode2bDataProvider */
+    #[\PHPUnit\Framework\Attributes\DataProvider('nativeByCode2bDataProvider')]
+    public function testNativeISO6392b(string $code, string $expected): void
     {
         $this->assertSame('English', $this->iso->languageByCode2b('eng'));
         $this->assertSame('French', $this->iso->languageByCode2b('fre'));
@@ -107,157 +139,217 @@ class ISO639Test extends TestCase
         $this->assertSame('Sundanese', $this->iso->languageByCode2b('sun'));
     }
 
-    public function testNativeISO6392b()
+    public static function languageByCode3DataProvider(): array
     {
-        $this->assertSame('English', $this->iso->nativeByCode2b('eng'));
-        $this->assertSame('français, langue française', $this->iso->nativeByCode2b('fre'));
-        $this->assertSame('español', $this->iso->nativeByCode2b('spa'));
-        $this->assertSame('Bahasa Indonesia', $this->iso->nativeByCode2b('ind'));
-        $this->assertSame('basa Jawa', $this->iso->nativeByCode2b('jav'));
-        $this->assertSame('हिन्दी, हिंदी', $this->iso->nativeByCode2b('hin'));
-        $this->assertSame('ไทย', $this->iso->nativeByCode2b('tha'));
-        $this->assertSame('한국어', $this->iso->nativeByCode2b('kor'));
-        $this->assertSame('日本語 (にほんご)', $this->iso->nativeByCode2b('jpn'));
-        $this->assertSame('中文 (Zhōngwén), 汉语, 漢語', $this->iso->nativeByCode2b('chi'));
-        $this->assertSame('Русский', $this->iso->nativeByCode2b('rus'));
-        $this->assertSame('العربية', $this->iso->nativeByCode2b('ara'));
-        $this->assertSame('Việt Nam', $this->iso->nativeByCode2b('vie'));
-        $this->assertSame('bahasa Melayu, بهاس ملايو‎', $this->iso->nativeByCode2b('may'));
-        $this->assertSame('Basa Sunda', $this->iso->nativeByCode2b('sun'));
+        return [
+            ['eng', 'English'],
+            ['fra', 'French'],
+            ['spa', 'Spanish'],
+            ['ind', 'Indonesian'],
+            ['jav', 'Javanese'],
+            ['hin', 'Hindi'],
+            ['tha', 'Thai'],
+            ['kor', 'Korean'],
+            ['jpn', 'Japanese'],
+            ['zho', 'Chinese'],
+            ['rus', 'Russian'],
+            ['ara', 'Arabic'],
+            ['vie', 'Vietnamese'],
+            ['msa', 'Malay'],
+            ['sun', 'Sundanese'],
+        ];
     }
 
-    public function testLanguageISO6393()
+    /** @dataProvider languageByCode3DataProvider */
+    #[\PHPUnit\Framework\Attributes\DataProvider('languageByCode3DataProvider')]
+    public function testLanguageISO6393(string $code, string $expected): void
     {
-        $this->assertSame('English', $this->iso->languageByCode3('eng'));
-        $this->assertSame('French', $this->iso->languageByCode3('fra'));
-        $this->assertSame('Spanish', $this->iso->languageByCode3('spa'));
-        $this->assertSame('Indonesian', $this->iso->languageByCode3('ind'));
-        $this->assertSame('Javanese', $this->iso->languageByCode3('jav'));
-        $this->assertSame('Hindi', $this->iso->languageByCode3('hin'));
-        $this->assertSame('Thai', $this->iso->languageByCode3('tha'));
-        $this->assertSame('Korean', $this->iso->languageByCode3('kor'));
-        $this->assertSame('Japanese', $this->iso->languageByCode3('jpn'));
-        $this->assertSame('Chinese', $this->iso->languageByCode3('zho'));
-        $this->assertSame('Russian', $this->iso->languageByCode3('rus'));
-        $this->assertSame('Arabic', $this->iso->languageByCode3('ara'));
-        $this->assertSame('Vietnamese', $this->iso->languageByCode3('vie'));
-        $this->assertSame('Malay', $this->iso->languageByCode3('msa'));
-        $this->assertSame('Sundanese', $this->iso->languageByCode3('sun'));
+        $this->assertSame($expected, $this->iso->languageByCode3($code));
     }
 
-    public function testNativeISO6393()
+    public static function nativeByCode3DataProvider(): array
     {
-        $this->assertSame('English', $this->iso->nativeByCode3('eng'));
-        $this->assertSame('français, langue française', $this->iso->nativeByCode3('fra'));
-        $this->assertSame('español', $this->iso->nativeByCode3('spa'));
-        $this->assertSame('Bahasa Indonesia', $this->iso->nativeByCode3('ind'));
-        $this->assertSame('basa Jawa', $this->iso->nativeByCode3('jav'));
-        $this->assertSame('हिन्दी, हिंदी', $this->iso->nativeByCode3('hin'));
-        $this->assertSame('ไทย', $this->iso->nativeByCode3('tha'));
-        $this->assertSame('한국어', $this->iso->nativeByCode3('kor'));
-        $this->assertSame('日本語 (にほんご)', $this->iso->nativeByCode3('jpn'));
-        $this->assertSame('中文 (Zhōngwén), 汉语, 漢語', $this->iso->nativeByCode3('zho'));
-        $this->assertSame('Русский', $this->iso->nativeByCode3('rus'));
-        $this->assertSame('العربية', $this->iso->nativeByCode3('ara'));
-        $this->assertSame('Việt Nam', $this->iso->nativeByCode3('vie'));
-        $this->assertSame('bahasa Melayu, بهاس ملايو‎', $this->iso->nativeByCode3('msa'));
-        $this->assertSame('Basa Sunda', $this->iso->nativeByCode3('sun'));
+        return [
+            ['eng', 'English'],
+            ['fra', 'français, langue française'],
+            ['spa', 'español'],
+            ['ind', 'Bahasa Indonesia'],
+            ['jav', 'basa Jawa'],
+            ['hin', 'हिन्दी, हिंदी'],
+            ['tha', 'ไทย'],
+            ['kor', '한국어'],
+            ['jpn', '日本語 (にほんご)'],
+            ['zho', '中文 (Zhōngwén), 汉语, 漢語'],
+            ['rus', 'Русский'],
+            ['ara', 'العربية'],
+            ['vie', 'Việt Nam'],
+            ['msa', 'bahasa Melayu, بهاس ملايو‎'],
+            ['sun', 'Basa Sunda'],
+        ];
     }
 
-    public function testISO6391Language()
+    /** @dataProvider nativeByCode3DataProvider */
+    #[\PHPUnit\Framework\Attributes\DataProvider('nativeByCode3DataProvider')]
+    public function testNativeISO6393(string $code, string $expected): void
     {
-        $this->assertSame('en', $this->iso->code1ByLanguage('English'));
-        $this->assertSame('fr', $this->iso->code1ByLanguage('French'));
-        $this->assertSame('es', $this->iso->code1ByLanguage('Spanish'));
-        $this->assertSame('id', $this->iso->code1ByLanguage('Indonesian'));
-        $this->assertSame('jv', $this->iso->code1ByLanguage('Javanese'));
-        $this->assertSame('hi', $this->iso->code1ByLanguage('Hindi'));
-        $this->assertSame('th', $this->iso->code1ByLanguage('Thai'));
-        $this->assertSame('ko', $this->iso->code1ByLanguage('Korean'));
-        $this->assertSame('ja', $this->iso->code1ByLanguage('Japanese'));
-        $this->assertSame('zh', $this->iso->code1ByLanguage('Chinese'));
-        $this->assertSame('ru', $this->iso->code1ByLanguage('Russian'));
-        $this->assertSame('ar', $this->iso->code1ByLanguage('Arabic'));
-        $this->assertSame('vi', $this->iso->code1ByLanguage('Vietnamese'));
-        $this->assertSame('ms', $this->iso->code1ByLanguage('Malay'));
-        $this->assertSame('su', $this->iso->code1ByLanguage('Sundanese'));
+        $this->assertSame($expected, $this->iso->nativeByCode3($code));
     }
 
-    public function testISO6392tLanguage()
+    public static function code1ByLanguageDataProvider(): array
     {
-        $this->assertSame('eng', $this->iso->code2tByLanguage('English'));
-        $this->assertSame('fra', $this->iso->code2tByLanguage('French'));
-        $this->assertSame('spa', $this->iso->code2tByLanguage('Spanish'));
-        $this->assertSame('ind', $this->iso->code2tByLanguage('Indonesian'));
-        $this->assertSame('jav', $this->iso->code2tByLanguage('Javanese'));
-        $this->assertSame('hin', $this->iso->code2tByLanguage('Hindi'));
-        $this->assertSame('tha', $this->iso->code2tByLanguage('Thai'));
-        $this->assertSame('kor', $this->iso->code2tByLanguage('Korean'));
-        $this->assertSame('jpn', $this->iso->code2tByLanguage('Japanese'));
-        $this->assertSame('zho', $this->iso->code2tByLanguage('Chinese'));
-        $this->assertSame('rus', $this->iso->code2tByLanguage('Russian'));
-        $this->assertSame('ara', $this->iso->code2tByLanguage('Arabic'));
-        $this->assertSame('vie', $this->iso->code2tByLanguage('Vietnamese'));
-        $this->assertSame('msa', $this->iso->code2tByLanguage('Malay'));
-        $this->assertSame('sun', $this->iso->code2tByLanguage('Sundanese'));
+        return [
+            ['en', 'English'],
+            ['fr', 'French'],
+            ['es', 'Spanish'],
+            ['id', 'Indonesian'],
+            ['jv', 'Javanese'],
+            ['hi', 'Hindi'],
+            ['th', 'Thai'],
+            ['ko', 'Korean'],
+            ['ja', 'Japanese'],
+            ['zh', 'Chinese'],
+            ['ru', 'Russian'],
+            ['ar', 'Arabic'],
+            ['vi', 'Vietnamese'],
+            ['ms', 'Malay'],
+            ['su', 'Sundanese'],
+        ];
+    }
+    /** @dataProvider code1ByLanguageDataProvider */
+    #[\PHPUnit\Framework\Attributes\DataProvider('code1ByLanguageDataProvider')]
+    public function testCode1ByLanguage(string $expected, string $language): void
+    {
+        $this->assertSame($expected, $this->iso->code1ByLanguage($language));
     }
 
-    public function testISO6392bLanguage()
+    public static function code2tByLanguageDataProvider(): array
     {
-        $this->assertSame('eng', $this->iso->code2bByLanguage('English'));
-        $this->assertSame('fre', $this->iso->code2bByLanguage('French'));
-        $this->assertSame('spa', $this->iso->code2bByLanguage('Spanish'));
-        $this->assertSame('ind', $this->iso->code2bByLanguage('Indonesian'));
-        $this->assertSame('jav', $this->iso->code2bByLanguage('Javanese'));
-        $this->assertSame('hin', $this->iso->code2bByLanguage('Hindi'));
-        $this->assertSame('tha', $this->iso->code2bByLanguage('Thai'));
-        $this->assertSame('kor', $this->iso->code2bByLanguage('Korean'));
-        $this->assertSame('jpn', $this->iso->code2bByLanguage('Japanese'));
-        $this->assertSame('chi', $this->iso->code2bByLanguage('Chinese'));
-        $this->assertSame('rus', $this->iso->code2bByLanguage('Russian'));
-        $this->assertSame('ara', $this->iso->code2bByLanguage('Arabic'));
-        $this->assertSame('vie', $this->iso->code2bByLanguage('Vietnamese'));
-        $this->assertSame('may', $this->iso->code2bByLanguage('Malay'));
-        $this->assertSame('sun', $this->iso->code2bByLanguage('Sundanese'));
+        return [
+            ['eng', 'English'],
+            ['fra', 'French'],
+            ['spa', 'Spanish'],
+            ['ind', 'Indonesian'],
+            ['jav', 'Javanese'],
+            ['hin', 'Hindi'],
+            ['tha', 'Thai'],
+            ['kor', 'Korean'],
+            ['jpn', 'Japanese'],
+            ['zho', 'Chinese'],
+            ['rus', 'Russian'],
+            ['ara', 'Arabic'],
+            ['vie', 'Vietnamese'],
+            ['msa', 'Malay'],
+            ['sun', 'Sundanese'],
+        ];
     }
 
-    public function testISO6393Language()
+    /** @dataProvider code2tByLanguageDataProvider */
+    #[\PHPUnit\Framework\Attributes\DataProvider('code2tByLanguageDataProvider')]
+    public function testCode2tByLanguage(string $expected, string $language): void
     {
-        $this->assertSame('eng', $this->iso->code3ByLanguage('English'));
-        $this->assertSame('fra', $this->iso->code3ByLanguage('French'));
-        $this->assertSame('spa', $this->iso->code3ByLanguage('Spanish'));
-        $this->assertSame('ind', $this->iso->code3ByLanguage('Indonesian'));
-        $this->assertSame('jav', $this->iso->code3ByLanguage('Javanese'));
-        $this->assertSame('hin', $this->iso->code3ByLanguage('Hindi'));
-        $this->assertSame('tha', $this->iso->code3ByLanguage('Thai'));
-        $this->assertSame('kor', $this->iso->code3ByLanguage('Korean'));
-        $this->assertSame('jpn', $this->iso->code3ByLanguage('Japanese'));
-        $this->assertSame('zho', $this->iso->code3ByLanguage('Chinese'));
-        $this->assertSame('rus', $this->iso->code3ByLanguage('Russian'));
-        $this->assertSame('ara', $this->iso->code3ByLanguage('Arabic'));
-        $this->assertSame('vie', $this->iso->code3ByLanguage('Vietnamese'));
-        $this->assertSame('msa', $this->iso->code3ByLanguage('Malay'));
-        $this->assertSame('sun', $this->iso->code3ByLanguage('Sundanese'));
+        $this->assertSame($expected, $this->iso->code2tByLanguage($language));
     }
 
-    public function testGetLanguageByIsoCode2B()
+    public static function code2bByLanguageDataProvider(): array
     {
-        $result = ['en', 'eng', 'eng', 'eng', 'English', 'English'];
-        $this->assertSame($result, $this->iso->getLanguageByIsoCode2b('eng'));
-        $result = ['fr', 'fra', 'fre', 'fra', 'French', 'français, langue française'];
-        $this->assertSame($result, $this->iso->getLanguageByIsoCode2b('fre'));
-        $result = ['id', 'ind', 'ind', 'ind', 'Indonesian', 'Bahasa Indonesia'];
-        $this->assertSame($result, $this->iso->getLanguageByIsoCode2b('ind'));
-
-        $this->assertNull($this->iso->getLanguageByIsoCode2b('null'));
+        return [
+            ['eng', 'English'],
+            ['fre', 'French'],
+            ['spa', 'Spanish'],
+            ['ind', 'Indonesian'],
+            ['jav', 'Javanese'],
+            ['hin', 'Hindi'],
+            ['tha', 'Thai'],
+            ['kor', 'Korean'],
+            ['jpn', 'Japanese'],
+            ['chi', 'Chinese'],
+            ['rus', 'Russian'],
+            ['ara', 'Arabic'],
+            ['vie', 'Vietnamese'],
+            ['may', 'Malay'],
+            ['sun', 'Sundanese'],
+        ];
     }
 
-    public function testCode2tByCode1()
+    /** @dataProvider code2bByLanguageDataProvider */
+    #[\PHPUnit\Framework\Attributes\DataProvider('code2bByLanguageDataProvider')]
+    public function testCode2bByLanguage(string $expected, string $language): void
     {
-        $this->assertSame('fra', $this->iso->code2tByCode1('fr'));
-        $this->assertSame('eng', $this->iso->code2tByCode1('en'));
-        $this->assertSame('spa', $this->iso->code2tByCode1('es'));
-        $this->assertSame('ind', $this->iso->code2tByCode1('id'));
+        $this->assertSame($expected, $this->iso->code2bByLanguage($language));
+    }
+
+    public static function code3ByLanguageDataProvider(): array
+    {
+        return [
+            ['eng', 'English'],
+            ['fra', 'French'],
+            ['spa', 'Spanish'],
+            ['ind', 'Indonesian'],
+            ['jav', 'Javanese'],
+            ['hin', 'Hindi'],
+            ['tha', 'Thai'],
+            ['kor', 'Korean'],
+            ['jpn', 'Japanese'],
+            ['zho', 'Chinese'],
+            ['rus', 'Russian'],
+            ['ara', 'Arabic'],
+            ['vie', 'Vietnamese'],
+            ['msa', 'Malay'],
+            ['sun', 'Sundanese'],
+        ];
+    }
+
+    /** @dataProvider code3ByLanguageDataProvider */
+    #[\PHPUnit\Framework\Attributes\DataProvider('code3ByLanguageDataProvider')]
+    public function testCode3ByLanguage(string $expected, string $language): void
+    {
+        $this->assertSame($expected, $this->iso->code3ByLanguage($language));
+    }
+
+    public static function getLanguageByIsoCode2bDataProvider(): array
+    {
+        return [
+            [['en', 'eng', 'eng', 'eng', 'English', 'English'], 'eng'],
+            [['fr', 'fra', 'fre', 'fra', 'French', 'français, langue française'], 'fre'],
+            [['id', 'ind', 'ind', 'ind', 'Indonesian', 'Bahasa Indonesia'], 'ind'],
+        ];
+    }
+
+    /** @dataProvider getLanguageByIsoCode2bDataProvider */
+    #[\PHPUnit\Framework\Attributes\DataProvider('getLanguageByIsoCode2bDataProvider')]
+    public function testGetLanguageByIsoCode2B(array $expected, string $code): void
+    {
+        $this->assertSame($expected, $this->iso->getLanguageByIsoCode2b($code));
+    }
+
+    public static function getLanguageByIsoCode2bNullDataProvider(): array
+    {
+        return [
+            ['null'],
+        ];
+    }
+
+    /** @dataProvider getLanguageByIsoCode2bNullDataProvider */
+    #[\PHPUnit\Framework\Attributes\DataProvider('getLanguageByIsoCode2bNullDataProvider')]
+    public function testGetLanguageByIsoCode2bNull(string $code): void
+    {
+        $this->assertNull($this->iso->getLanguageByIsoCode2b($code));
+    }
+
+    public static function code2tByCode1DataProvider(): array
+    {
+        return [
+            ['fra', 'fr'],
+            ['eng', 'en'],
+            ['spa', 'es'],
+            ['ind', 'id'],
+        ];
+    }
+
+    /** @dataProvider code2tByCode1DataProvider */
+    public function testCode2tByCode1(string $expected, string $code): void
+    {
+        $this->assertSame($expected, $this->iso->code2tByCode1($code));
     }
 
 }
