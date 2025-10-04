@@ -1,0 +1,176 @@
+name: Create Release
+
+on:
+  push:
+    branches: [ "master" ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: read
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check if changes are only in workflow files
+        id: check-changes
+        run: |
+          # Get the list of changed files in the last commit
+          CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD)
+          
+          # Check if all changed files are in .github/workflows/ directory
+          WORKFLOW_ONLY=true
+          for file in $CHANGED_FILES; do
+            if [[ ! "$file" =~ ^\.github/workflows/ ]]; then
+              WORKFLOW_ONLY=false
+              break
+            fi
+          done
+          
+          echo "workflow-only=$WORKFLOW_ONLY" >> $GITHUB_OUTPUT
+          echo "Changed files: $CHANGED_FILES"
+          
+          # If only workflow files changed, skip release
+          if [ "$WORKFLOW_ONLY" = "true" ]; then
+            echo "Only workflow files changed, skipping release"
+            echo "skip-release=true" >> $GITHUB_OUTPUT
+          else
+            echo "Non-workflow files changed, proceeding with release"
+            echo "skip-release=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Get latest release
+        id: get-latest-release
+        if: steps.check-changes.outputs.skip-release == 'false'
+        run: |
+          # Get the latest release tag
+          LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+          if [ -z "$LATEST_TAG" ]; then
+            echo "No previous releases found, starting from v0.0.0"
+            echo "latest-tag=v0.0.0" >> $GITHUB_OUTPUT
+            echo "is-first-release=true" >> $GITHUB_OUTPUT
+          else
+            echo "Latest tag: $LATEST_TAG"
+            echo "latest-tag=$LATEST_TAG" >> $GITHUB_OUTPUT
+            echo "is-first-release=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Determine version bump
+        id: version-bump
+        if: steps.check-changes.outputs.skip-release == 'false'
+        run: |
+          LATEST_TAG="${{ steps.get-latest-release.outputs.latest-tag }}"
+          
+          # Get commits since last release
+          if [ "${{ steps.get-latest-release.outputs.is-first-release }}" = "true" ]; then
+            COMMITS=$(git log --oneline --no-merges)
+          else
+            COMMITS=$(git log --oneline --no-merges ${LATEST_TAG}..HEAD)
+          fi
+          
+          echo "Commits since last release:"
+          echo "$COMMITS"
+          
+          # Determine version bump based on conventional commits
+          MAJOR_BUMP=false
+          MINOR_BUMP=false
+          PATCH_BUMP=false
+          
+          # Check for breaking changes (major version bump)
+          if echo "$COMMITS" | grep -qE "^[a-f0-9]+ (feat|fix|perf|refactor)(\(.+\))?!:|^[a-f0-9]+ BREAKING CHANGE:"; then
+            MAJOR_BUMP=true
+          # Check for new features (minor version bump)
+          elif echo "$COMMITS" | grep -qE "^[a-f0-9]+ feat(\(.+\))?:"; then
+            MINOR_BUMP=true
+          # Check for bug fixes, patches, docs, etc. (patch version bump)
+          elif echo "$COMMITS" | grep -qE "^[a-f0-9]+ (fix|perf|refactor|docs|style|test|chore)(\(.+\))?:"; then
+            PATCH_BUMP=true
+          else
+            # If no conventional commits, default to patch
+            PATCH_BUMP=true
+          fi
+          
+          echo "major-bump=$MAJOR_BUMP" >> $GITHUB_OUTPUT
+          echo "minor-bump=$MINOR_BUMP" >> $GITHUB_OUTPUT
+          echo "patch-bump=$PATCH_BUMP" >> $GITHUB_OUTPUT
+
+      - name: Calculate new version
+        id: calculate-version
+        if: steps.check-changes.outputs.skip-release == 'false'
+        run: |
+          LATEST_TAG="${{ steps.get-latest-release.outputs.latest-tag }}"
+          
+          # Extract version numbers
+          if [ "${{ steps.get-latest-release.outputs.is-first-release }}" = "true" ]; then
+            NEW_VERSION="v1.0.0"
+          else
+            # Remove 'v' prefix and split version
+            VERSION=${LATEST_TAG#v}
+            IFS='.' read -r MAJOR MINOR PATCH <<< "$VERSION"
+            
+            if [ "${{ steps.version-bump.outputs.major-bump }}" = "true" ]; then
+              MAJOR=$((MAJOR + 1))
+              MINOR=0
+              PATCH=0
+            elif [ "${{ steps.version-bump.outputs.minor-bump }}" = "true" ]; then
+              MINOR=$((MINOR + 1))
+              PATCH=0
+            elif [ "${{ steps.version-bump.outputs.patch-bump }}" = "true" ]; then
+              PATCH=$((PATCH + 1))
+            fi
+            
+            NEW_VERSION="v${MAJOR}.${MINOR}.${PATCH}"
+          fi
+          
+          echo "new-version=$NEW_VERSION" >> $GITHUB_OUTPUT
+          echo "New version: $NEW_VERSION"
+
+      - name: Generate changelog
+        id: changelog
+        if: steps.check-changes.outputs.skip-release == 'false'
+        run: |
+          LATEST_TAG="${{ steps.get-latest-release.outputs.latest-tag }}"
+          
+          # Generate changelog from commits
+          if [ "${{ steps.get-latest-release.outputs.is-first-release }}" = "true" ]; then
+            COMMITS=$(git log --oneline --no-merges --reverse)
+            CHANGELOG="## Initial Release
+
+$COMMITS"
+          else
+            COMMITS=$(git log --oneline --no-merges --reverse ${LATEST_TAG}..HEAD)
+            CHANGELOG="## Changes
+
+$COMMITS"
+          fi
+          
+          # Save changelog to file for release notes
+          echo "$CHANGELOG" > CHANGELOG.md
+          echo "changelog<<EOF" >> $GITHUB_OUTPUT
+          echo "$CHANGELOG" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Create Release
+        if: steps.check-changes.outputs.skip-release == 'false'
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.calculate-version.outputs.new-version }}
+          release_name: Release ${{ steps.calculate-version.outputs.new-version }}
+          body: ${{ steps.changelog.outputs.changelog }}
+          draft: false
+          prerelease: false
+
+      - name: Skip Release
+        if: steps.check-changes.outputs.skip-release == 'true'
+        run: |
+          echo "Skipping release as only workflow files were changed"
