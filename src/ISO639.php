@@ -258,6 +258,7 @@ class ISO639
     private array $iso639_3 = [];
     private array $langEnglish = [];
     private array $code2tToCode1 = [];
+    private array $code1ToCode2t = [];
     private array $code2bToLang = [];
     
     private function buildHashmap(): void
@@ -287,6 +288,7 @@ class ISO639
 
             $this->langEnglish[$this->toLower($english)] = $codes;
             $this->code2tToCode1[$iso639_2t] = $iso639_1;
+            $this->code1ToCode2t[$iso639_1] = $iso639_2t;
             $this->code2bToLang[$iso639_2b] = $lang;
         }
     }
@@ -409,7 +411,7 @@ class ISO639
      */
     public function code2tByCode1(string $code): string
     {
-        return $this->code2tToCode1[$this->toLower($code)] ?? '';
+        return $this->code1ToCode2t[$this->toLower($code)] ?? '';
     }
 
 }
