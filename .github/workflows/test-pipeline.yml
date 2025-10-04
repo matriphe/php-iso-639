@@ -27,7 +27,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-<<<<<<< HEAD
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -38,8 +37,6 @@ jobs:
       - name: Check PHP extensions
         run: php -m
 
-=======
->>>>>>> parent of cdee547 ([AI] Update test GHA to test with mbstring)
       - name: Validate composer.json and composer.lock
         run: composer validate --strict
 
@@ -55,60 +52,5 @@ jobs:
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress
 
-<<<<<<< HEAD
-      - name: Verify mbstring is disabled
-        run: |
-          php -m | grep -i mbstring && exit 1 || echo "mbstring is disabled as expected"
-
-      - name: Run test without mbstring
-        run: vendor/bin/phpunit
-
-  test-with-mbstring:
-    strategy:
-      fail-fast: false
-      matrix:
-        operating-system: [ ubuntu-latest ]
-        php-version:
-          - "8.4"
-          - "8.3"
-          - "8.2"
-          - "8.1"
-
-    name: PHP ${{ matrix.php-version }} (with mbstring)
-    runs-on: ${{ matrix.operating-system }}
-
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ matrix.php-version }}
-          extensions: mbstring
-          tools: composer:v2
-
-      - name: Validate composer.json and composer.lock
-        run: composer validate --strict
-
-      - name: Cache Composer packages
-        id: composer-cache
-        uses: actions/cache@v3
-        with:
-          path: vendor
-          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}-with-mbstring
-          restore-keys: |
-            ${{ runner.os }}-php-${{ matrix.php-version }}-with-mbstring
-
-      - name: Install dependencies
-        run: composer install --prefer-dist --no-progress
-
-      - name: Verify mbstring is enabled
-        run: |
-          php -m | grep -i mbstring || exit 1
-          echo "mbstring is enabled as expected"
-
-      - name: Run test with mbstring
-=======
       - name: Run test
->>>>>>> parent of cdee547 ([AI] Update test GHA to test with mbstring)
         run: vendor/bin/phpunit
