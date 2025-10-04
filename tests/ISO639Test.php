@@ -258,4 +258,51 @@ class ISO639Test extends TestCase
         $this->assertSame('ind', $this->iso->code2tByCode1('id'));
     }
 
+    public function testMbstringSupport()
+    {
+        // Test with multibyte characters in language names
+        $this->assertSame('fr', $this->iso->code1ByLanguage('french'));
+        $this->assertSame('fr', $this->iso->code1ByLanguage('FRENCH'));
+        $this->assertSame('fr', $this->iso->code1ByLanguage('French'));
+        
+        // Test with accented characters
+        $this->assertSame('es', $this->iso->code1ByLanguage('spanish'));
+        $this->assertSame('es', $this->iso->code1ByLanguage('SPANISH'));
+        $this->assertSame('es', $this->iso->code1ByLanguage('Spanish'));
+        
+        // Test with mixed case and special characters
+        $this->assertSame('de', $this->iso->code1ByLanguage('german'));
+        $this->assertSame('de', $this->iso->code1ByLanguage('GERMAN'));
+        $this->assertSame('de', $this->iso->code1ByLanguage('German'));
+        
+        // Test that existing functionality still works
+        $this->assertSame('en', $this->iso->code1ByLanguage('english'));
+        $this->assertSame('en', $this->iso->code1ByLanguage('ENGLISH'));
+        $this->assertSame('en', $this->iso->code1ByLanguage('English'));
+    }
+
+    public function testMbstringWithNativeNames()
+    {
+        // Test that native names with multibyte characters work correctly
+        $this->assertSame('français, langue française', $this->iso->nativeByCode1('fr'));
+        $this->assertSame('español', $this->iso->nativeByCode1('es'));
+        $this->assertSame('Deutsch', $this->iso->nativeByCode1('de'));
+        $this->assertSame('हिन्दी, हिंदी', $this->iso->nativeByCode1('hi'));
+        $this->assertSame('中文 (Zhōngwén), 汉语, 漢語', $this->iso->nativeByCode1('zh'));
+        $this->assertSame('Русский', $this->iso->nativeByCode1('ru'));
+        $this->assertSame('العربية', $this->iso->nativeByCode1('ar'));
+    }
+
+    public function testMbstringCaseInsensitive()
+    {
+        // Test that case variations work correctly with multibyte characters
+        $this->assertSame('French', $this->iso->languageByCode1('FR'));
+        $this->assertSame('French', $this->iso->languageByCode1('Fr'));
+        $this->assertSame('French', $this->iso->languageByCode1('fR'));
+        
+        $this->assertSame('Spanish', $this->iso->languageByCode1('ES'));
+        $this->assertSame('Spanish', $this->iso->languageByCode1('Es'));
+        $this->assertSame('Spanish', $this->iso->languageByCode1('eS'));
+    }
+
 }
