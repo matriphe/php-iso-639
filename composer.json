@@ -16,6 +16,9 @@
     "require": {
         "php": "8.*"
     },
+    "suggest": {
+        "ext-mbstring": "For better multibyte character support in text transformations"
+    },
     "autoload": {
         "psr-4": {
             "Matriphe\\ISO639\\": "src/"

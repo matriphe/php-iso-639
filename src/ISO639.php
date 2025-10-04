@@ -203,6 +203,43 @@ class ISO639
     public int $indexEnglishName = 4;
     public int $indexNativeName = 5;
 
+    /**
+     * Whether mbstring extension is available
+     */
+    private bool $hasMbstring;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->hasMbstring = extension_loaded('mbstring');
+    }
+
+    /**
+     * Convert string to lowercase using mbstring if available, fallback to strtolower
+     */
+    private function toLower(string $string): string
+    {
+        if ($this->hasMbstring) {
+            return mb_strtolower($string, 'UTF-8');
+        }
+        
+        return strtolower($string);
+    }
+
+    /**
+     * Convert first character of each word to uppercase using mbstring if available, fallback to ucwords
+     */
+    private function toTitleCase(string $string): string
+    {
+        if ($this->hasMbstring) {
+            return mb_convert_case($string, MB_CASE_TITLE, 'UTF-8');
+        }
+        
+        return ucwords($string);
+    }
+
     /*
      * Get all language data
     */
@@ -216,7 +253,7 @@ class ISO639
      */
     public function languageByCode1($code): string
     {
-        $code = strtolower(trim($code));
+        $code = $this->toLower(trim($code));
 
         foreach ($this->languages as $lang) {
             if ($lang[$this->indexIso639_1] === $code) {
@@ -232,7 +269,7 @@ class ISO639
      */
     public function nativeByCode1($code): string
     {
-        $code = strtolower(trim($code));
+        $code = $this->toLower(trim($code));
 
         foreach ($this->languages as $lang) {
             if ($lang[$this->indexIso639_1] === $code) {
@@ -248,7 +285,7 @@ class ISO639
      */
     public function languageByCode2t($code): string
     {
-        $code = strtolower(trim($code));
+        $code = $this->toLower(trim($code));
 
         foreach ($this->languages as $lang) {
             if ($lang[$this->indexIso639_2t] === $code) {
@@ -264,7 +301,7 @@ class ISO639
      */
     public function nativeByCode2t($code): string
     {
-        $code = strtolower(trim($code));
+        $code = $this->toLower(trim($code));
 
         foreach ($this->languages as $lang) {
             if ($lang[$this->indexIso639_2t] === $code) {
@@ -280,7 +317,7 @@ class ISO639
      */
     public function languageByCode2b($code): string
     {
-        $code = strtolower(trim($code));
+        $code = $this->toLower(trim($code));
 
         foreach ($this->languages as $lang) {
             if ($lang[$this->indexIso639_2b] === $code) {
@@ -296,7 +333,7 @@ class ISO639
      */
     public function nativeByCode2b($code): string
     {
-        $code = strtolower(trim($code));
+        $code = $this->toLower(trim($code));
 
         foreach ($this->languages as $lang) {
             if ($lang[$this->indexIso639_2b] === $code) {
@@ -312,7 +349,7 @@ class ISO639
      */
     public function languageByCode3($code): string
     {
-        $code = strtolower(trim($code));
+        $code = $this->toLower(trim($code));
 
         foreach ($this->languages as $lang) {
             if ($lang[$this->indexIso639_3] === $code) {
@@ -328,7 +365,7 @@ class ISO639
      */
     public function nativeByCode3($code): string
     {
-        $code = strtolower(trim($code));
+        $code = $this->toLower(trim($code));
 
         foreach ($this->languages as $lang) {
             if ($lang[$this->indexIso639_3] === $code) {
@@ -344,7 +381,7 @@ class ISO639
      */
     public function code1ByLanguage($language): string
     {
-        $language_key = ucwords(strtolower($language));
+        $language_key = $this->toTitleCase($this->toLower($language));
 
         foreach ($this->languages as $lang) {
             if (in_array($language_key, explode(', ', $lang[$this->indexEnglishName]))) {
@@ -360,7 +397,7 @@ class ISO639
      */
     public function code2tByLanguage($language): string
     {
-        $language_key = ucwords(strtolower($language));
+        $language_key = $this->toTitleCase($this->toLower($language));
 
 
         foreach ($this->languages as $lang) {
@@ -377,7 +414,7 @@ class ISO639
      */
     public function code2bByLanguage($language): string
     {
-        $language_key = ucwords(strtolower($language));
+        $language_key = $this->toTitleCase($this->toLower($language));
 
         foreach ($this->languages as $lang) {
             if (in_array($language_key, explode(', ', $lang[$this->indexEnglishName]))) {
@@ -393,7 +430,7 @@ class ISO639
      */
     public function code3ByLanguage($language): string
     {
-        $language_key = ucwords(strtolower($language));
+        $language_key = $this->toTitleCase($this->toLower($language));
 
         foreach ($this->languages as $lang) {
             if (in_array($language_key, explode(', ', $lang[$this->indexEnglishName]))) {
@@ -409,7 +446,7 @@ class ISO639
      */
     public function getLanguageByIsoCode2b(string $code): ?array
     {
-        $code = strtolower(trim($code));
+        $code = $this->toLower(trim($code));
 
         foreach ($this->languages as $lang) {
             if ($lang[$this->indexIso639_2b] === $code) {
@@ -425,7 +462,7 @@ class ISO639
      */
     public function code2tByCode1(string $code): string
     {
-        $code = strtolower($code);
+        $code = $this->toLower($code);
 
         $result = '';
 
