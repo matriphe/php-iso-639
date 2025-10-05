@@ -44,8 +44,15 @@ jobs:
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress
 
-    - name: Super-linter
-      uses: super-linter/super-linter@v8.2.0 # x-release-please-version
-      env:
-        # To report GitHub Actions status checks
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Run PHP-CS-Fixer
+      run: composer run-script lint
+
+    - name: Check for changes
+      run: |
+        if [ -n "$(git status --porcelain)" ]; then
+          echo "Code style issues found. Please run 'composer run-script fix' locally."
+          git diff
+          exit 1
+        else
+          echo "No code style issues found."
+        fi
