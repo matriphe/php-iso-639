@@ -17,28 +17,8 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
       
-    - name: Setup PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: '8.4'
-        extensions: mbstring
-        coverage: none
-
-    - name: Cache Composer packages
-      id: composer-cache
-      uses: actions/cache@v3
-      with:
-        path: vendor
-        key: ${{ runner.os }}-php-8.4-${{ hashFiles('**/composer.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-php-8.4
-
-    - name: Install dependencies
-      run: composer install --prefer-dist --no-progress --no-interaction
-      
-    - name: Run PHP CS Fixer (check only)
-      run: vendor/bin/php-cs-fixer fix --dry-run --diff --show-progress=dots
-      
-    - name: Lint Status
-      if: success()
-      run: echo "✅ Code style check passed! All files follow the coding standards."
+    - name: Super-linter
+      uses: super-linter/super-linter@v8.2.0 # x-release-please-version
+      env:
+        # To report GitHub Actions status checks
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
