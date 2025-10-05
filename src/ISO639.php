@@ -23,6 +23,7 @@ class ISO639
      * Source: https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
      */
     private array $languages = [
+        // ISO 639-1, ISO 639-2/T, ISO 639-2/B, ISO 639-3, English name, Native name
         ['ab', 'abk', 'abk', 'abk', 'Abkhaz', 'аҧсуа бызшәа, аҧсшәа'],
         ['aa', 'aar', 'aar', 'aar', 'Afar', 'Afaraf'],
         ['af', 'afr', 'afr', 'afr', 'Afrikaans', 'Afrikaans'],
@@ -42,7 +43,7 @@ class ISO639
         ['eu', 'eus', 'baq', 'eus', 'Basque', 'euskara, euskera'],
         ['be', 'bel', 'bel', 'bel', 'Belarusian', 'беларуская мова'],
         ['bn', 'ben', 'ben', 'ben', 'Bengali, Bangla', 'বাংলা'],
-        ['bh', 'bih', 'bih', '', 'Bihari', 'भोजपुरी'],
+        ['bh', 'bho', 'bih', 'bih', 'Bihari', 'भोजपुरी'],
         ['bi', 'bis', 'bis', 'bis', 'Bislama', 'Bislama'],
         ['bs', 'bos', 'bos', 'bos', 'Bosnian', 'bosanski jezik'],
         ['br', 'bre', 'bre', 'bre', 'Breton', 'brezhoneg'],
@@ -280,16 +281,29 @@ class ISO639
                 self::KEY_NATIVE => $native,
             ];
 
-            $this->iso639_1[$iso639_1] = $val;
-            $this->iso639_2t[$iso639_2t] = $val;
-            $this->iso639_2b[$iso639_2b] = $val;
-            $this->iso639_3[$iso639_3] = $val;
+            if (!empty($iso639_1)) {
+                $this->iso639_1[$iso639_1] = $val;
+            }
+            if (!empty($iso639_2t)) {
+                $this->iso639_2t[$iso639_2t] = $val;
+            }
+            if (!empty($iso639_2b)) {
+                $this->iso639_2b[$iso639_2b] = $val;
+
+                $this->code2bToLang[$iso639_2b] = $lang;
+            }
+            if (!empty($iso639_3)) {
+                $this->iso639_3[$iso639_3] = $val;
+            }
 
             $this->langEnglish[$this->toLower($english)] = $val;
 
-            $this->code2tToCode1[$iso639_2t] = $iso639_1;
-            $this->code1ToCode2t[$iso639_1] = $iso639_2t;
-            $this->code2bToLang[$iso639_2b] = $lang;
+            if (!empty($iso639_2t) && !empty($iso639_1)) {
+                $this->code2tToCode1[$iso639_2t] = $iso639_1;
+            }
+            if (!empty($iso639_1) && !empty($iso639_2t)) {
+                $this->code1ToCode2t[$iso639_1] = $iso639_2t;
+            }
         }
     }
 
