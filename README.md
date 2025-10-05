@@ -47,6 +47,19 @@ echo $iso->nativeByCode1('en'); // English
 echo $iso->nativeByCode1('id'); // Bahasa Indonesia
 echo $iso->nativeByCode1('jv'); // basa Jawa
 
+// Get native language name from ISO-639-1 code with capitalized
+echo $iso->nativeByCode1('en', true); // English
+echo $iso->nativeByCode1('id', true); // Bahasa Indonesia
+echo $iso->nativeByCode1('jv', true); // Basa Jawa
+echo $iso->nativeByCode1('hi', true); // हिन्दी, हिंदी
+echo $iso->nativeByCode1('th', true); // ไทย
+echo $iso->nativeByCode1('ko', true); // 한국어
+echo $iso->nativeByCode1('ja', true); // 日本語 (にほんご)
+echo $iso->nativeByCode1('zh', true); // '中文 (Zhōngwén), 汉语, 漢語
+echo $iso->nativeByCode1('ru', true); // Русский
+echo $iso->nativeByCode1('ar', true); // االعربية
+echo $iso->nativeByCode1('vi', true); // Việt Nam
+
 // Get language name from ISO-639-2t code
 echo $iso->languageByCode2t('eng'); // English
 echo $iso->languageByCode2t('ind'); // Indonesian
@@ -56,6 +69,19 @@ echo $iso->languageByCode2t('jav'); // Javanese
 echo $iso->nativeByCode2t('eng'); // English
 echo $iso->nativeByCode2t('ind'); // Bahasa Indonesia
 echo $iso->nativeByCode2t('jav'); // basa Jawa
+
+// Get native language name from ISO-639-2t code with capitalized
+echo $iso->nativeByCode2t('eng', true); // English
+echo $iso->nativeByCode2t('ind', true); // Bahasa Indonesia
+echo $iso->nativeByCode2t('jav', true); // Basa Jawa
+echo $iso->nativeByCode2t('hin', true); // हिन्दी, हिंदी
+echo $iso->nativeByCode2t('tha', true); // ไทย
+echo $iso->nativeByCode2t('kor', true); // 한국어
+echo $iso->nativeByCode2t('jpn', true); // 日本語 (にほんご)
+echo $iso->nativeByCode2t('zho', true); // '中文 (Zhōngwén), 汉语, 漢語
+echo $iso->nativeByCode2t('rus', true); // Русский
+echo $iso->nativeByCode2t('ara', true); // االعربية
+echo $iso->nativeByCode2t('vie', true); // Việt Nam
 
 // Get language name from ISO-639-2b code
 echo $iso->languageByCode2b('eng'); // English
@@ -67,6 +93,19 @@ echo $iso->nativeByCode2b('eng'); // English
 echo $iso->nativeByCode2b('ind'); // Bahasa Indonesia
 echo $iso->nativeByCode2b('jav'); // basa Jawa
 
+// Get native language name from ISO-639-2b code with capitalized
+echo $iso->nativeByCode2b('eng', true); // English
+echo $iso->nativeByCode2b('ind', true); // Bahasa Indonesia
+echo $iso->nativeByCode2b('jav', true); // Basa Jawa
+echo $iso->nativeByCode2b('hin', true); // हिन्दी, हिंदी
+echo $iso->nativeByCode2b('tha', true); // ไทย
+echo $iso->nativeByCode2b('kor', true); // 한국어
+echo $iso->nativeByCode2b('jpn', true); // 日本語 (にほんご)
+echo $iso->nativeByCode2b('chi', true); // '中文 (Zhōngwén), 汉语, 漢語
+echo $iso->nativeByCode2b('rus', true); // Русский
+echo $iso->nativeByCode2b('ara', true); // االعربية
+echo $iso->nativeByCode2b('vie', true); // Việt Nam
+
 // Get language name from ISO-639-3 code
 echo $iso->languageByCode3('eng'); // English
 echo $iso->languageByCode3('ind'); // Indonesian
@@ -76,6 +115,19 @@ echo $iso->languageByCode3('jav'); // Javanese
 echo $iso->nativeByCode3('eng'); // English
 echo $iso->nativeByCode3('ind'); // Bahasa Indonesia
 echo $iso->nativeByCode3('jav'); // basa Jawa
+
+// Get native language name from ISO-639-3 code with capitalized
+echo $iso->nativeByCode3('eng', true); // English
+echo $iso->nativeByCode3('ind', true); // Bahasa Indonesia
+echo $iso->nativeByCode3('jav', true); // Basa Jawa
+echo $iso->nativeByCode3('hin', true); // हिन्दी, हिंदी
+echo $iso->nativeByCode3('tha', true); // ไทย
+echo $iso->nativeByCode3('kor', true); // 한국어
+echo $iso->nativeByCode3('jpn', true); // 日本語 (にほんご)
+echo $iso->nativeByCode3('zho', true); // '中文 (Zhōngwén), 汉语, 漢語
+echo $iso->nativeByCode3('rus', true); // Русский
+echo $iso->nativeByCode3('ara', true); // االعربية
+echo $iso->nativeByCode3('vie', true); // Việt Nam
 
 // Get language array from ISO-639-2b code
 echo $iso->getLanguageByIsoCode2b('eng'); // ['en', 'eng', 'eng', 'eng', 'English', 'English']
