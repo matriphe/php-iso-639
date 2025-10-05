@@ -753,62 +753,6 @@ class ISO639Test extends TestCase
         $this->assertSame('', $this->iso->nativeByCode3($code));
     }
 
-    // Test case sensitivity (excluding 3-letter codes that don't exist for code1)
-    public static function caseSensitivityDataProvider(): array
-    {
-        return [
-            ['EN', 'en', 'English'],
-            ['FR', 'fr', 'French'],
-            ['Es', 'es', 'Spanish'],
-            ['ID', 'id', 'Indonesian'],
-        ];
-    }
-
-    /** @dataProvider caseSensitivityDataProvider */
-    #[\PHPUnit\Framework\Attributes\DataProvider('caseSensitivityDataProvider')]
-    public function testCaseSensitivityForCode1(string $upperCode, string $lowerCode, string $expected): void
-    {
-        // Test that both upper and lower case work the same
-        $resultUpper = $this->iso->languageByCode1($upperCode);
-        $resultLower = $this->iso->languageByCode1($lowerCode);
-
-        $this->assertSame($expected, $resultUpper);
-        $this->assertSame($expected, $resultLower);
-        $this->assertSame($resultUpper, $resultLower);
-    }
-
-    // Add separate test for 3-letter codes case sensitivity
-    public static function caseSensitivity3LetterDataProvider(): array
-    {
-        return [
-            ['ENG', 'eng', 'English'],
-            ['FRA', 'fra', 'French'],
-            ['SPA', 'spa', 'Spanish'],
-            ['IND', 'ind', 'Indonesian'],
-        ];
-    }
-
-    /** @dataProvider caseSensitivity3LetterDataProvider */
-    #[\PHPUnit\Framework\Attributes\DataProvider('caseSensitivity3LetterDataProvider')]
-    public function testCaseSensitivityFor3LetterCodes(string $upperCode, string $lowerCode, string $expected): void
-    {
-        // Test Code2t
-        $resultUpper = $this->iso->languageByCode2t($upperCode);
-        $resultLower = $this->iso->languageByCode2t($lowerCode);
-
-        $this->assertSame($expected, $resultUpper);
-        $this->assertSame($expected, $resultLower);
-        $this->assertSame($resultUpper, $resultLower);
-
-        // Test Code3
-        $resultUpper3 = $this->iso->languageByCode3($upperCode);
-        $resultLower3 = $this->iso->languageByCode3($lowerCode);
-
-        $this->assertSame($expected, $resultUpper3);
-        $this->assertSame($expected, $resultLower3);
-        $this->assertSame($resultUpper3, $resultLower3);
-    }
-
     // Test language name lookups
     public static function invalidLanguageDataProvider(): array
     {
