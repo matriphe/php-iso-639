@@ -4,19 +4,19 @@ namespace Matriphe\ISO639;
 
 class ISO639
 {
-    const INDEX_ISO639_1 = 0;
-    const INDEX_ISO639_2T = 1;
-    const INDEX_ISO639_2B = 2;
-    const INDEX_ISO639_3 = 3;
-    const INDEX_ENGLISH_NAME = 4;
-    const INDEX_NATIVE_NAME = 5;
+    public const INDEX_ISO639_1 = 0;
+    public const INDEX_ISO639_2T = 1;
+    public const INDEX_ISO639_2B = 2;
+    public const INDEX_ISO639_3 = 3;
+    public const INDEX_ENGLISH_NAME = 4;
+    public const INDEX_NATIVE_NAME = 5;
 
-    const KEY_CODE_1 = 'code1';
-    const KEY_CODE_2T = 'code2t';
-    const KEY_CODE_2B = 'code2b';
-    const KEY_CODE_3 = 'code3';
-    const KEY_ENGLISH = 'english';
-    const KEY_NATIVE = 'native';
+    public const KEY_CODE_1 = 'code1';
+    public const KEY_CODE_2T = 'code2t';
+    public const KEY_CODE_2B = 'code2b';
+    public const KEY_CODE_3 = 'code3';
+    public const KEY_ENGLISH = 'english';
+    public const KEY_NATIVE = 'native';
 
     /*
      * Language database, based on Wikipedia.
@@ -210,7 +210,6 @@ class ISO639
         array('zu', 'zul', 'zul', 'zul', 'Zulu', 'isiZulu'),
     );
 
-
     /**
      * Whether mbstring extension is available
      */
@@ -236,7 +235,7 @@ class ISO639
         if ($this->hasMbstring) {
             return mb_strtolower($string, 'UTF-8');
         }
-        
+
         return strtolower($string);
     }
 
@@ -248,19 +247,19 @@ class ISO639
         if ($this->hasMbstring) {
             return mb_convert_case($string, MB_CASE_TITLE, 'UTF-8');
         }
-        
+
         return ucwords($string);
     }
 
-    private array $iso639_1 = [];
-    private array $iso639_2t = [];
-    private array $iso639_2b = [];
-    private array $iso639_3 = [];
-    private array $langEnglish = [];
-    private array $code2tToCode1 = [];
-    private array $code1ToCode2t = [];
-    private array $code2bToLang = [];
-    
+    private array $iso639_1 = array();
+    private array $iso639_2t = array();
+    private array $iso639_2b = array();
+    private array $iso639_3 = array();
+    private array $langEnglish = array();
+    private array $code2tToCode1 = array();
+    private array $code1ToCode2t = array();
+    private array $code2bToLang = array();
+
     private function buildHashmap(): void
     {
         foreach ($this->languages as $lang) {
@@ -272,19 +271,19 @@ class ISO639
             $english = $lang[self::INDEX_ENGLISH_NAME];
             $native = $lang[self::INDEX_NATIVE_NAME];
 
-            $val = [self::KEY_ENGLISH => $english, self::KEY_NATIVE => $native];
+            $val = array(self::KEY_ENGLISH => $english, self::KEY_NATIVE => $native);
 
             $this->iso639_1[$iso639_1] = $val;
             $this->iso639_2t[$iso639_2t] = $val;
             $this->iso639_2b[$iso639_2b] = $val;
             $this->iso639_3[$iso639_3] = $val;
 
-            $codes = [
+            $codes = array(
                 self::KEY_CODE_1 => $iso639_1,
                 self::KEY_CODE_2T => $iso639_2t,
                 self::KEY_CODE_2B => $iso639_2b,
                 self::KEY_CODE_3 => $iso639_3,
-            ];
+            );
 
             $this->langEnglish[$this->toLower($english)] = $codes;
             $this->code2tToCode1[$iso639_2t] = $iso639_1;
@@ -292,7 +291,6 @@ class ISO639
             $this->code2bToLang[$iso639_2b] = $lang;
         }
     }
-
 
     /*
      * Get all language data
@@ -347,7 +345,7 @@ class ISO639
      */
     public function nativeByCode2b($code): string
     {
-       return $this->iso639_2b[$this->toLower($code)][self::KEY_NATIVE] ?? '';
+        return $this->iso639_2b[$this->toLower($code)][self::KEY_NATIVE] ?? '';
     }
 
     /*
@@ -355,7 +353,7 @@ class ISO639
      */
     public function languageByCode3($code): string
     {
-       return $this->iso639_3[$this->toLower($code)][self::KEY_ENGLISH] ?? '';
+        return $this->iso639_3[$this->toLower($code)][self::KEY_ENGLISH] ?? '';
     }
 
     /*
@@ -369,7 +367,7 @@ class ISO639
     /*
      * Get ISO-639-1 (two-letters code) from language name
      */
-    public function code1ByLanguage(string$language): string
+    public function code1ByLanguage(string $language): string
     {
         return $this->langEnglish[$this->toLower($language)][self::KEY_CODE_1] ?? '';
     }
