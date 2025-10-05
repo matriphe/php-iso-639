@@ -4,212 +4,211 @@ namespace Matriphe\ISO639;
 
 class ISO639
 {
-    const INDEX_ISO639_1 = 0;
-    const INDEX_ISO639_2T = 1;
-    const INDEX_ISO639_2B = 2;
-    const INDEX_ISO639_3 = 3;
-    const INDEX_ENGLISH_NAME = 4;
-    const INDEX_NATIVE_NAME = 5;
+    private const INDEX_ISO639_1 = 0;
+    private const INDEX_ISO639_2T = 1;
+    private const INDEX_ISO639_2B = 2;
+    private const INDEX_ISO639_3 = 3;
+    private const INDEX_ENGLISH_NAME = 4;
+    private const INDEX_NATIVE_NAME = 5;
 
-    const KEY_CODE_1 = 'code1';
-    const KEY_CODE_2T = 'code2t';
-    const KEY_CODE_2B = 'code2b';
-    const KEY_CODE_3 = 'code3';
-    const KEY_ENGLISH = 'english';
-    const KEY_NATIVE = 'native';
+    private const KEY_CODE_1 = 'code1';
+    private const KEY_CODE_2T = 'code2t';
+    private const KEY_CODE_2B = 'code2b';
+    private const KEY_CODE_3 = 'code3';
+    private const KEY_ENGLISH = 'english';
+    private const KEY_NATIVE = 'native';
 
     /*
      * Language database, based on Wikipedia.
      * Source: https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
      */
-    protected array $languages = array(
-        array('ab', 'abk', 'abk', 'abk', 'Abkhaz', 'аҧсуа бызшәа, аҧсшәа'),
-        array('aa', 'aar', 'aar', 'aar', 'Afar', 'Afaraf'),
-        array('af', 'afr', 'afr', 'afr', 'Afrikaans', 'Afrikaans'),
-        array('ak', 'aka', 'aka', 'aka', 'Akan', 'Akan'),
-        array('sq', 'sqi', 'alb', 'sqi', 'Albanian', 'Shqip'),
-        array('am', 'amh', 'amh', 'amh', 'Amharic', 'አማርኛ'),
-        array('ar', 'ara', 'ara', 'ara', 'Arabic', 'العربية'),
-        array('an', 'arg', 'arg', 'arg', 'Aragonese', 'aragonés'),
-        array('hy', 'hye', 'arm', 'hye', 'Armenian', 'Հայերեն'),
-        array('as', 'asm', 'asm', 'asm', 'Assamese', 'অসমীয়া'),
-        array('av', 'ava', 'ava', 'ava', 'Avaric', 'авар мацӀ, магӀарул мацӀ'),
-        array('ae', 'ave', 'ave', 'ave', 'Avestan', 'avesta'),
-        array('ay', 'aym', 'aym', 'aym', 'Aymara', 'aymar aru'),
-        array('az', 'aze', 'aze', 'aze', 'Azerbaijani', 'azərbaycan dili'),
-        array('bm', 'bam', 'bam', 'bam', 'Bambara', 'bamanankan'),
-        array('ba', 'bak', 'bak', 'bak', 'Bashkir', 'башҡорт теле'),
-        array('eu', 'eus', 'baq', 'eus', 'Basque', 'euskara, euskera'),
-        array('be', 'bel', 'bel', 'bel', 'Belarusian', 'беларуская мова'),
-        array('bn', 'ben', 'ben', 'ben', 'Bengali, Bangla', 'বাংলা'),
-        array('bh', 'bih', 'bih', '', 'Bihari', 'भोजपुरी'),
-        array('bi', 'bis', 'bis', 'bis', 'Bislama', 'Bislama'),
-        array('bs', 'bos', 'bos', 'bos', 'Bosnian', 'bosanski jezik'),
-        array('br', 'bre', 'bre', 'bre', 'Breton', 'brezhoneg'),
-        array('bg', 'bul', 'bul', 'bul', 'Bulgarian', 'български език'),
-        array('my', 'mya', 'bur', 'mya', 'Burmese', 'ဗမာစာ'),
-        array('ca', 'cat', 'cat', 'cat', 'Catalan', 'català'),
-        array('ch', 'cha', 'cha', 'cha', 'Chamorro', 'Chamoru'),
-        array('ce', 'che', 'che', 'che', 'Chechen', 'нохчийн мотт'),
-        array('ny', 'nya', 'nya', 'nya', 'Chichewa, Chewa, Nyanja', 'chiCheŵa, chinyanja'),
-        array('zh', 'zho', 'chi', 'zho', 'Chinese', '中文 (Zhōngwén), 汉语, 漢語'),
-        array('cv', 'chv', 'chv', 'chv', 'Chuvash', 'чӑваш чӗлхи'),
-        array('kw', 'cor', 'cor', 'cor', 'Cornish', 'Kernewek'),
-        array('co', 'cos', 'cos', 'cos', 'Corsican', 'corsu, lingua corsa'),
-        array('cr', 'cre', 'cre', 'cre', 'Cree', 'ᓀᐦᐃᔭᐍᐏᐣ'),
-        array('hr', 'hrv', 'hrv', 'hrv', 'Croatian', 'hrvatski jezik'),
-        array('cs', 'ces', 'cze', 'ces', 'Czech', 'čeština, český jazyk'),
-        array('da', 'dan', 'dan', 'dan', 'Danish', 'dansk'),
-        array('dv', 'div', 'div', 'div', 'Divehi, Dhivehi, Maldivian', 'ދިވެހި'),
-        array('nl', 'nld', 'dut', 'nld', 'Dutch', 'Nederlands, Vlaams'),
-        array('dz', 'dzo', 'dzo', 'dzo', 'Dzongkha', 'རྫོང་ཁ'),
-        array('en', 'eng', 'eng', 'eng', 'English', 'English'),
-        array('eo', 'epo', 'epo', 'epo', 'Esperanto', 'Esperanto'),
-        array('et', 'est', 'est', 'est', 'Estonian', 'eesti, eesti keel'),
-        array('ee', 'ewe', 'ewe', 'ewe', 'Ewe', 'Eʋegbe'),
-        array('fo', 'fao', 'fao', 'fao', 'Faroese', 'føroyskt'),
-        array('fj', 'fij', 'fij', 'fij', 'Fijian', 'vosa Vakaviti'),
-        array('fi', 'fin', 'fin', 'fin', 'Finnish', 'suomi, suomen kieli'),
-        array('fr', 'fra', 'fre', 'fra', 'French', 'français, langue française'),
-        array('ff', 'ful', 'ful', 'ful', 'Fula, Fulah, Pulaar, Pular', 'Fulfulde, Pulaar, Pular'),
-        array('gl', 'glg', 'glg', 'glg', 'Galician', 'galego'),
-        array('ka', 'kat', 'geo', 'kat', 'Georgian', 'ქართული'),
-        array('de', 'deu', 'ger', 'deu', 'German', 'Deutsch'),
-        array('el', 'ell', 'gre', 'ell', 'Greek (modern)', 'ελληνικά'),
-        array('gn', 'grn', 'grn', 'grn', 'Guaraní', 'Avañe\'ẽ'),
-        array('gu', 'guj', 'guj', 'guj', 'Gujarati', 'ગુજરાતી'),
-        array('ht', 'hat', 'hat', 'hat', 'Haitian, Haitian Creole', 'Kreyòl ayisyen'),
-        array('ha', 'hau', 'hau', 'hau', 'Hausa', '(Hausa) هَوُسَ'),
-        array('he', 'heb', 'heb', 'heb', 'Hebrew (modern)', 'עברית'),
-        array('hz', 'her', 'her', 'her', 'Herero', 'Otjiherero'),
-        array('hi', 'hin', 'hin', 'hin', 'Hindi', 'हिन्दी, हिंदी'),
-        array('ho', 'hmo', 'hmo', 'hmo', 'Hiri Motu', 'Hiri Motu'),
-        array('hu', 'hun', 'hun', 'hun', 'Hungarian', 'magyar'),
-        array('ia', 'ina', 'ina', 'ina', 'Interlingua', 'Interlingua'),
-        array('id', 'ind', 'ind', 'ind', 'Indonesian', 'Bahasa Indonesia'),
-        array('ie', 'ile', 'ile', 'ile', 'Interlingue', 'Originally called Occidental; then Interlingue after WWII'),
-        array('ga', 'gle', 'gle', 'gle', 'Irish', 'Gaeilge'),
-        array('ig', 'ibo', 'ibo', 'ibo', 'Igbo', 'Asụsụ Igbo'),
-        array('ik', 'ipk', 'ipk', 'ipk', 'Inupiaq', 'Iñupiaq, Iñupiatun'),
-        array('io', 'ido', 'ido', 'ido', 'Ido', 'Ido'),
-        array('is', 'isl', 'ice', 'isl', 'Icelandic', 'Íslenska'),
-        array('it', 'ita', 'ita', 'ita', 'Italian', 'italiano'),
-        array('iu', 'iku', 'iku', 'iku', 'Inuktitut', 'ᐃᓄᒃᑎᑐᑦ'),
-        array('ja', 'jpn', 'jpn', 'jpn', 'Japanese', '日本語 (にほんご)'),
-        array('jv', 'jav', 'jav', 'jav', 'Javanese', 'basa Jawa'),
-        array('kl', 'kal', 'kal', 'kal', 'Kalaallisut, Greenlandic', 'kalaallisut, kalaallit oqaasii'),
-        array('kn', 'kan', 'kan', 'kan', 'Kannada', 'ಕನ್ನಡ'),
-        array('kr', 'kau', 'kau', 'kau', 'Kanuri', 'Kanuri'),
-        array('ks', 'kas', 'kas', 'kas', 'Kashmiri', 'कश्मीरी, كشميري‎'),
-        array('kk', 'kaz', 'kaz', 'kaz', 'Kazakh', 'қазақ тілі'),
-        array('km', 'khm', 'khm', 'khm', 'Khmer', 'ខ្មែរ, ខេមរភាសា, ភាសាខ្មែរ'),
-        array('ki', 'kik', 'kik', 'kik', 'Kikuyu, Gikuyu', 'Gĩkũyũ'),
-        array('rw', 'kin', 'kin', 'kin', 'Kinyarwanda', 'Ikinyarwanda'),
-        array('ky', 'kir', 'kir', 'kir', 'Kyrgyz', 'Кыргызча, Кыргыз тили'),
-        array('kv', 'kom', 'kom', 'kom', 'Komi', 'коми кыв'),
-        array('kg', 'kon', 'kon', 'kon', 'Kongo', 'Kikongo'),
-        array('ko', 'kor', 'kor', 'kor', 'Korean', '한국어'),
-        array('ku', 'kur', 'kur', 'kur', 'Kurdish', 'Kurdî, كوردی‎'),
-        array('kj', 'kua', 'kua', 'kua', 'Kwanyama, Kuanyama', 'Kuanyama'),
-        array('la', 'lat', 'lat', 'lat', 'Latin', 'latine, lingua latina'),
-        array('', '', '', 'lld', 'Ladin', 'ladin, lingua ladina'),
-        array('lb', 'ltz', 'ltz', 'ltz', 'Luxembourgish, Letzeburgesch', 'Lëtzebuergesch'),
-        array('lg', 'lug', 'lug', 'lug', 'Ganda', 'Luganda'),
-        array('li', 'lim', 'lim', 'lim', 'Limburgish, Limburgan, Limburger', 'Limburgs'),
-        array('ln', 'lin', 'lin', 'lin', 'Lingala', 'Lingála'),
-        array('lo', 'lao', 'lao', 'lao', 'Lao', 'ພາສາລາວ'),
-        array('lt', 'lit', 'lit', 'lit', 'Lithuanian', 'lietuvių kalba'),
-        array('lu', 'lub', 'lub', 'lub', 'Luba-Katanga', 'Tshiluba'),
-        array('lv', 'lav', 'lav', 'lav', 'Latvian', 'latviešu valoda'),
-        array('gv', 'glv', 'glv', 'glv', 'Manx', 'Gaelg, Gailck'),
-        array('mk', 'mkd', 'mac', 'mkd', 'Macedonian', 'македонски јазик'),
-        array('mg', 'mlg', 'mlg', 'mlg', 'Malagasy', 'fiteny malagasy'),
-        array('ms', 'msa', 'may', 'msa', 'Malay', 'bahasa Melayu, بهاس ملايو‎'),
-        array('ml', 'mal', 'mal', 'mal', 'Malayalam', 'മലയാളം'),
-        array('mt', 'mlt', 'mlt', 'mlt', 'Maltese', 'Malti'),
-        array('mi', 'mri', 'mao', 'mri', 'Māori', 'te reo Māori'),
-        array('mr', 'mar', 'mar', 'mar', 'Marathi (Marāṭhī)', 'मराठी'),
-        array('mh', 'mah', 'mah', 'mah', 'Marshallese', 'Kajin M̧ajeļ'),
-        array('mn', 'mon', 'mon', 'mon', 'Mongolian', 'монгол'),
-        array('na', 'nau', 'nau', 'nau', 'Nauru', 'Ekakairũ Naoero'),
-        array('nv', 'nav', 'nav', 'nav', 'Navajo, Navaho', 'Diné bizaad'),
-        array('nd', 'nde', 'nde', 'nde', 'Northern Ndebele', 'isiNdebele'),
-        array('ne', 'nep', 'nep', 'nep', 'Nepali', 'नेपाली'),
-        array('ng', 'ndo', 'ndo', 'ndo', 'Ndonga', 'Owambo'),
-        array('nb', 'nob', 'nob', 'nob', 'Norwegian Bokmål', 'Norsk bokmål'),
-        array('nn', 'nno', 'nno', 'nno', 'Norwegian Nynorsk', 'Norsk nynorsk'),
-        array('no', 'nor', 'nor', 'nor', 'Norwegian', 'Norsk'),
-        array('ii', 'iii', 'iii', 'iii', 'Nuosu', 'ꆈꌠ꒿ Nuosuhxop'),
-        array('nr', 'nbl', 'nbl', 'nbl', 'Southern Ndebele', 'isiNdebele'),
-        array('oc', 'oci', 'oci', 'oci', 'Occitan', 'occitan, lenga d\'òc'),
-        array('oj', 'oji', 'oji', 'oji', 'Ojibwe, Ojibwa', 'ᐊᓂᔑᓈᐯᒧᐎᓐ'),
-        array('cu', 'chu', 'chu', 'chu', 'Old Church Slavonic, Church Slavonic, Old Bulgarian', 'ѩзыкъ словѣньскъ'),
-        array('om', 'orm', 'orm', 'orm', 'Oromo', 'Afaan Oromoo'),
-        array('or', 'ori', 'ori', 'ori', 'Oriya', 'ଓଡ଼ିଆ'),
-        array('os', 'oss', 'oss', 'oss', 'Ossetian, Ossetic', 'ирон æвзаг'),
-        array('pa', 'pan', 'pan', 'pan', 'Panjabi, Punjabi', 'ਪੰਜਾਬੀ, پنجابی‎'),
-        array('pi', 'pli', 'pli', 'pli', 'Pāli', 'पाऴि'),
-        array('fa', 'fas', 'per', 'fas', 'Persian (Farsi)', 'فارسی'),
-        array('pl', 'pol', 'pol', 'pol', 'Polish', 'język polski, polszczyzna'),
-        array('ps', 'pus', 'pus', 'pus', 'Pashto, Pushto', 'پښتو'),
-        array('pt', 'por', 'por', 'por', 'Portuguese', 'português'),
-        array('qu', 'que', 'que', 'que', 'Quechua', 'Runa Simi, Kichwa'),
-        array('rm', 'roh', 'roh', 'roh', 'Romansh', 'rumantsch grischun'),
-        array('rn', 'run', 'run', 'run', 'Kirundi', 'Ikirundi'),
-        array('ro', 'ron', 'rum', 'ron', 'Romanian', 'limba română'),
-        array('ru', 'rus', 'rus', 'rus', 'Russian', 'Русский'),
-        array('sa', 'san', 'san', 'san', 'Sanskrit (Saṁskṛta)', 'संस्कृतम्'),
-        array('sc', 'srd', 'srd', 'srd', 'Sardinian', 'sardu'),
-        array('sd', 'snd', 'snd', 'snd', 'Sindhi', 'सिन्धी, سنڌي، سندھی‎'),
-        array('se', 'sme', 'sme', 'sme', 'Northern Sami', 'Davvisámegiella'),
-        array('sm', 'smo', 'smo', 'smo', 'Samoan', 'gagana fa\'a Samoa'),
-        array('sg', 'sag', 'sag', 'sag', 'Sango', 'yângâ tî sängö'),
-        array('sr', 'srp', 'srp', 'srp', 'Serbian', 'српски језик'),
-        array('gd', 'gla', 'gla', 'gla', 'Scottish Gaelic, Gaelic', 'Gàidhlig'),
-        array('sn', 'sna', 'sna', 'sna', 'Shona', 'chiShona'),
-        array('si', 'sin', 'sin', 'sin', 'Sinhala, Sinhalese', 'සිංහල'),
-        array('sk', 'slk', 'slo', 'slk', 'Slovak', 'slovenčina, slovenský jazyk'),
-        array('sl', 'slv', 'slv', 'slv', 'Slovene', 'slovenski jezik, slovenščina'),
-        array('so', 'som', 'som', 'som', 'Somali', 'Soomaaliga, af Soomaali'),
-        array('st', 'sot', 'sot', 'sot', 'Southern Sotho', 'Sesotho'),
-        array('es', 'spa', 'spa', 'spa', 'Spanish', 'español'),
-        array('su', 'sun', 'sun', 'sun', 'Sundanese', 'Basa Sunda'),
-        array('sw', 'swa', 'swa', 'swa', 'Swahili', 'Kiswahili'),
-        array('ss', 'ssw', 'ssw', 'ssw', 'Swati', 'SiSwati'),
-        array('sv', 'swe', 'swe', 'swe', 'Swedish', 'svenska'),
-        array('ta', 'tam', 'tam', 'tam', 'Tamil', 'தமிழ்'),
-        array('te', 'tel', 'tel', 'tel', 'Telugu', 'తెలుగు'),
-        array('tg', 'tgk', 'tgk', 'tgk', 'Tajik', 'тоҷикӣ, toçikī, تاجیکی‎'),
-        array('th', 'tha', 'tha', 'tha', 'Thai', 'ไทย'),
-        array('ti', 'tir', 'tir', 'tir', 'Tigrinya', 'ትግርኛ'),
-        array('bo', 'bod', 'tib', 'bod', 'Tibetan Standard, Tibetan, Central', 'བོད་ཡིག'),
-        array('tk', 'tuk', 'tuk', 'tuk', 'Turkmen', 'Türkmen, Түркмен'),
-        array('tl', 'tgl', 'tgl', 'tgl', 'Tagalog', 'Wikang Tagalog, ᜏᜒᜃᜅ᜔ ᜆᜄᜎᜓᜄ᜔'),
-        array('tn', 'tsn', 'tsn', 'tsn', 'Tswana', 'Setswana'),
-        array('to', 'ton', 'ton', 'ton', 'Tonga (Tonga Islands)', 'faka Tonga'),
-        array('tr', 'tur', 'tur', 'tur', 'Turkish', 'Türkçe'),
-        array('ts', 'tso', 'tso', 'tso', 'Tsonga', 'Xitsonga'),
-        array('tt', 'tat', 'tat', 'tat', 'Tatar', 'татар теле, tatar tele'),
-        array('tw', 'twi', 'twi', 'twi', 'Twi', 'Twi'),
-        array('ty', 'tah', 'tah', 'tah', 'Tahitian', 'Reo Tahiti'),
-        array('ug', 'uig', 'uig', 'uig', 'Uyghur', 'ئۇيغۇرچە‎, Uyghurche'),
-        array('uk', 'ukr', 'ukr', 'ukr', 'Ukrainian', 'українська мова'),
-        array('ur', 'urd', 'urd', 'urd', 'Urdu', 'اردو'),
-        array('uz', 'uzb', 'uzb', 'uzb', 'Uzbek', 'Oʻzbek, Ўзбек, أۇزبېك‎'),
-        array('ve', 'ven', 'ven', 'ven', 'Venda', 'Tshivenḓa'),
-        array('vi', 'vie', 'vie', 'vie', 'Vietnamese', 'Việt Nam'),
-        array('vo', 'vol', 'vol', 'vol', 'Volapük', 'Volapük'),
-        array('wa', 'wln', 'wln', 'wln', 'Walloon', 'walon'),
-        array('cy', 'cym', 'wel', 'cym', 'Welsh', 'Cymraeg'),
-        array('wo', 'wol', 'wol', 'wol', 'Wolof', 'Wollof'),
-        array('fy', 'fry', 'fry', 'fry', 'Western Frisian', 'Frysk'),
-        array('xh', 'xho', 'xho', 'xho', 'Xhosa', 'isiXhosa'),
-        array('yi', 'yid', 'yid', 'yid', 'Yiddish', 'ייִדיש'),
-        array('yo', 'yor', 'yor', 'yor', 'Yoruba', 'Yorùbá'),
-        array('za', 'zha', 'zha', 'zha', 'Zhuang, Chuang', 'Saɯ cueŋƅ, Saw cuengh'),
-        array('zu', 'zul', 'zul', 'zul', 'Zulu', 'isiZulu'),
-    );
-
+    private array $languages = [
+        ['ab', 'abk', 'abk', 'abk', 'Abkhaz', 'аҧсуа бызшәа, аҧсшәа'],
+        ['aa', 'aar', 'aar', 'aar', 'Afar', 'Afaraf'],
+        ['af', 'afr', 'afr', 'afr', 'Afrikaans', 'Afrikaans'],
+        ['ak', 'aka', 'aka', 'aka', 'Akan', 'Akan'],
+        ['sq', 'sqi', 'alb', 'sqi', 'Albanian', 'Shqip'],
+        ['am', 'amh', 'amh', 'amh', 'Amharic', 'አማርኛ'],
+        ['ar', 'ara', 'ara', 'ara', 'Arabic', 'العربية'],
+        ['an', 'arg', 'arg', 'arg', 'Aragonese', 'aragonés'],
+        ['hy', 'hye', 'arm', 'hye', 'Armenian', 'Հայերեն'],
+        ['as', 'asm', 'asm', 'asm', 'Assamese', 'অসমীয়া'],
+        ['av', 'ava', 'ava', 'ava', 'Avaric', 'авар мацӀ, магӀарул мацӀ'],
+        ['ae', 'ave', 'ave', 'ave', 'Avestan', 'avesta'],
+        ['ay', 'aym', 'aym', 'aym', 'Aymara', 'aymar aru'],
+        ['az', 'aze', 'aze', 'aze', 'Azerbaijani', 'azərbaycan dili'],
+        ['bm', 'bam', 'bam', 'bam', 'Bambara', 'bamanankan'],
+        ['ba', 'bak', 'bak', 'bak', 'Bashkir', 'башҡорт теле'],
+        ['eu', 'eus', 'baq', 'eus', 'Basque', 'euskara, euskera'],
+        ['be', 'bel', 'bel', 'bel', 'Belarusian', 'беларуская мова'],
+        ['bn', 'ben', 'ben', 'ben', 'Bengali, Bangla', 'বাংলা'],
+        ['bh', 'bih', 'bih', '', 'Bihari', 'भोजपुरी'],
+        ['bi', 'bis', 'bis', 'bis', 'Bislama', 'Bislama'],
+        ['bs', 'bos', 'bos', 'bos', 'Bosnian', 'bosanski jezik'],
+        ['br', 'bre', 'bre', 'bre', 'Breton', 'brezhoneg'],
+        ['bg', 'bul', 'bul', 'bul', 'Bulgarian', 'български език'],
+        ['my', 'mya', 'bur', 'mya', 'Burmese', 'ဗမာစာ'],
+        ['ca', 'cat', 'cat', 'cat', 'Catalan', 'català'],
+        ['ch', 'cha', 'cha', 'cha', 'Chamorro', 'Chamoru'],
+        ['ce', 'che', 'che', 'che', 'Chechen', 'нохчийн мотт'],
+        ['ny', 'nya', 'nya', 'nya', 'Chichewa, Chewa, Nyanja', 'chiCheŵa, chinyanja'],
+        ['zh', 'zho', 'chi', 'zho', 'Chinese', '中文 (Zhōngwén), 汉语, 漢語'],
+        ['cv', 'chv', 'chv', 'chv', 'Chuvash', 'чӑваш чӗлхи'],
+        ['kw', 'cor', 'cor', 'cor', 'Cornish', 'Kernewek'],
+        ['co', 'cos', 'cos', 'cos', 'Corsican', 'corsu, lingua corsa'],
+        ['cr', 'cre', 'cre', 'cre', 'Cree', 'ᓀᐦᐃᔭᐍᐏᐣ'],
+        ['hr', 'hrv', 'hrv', 'hrv', 'Croatian', 'hrvatski jezik'],
+        ['cs', 'ces', 'cze', 'ces', 'Czech', 'čeština, český jazyk'],
+        ['da', 'dan', 'dan', 'dan', 'Danish', 'dansk'],
+        ['dv', 'div', 'div', 'div', 'Divehi, Dhivehi, Maldivian', 'ދިވެހި'],
+        ['nl', 'nld', 'dut', 'nld', 'Dutch', 'Nederlands, Vlaams'],
+        ['dz', 'dzo', 'dzo', 'dzo', 'Dzongkha', 'རྫོང་ཁ'],
+        ['en', 'eng', 'eng', 'eng', 'English', 'English'],
+        ['eo', 'epo', 'epo', 'epo', 'Esperanto', 'Esperanto'],
+        ['et', 'est', 'est', 'est', 'Estonian', 'eesti, eesti keel'],
+        ['ee', 'ewe', 'ewe', 'ewe', 'Ewe', 'Eʋegbe'],
+        ['fo', 'fao', 'fao', 'fao', 'Faroese', 'føroyskt'],
+        ['fj', 'fij', 'fij', 'fij', 'Fijian', 'vosa Vakaviti'],
+        ['fi', 'fin', 'fin', 'fin', 'Finnish', 'suomi, suomen kieli'],
+        ['fr', 'fra', 'fre', 'fra', 'French', 'français, langue française'],
+        ['ff', 'ful', 'ful', 'ful', 'Fula, Fulah, Pulaar, Pular', 'Fulfulde, Pulaar, Pular'],
+        ['gl', 'glg', 'glg', 'glg', 'Galician', 'galego'],
+        ['ka', 'kat', 'geo', 'kat', 'Georgian', 'ქართული'],
+        ['de', 'deu', 'ger', 'deu', 'German', 'Deutsch'],
+        ['el', 'ell', 'gre', 'ell', 'Greek (modern)', 'ελληνικά'],
+        ['gn', 'grn', 'grn', 'grn', 'Guaraní', 'Avañe\'ẽ'],
+        ['gu', 'guj', 'guj', 'guj', 'Gujarati', 'ગુજરાતી'],
+        ['ht', 'hat', 'hat', 'hat', 'Haitian, Haitian Creole', 'Kreyòl ayisyen'],
+        ['ha', 'hau', 'hau', 'hau', 'Hausa', '(Hausa) هَوُسَ'],
+        ['he', 'heb', 'heb', 'heb', 'Hebrew (modern)', 'עברית'],
+        ['hz', 'her', 'her', 'her', 'Herero', 'Otjiherero'],
+        ['hi', 'hin', 'hin', 'hin', 'Hindi', 'हिन्दी, हिंदी'],
+        ['ho', 'hmo', 'hmo', 'hmo', 'Hiri Motu', 'Hiri Motu'],
+        ['hu', 'hun', 'hun', 'hun', 'Hungarian', 'magyar'],
+        ['ia', 'ina', 'ina', 'ina', 'Interlingua', 'Interlingua'],
+        ['id', 'ind', 'ind', 'ind', 'Indonesian', 'Bahasa Indonesia'],
+        ['ie', 'ile', 'ile', 'ile', 'Interlingue', 'Originally called Occidental; then Interlingue after WWII'],
+        ['ga', 'gle', 'gle', 'gle', 'Irish', 'Gaeilge'],
+        ['ig', 'ibo', 'ibo', 'ibo', 'Igbo', 'Asụsụ Igbo'],
+        ['ik', 'ipk', 'ipk', 'ipk', 'Inupiaq', 'Iñupiaq, Iñupiatun'],
+        ['io', 'ido', 'ido', 'ido', 'Ido', 'Ido'],
+        ['is', 'isl', 'ice', 'isl', 'Icelandic', 'Íslenska'],
+        ['it', 'ita', 'ita', 'ita', 'Italian', 'italiano'],
+        ['iu', 'iku', 'iku', 'iku', 'Inuktitut', 'ᐃᓄᒃᑎᑐᑦ'],
+        ['ja', 'jpn', 'jpn', 'jpn', 'Japanese', '日本語 (にほんご)'],
+        ['jv', 'jav', 'jav', 'jav', 'Javanese', 'basa Jawa'],
+        ['kl', 'kal', 'kal', 'kal', 'Kalaallisut, Greenlandic', 'kalaallisut, kalaallit oqaasii'],
+        ['kn', 'kan', 'kan', 'kan', 'Kannada', 'ಕನ್ನಡ'],
+        ['kr', 'kau', 'kau', 'kau', 'Kanuri', 'Kanuri'],
+        ['ks', 'kas', 'kas', 'kas', 'Kashmiri', 'कश्मीरी, كشميري‎'],
+        ['kk', 'kaz', 'kaz', 'kaz', 'Kazakh', 'қазақ тілі'],
+        ['km', 'khm', 'khm', 'khm', 'Khmer', 'ខ្មែរ, ខេមរភាសា, ភាសាខ្មែរ'],
+        ['ki', 'kik', 'kik', 'kik', 'Kikuyu, Gikuyu', 'Gĩkũyũ'],
+        ['rw', 'kin', 'kin', 'kin', 'Kinyarwanda', 'Ikinyarwanda'],
+        ['ky', 'kir', 'kir', 'kir', 'Kyrgyz', 'Кыргызча, Кыргыз тили'],
+        ['kv', 'kom', 'kom', 'kom', 'Komi', 'коми кыв'],
+        ['kg', 'kon', 'kon', 'kon', 'Kongo', 'Kikongo'],
+        ['ko', 'kor', 'kor', 'kor', 'Korean', '한국어'],
+        ['ku', 'kur', 'kur', 'kur', 'Kurdish', 'Kurdî, كوردی‎'],
+        ['kj', 'kua', 'kua', 'kua', 'Kwanyama, Kuanyama', 'Kuanyama'],
+        ['la', 'lat', 'lat', 'lat', 'Latin', 'latine, lingua latina'],
+        ['', '', '', 'lld', 'Ladin', 'ladin, lingua ladina'],
+        ['lb', 'ltz', 'ltz', 'ltz', 'Luxembourgish, Letzeburgesch', 'Lëtzebuergesch'],
+        ['lg', 'lug', 'lug', 'lug', 'Ganda', 'Luganda'],
+        ['li', 'lim', 'lim', 'lim', 'Limburgish, Limburgan, Limburger', 'Limburgs'],
+        ['ln', 'lin', 'lin', 'lin', 'Lingala', 'Lingála'],
+        ['lo', 'lao', 'lao', 'lao', 'Lao', 'ພາສາລາວ'],
+        ['lt', 'lit', 'lit', 'lit', 'Lithuanian', 'lietuvių kalba'],
+        ['lu', 'lub', 'lub', 'lub', 'Luba-Katanga', 'Tshiluba'],
+        ['lv', 'lav', 'lav', 'lav', 'Latvian', 'latviešu valoda'],
+        ['gv', 'glv', 'glv', 'glv', 'Manx', 'Gaelg, Gailck'],
+        ['mk', 'mkd', 'mac', 'mkd', 'Macedonian', 'македонски јазик'],
+        ['mg', 'mlg', 'mlg', 'mlg', 'Malagasy', 'fiteny malagasy'],
+        ['ms', 'msa', 'may', 'msa', 'Malay', 'bahasa Melayu, بهاس ملايو‎'],
+        ['ml', 'mal', 'mal', 'mal', 'Malayalam', 'മലയാളം'],
+        ['mt', 'mlt', 'mlt', 'mlt', 'Maltese', 'Malti'],
+        ['mi', 'mri', 'mao', 'mri', 'Māori', 'te reo Māori'],
+        ['mr', 'mar', 'mar', 'mar', 'Marathi (Marāṭhī)', 'मराठी'],
+        ['mh', 'mah', 'mah', 'mah', 'Marshallese', 'Kajin M̧ajeļ'],
+        ['mn', 'mon', 'mon', 'mon', 'Mongolian', 'монгол'],
+        ['na', 'nau', 'nau', 'nau', 'Nauru', 'Ekakairũ Naoero'],
+        ['nv', 'nav', 'nav', 'nav', 'Navajo, Navaho', 'Diné bizaad'],
+        ['nd', 'nde', 'nde', 'nde', 'Northern Ndebele', 'isiNdebele'],
+        ['ne', 'nep', 'nep', 'nep', 'Nepali', 'नेपाली'],
+        ['ng', 'ndo', 'ndo', 'ndo', 'Ndonga', 'Owambo'],
+        ['nb', 'nob', 'nob', 'nob', 'Norwegian Bokmål', 'Norsk bokmål'],
+        ['nn', 'nno', 'nno', 'nno', 'Norwegian Nynorsk', 'Norsk nynorsk'],
+        ['no', 'nor', 'nor', 'nor', 'Norwegian', 'Norsk'],
+        ['ii', 'iii', 'iii', 'iii', 'Nuosu', 'ꆈꌠ꒿ Nuosuhxop'],
+        ['nr', 'nbl', 'nbl', 'nbl', 'Southern Ndebele', 'isiNdebele'],
+        ['oc', 'oci', 'oci', 'oci', 'Occitan', 'occitan, lenga d\'òc'],
+        ['oj', 'oji', 'oji', 'oji', 'Ojibwe, Ojibwa', 'ᐊᓂᔑᓈᐯᒧᐎᓐ'],
+        ['cu', 'chu', 'chu', 'chu', 'Old Church Slavonic, Church Slavonic, Old Bulgarian', 'ѩзыкъ словѣньскъ'],
+        ['om', 'orm', 'orm', 'orm', 'Oromo', 'Afaan Oromoo'],
+        ['or', 'ori', 'ori', 'ori', 'Oriya', 'ଓଡ଼ିଆ'],
+        ['os', 'oss', 'oss', 'oss', 'Ossetian, Ossetic', 'ирон æвзаг'],
+        ['pa', 'pan', 'pan', 'pan', 'Panjabi, Punjabi', 'ਪੰਜਾਬੀ, پنجابی‎'],
+        ['pi', 'pli', 'pli', 'pli', 'Pāli', 'पाऴि'],
+        ['fa', 'fas', 'per', 'fas', 'Persian (Farsi)', 'فارسی'],
+        ['pl', 'pol', 'pol', 'pol', 'Polish', 'język polski, polszczyzna'],
+        ['ps', 'pus', 'pus', 'pus', 'Pashto, Pushto', 'پښتو'],
+        ['pt', 'por', 'por', 'por', 'Portuguese', 'português'],
+        ['qu', 'que', 'que', 'que', 'Quechua', 'Runa Simi, Kichwa'],
+        ['rm', 'roh', 'roh', 'roh', 'Romansh', 'rumantsch grischun'],
+        ['rn', 'run', 'run', 'run', 'Kirundi', 'Ikirundi'],
+        ['ro', 'ron', 'rum', 'ron', 'Romanian', 'limba română'],
+        ['ru', 'rus', 'rus', 'rus', 'Russian', 'Русский'],
+        ['sa', 'san', 'san', 'san', 'Sanskrit (Saṁskṛta)', 'संस्कृतम्'],
+        ['sc', 'srd', 'srd', 'srd', 'Sardinian', 'sardu'],
+        ['sd', 'snd', 'snd', 'snd', 'Sindhi', 'सिन्धी, سنڌي، سندھی‎'],
+        ['se', 'sme', 'sme', 'sme', 'Northern Sami', 'Davvisámegiella'],
+        ['sm', 'smo', 'smo', 'smo', 'Samoan', 'gagana fa\'a Samoa'],
+        ['sg', 'sag', 'sag', 'sag', 'Sango', 'yângâ tî sängö'],
+        ['sr', 'srp', 'srp', 'srp', 'Serbian', 'српски језик'],
+        ['gd', 'gla', 'gla', 'gla', 'Scottish Gaelic, Gaelic', 'Gàidhlig'],
+        ['sn', 'sna', 'sna', 'sna', 'Shona', 'chiShona'],
+        ['si', 'sin', 'sin', 'sin', 'Sinhala, Sinhalese', 'සිංහල'],
+        ['sk', 'slk', 'slo', 'slk', 'Slovak', 'slovenčina, slovenský jazyk'],
+        ['sl', 'slv', 'slv', 'slv', 'Slovene', 'slovenski jezik, slovenščina'],
+        ['so', 'som', 'som', 'som', 'Somali', 'Soomaaliga, af Soomaali'],
+        ['st', 'sot', 'sot', 'sot', 'Southern Sotho', 'Sesotho'],
+        ['es', 'spa', 'spa', 'spa', 'Spanish', 'español'],
+        ['su', 'sun', 'sun', 'sun', 'Sundanese', 'Basa Sunda'],
+        ['sw', 'swa', 'swa', 'swa', 'Swahili', 'Kiswahili'],
+        ['ss', 'ssw', 'ssw', 'ssw', 'Swati', 'SiSwati'],
+        ['sv', 'swe', 'swe', 'swe', 'Swedish', 'svenska'],
+        ['ta', 'tam', 'tam', 'tam', 'Tamil', 'தமிழ்'],
+        ['te', 'tel', 'tel', 'tel', 'Telugu', 'తెలుగు'],
+        ['tg', 'tgk', 'tgk', 'tgk', 'Tajik', 'тоҷикӣ, toçikī, تاجیکی‎'],
+        ['th', 'tha', 'tha', 'tha', 'Thai', 'ไทย'],
+        ['ti', 'tir', 'tir', 'tir', 'Tigrinya', 'ትግርኛ'],
+        ['bo', 'bod', 'tib', 'bod', 'Tibetan Standard, Tibetan, Central', 'བོད་ཡིག'],
+        ['tk', 'tuk', 'tuk', 'tuk', 'Turkmen', 'Türkmen, Түркмен'],
+        ['tl', 'tgl', 'tgl', 'tgl', 'Tagalog', 'Wikang Tagalog, ᜏᜒᜃᜅ᜔ ᜆᜄᜎᜓᜄ᜔'],
+        ['tn', 'tsn', 'tsn', 'tsn', 'Tswana', 'Setswana'],
+        ['to', 'ton', 'ton', 'ton', 'Tonga (Tonga Islands)', 'faka Tonga'],
+        ['tr', 'tur', 'tur', 'tur', 'Turkish', 'Türkçe'],
+        ['ts', 'tso', 'tso', 'tso', 'Tsonga', 'Xitsonga'],
+        ['tt', 'tat', 'tat', 'tat', 'Tatar', 'татар теле, tatar tele'],
+        ['tw', 'twi', 'twi', 'twi', 'Twi', 'Twi'],
+        ['ty', 'tah', 'tah', 'tah', 'Tahitian', 'Reo Tahiti'],
+        ['ug', 'uig', 'uig', 'uig', 'Uyghur', 'ئۇيغۇرچە‎, Uyghurche'],
+        ['uk', 'ukr', 'ukr', 'ukr', 'Ukrainian', 'українська мова'],
+        ['ur', 'urd', 'urd', 'urd', 'Urdu', 'اردو'],
+        ['uz', 'uzb', 'uzb', 'uzb', 'Uzbek', 'Oʻzbek, Ўзбек, أۇزبېك‎'],
+        ['ve', 'ven', 'ven', 'ven', 'Venda', 'Tshivenḓa'],
+        ['vi', 'vie', 'vie', 'vie', 'Vietnamese', 'Việt Nam'],
+        ['vo', 'vol', 'vol', 'vol', 'Volapük', 'Volapük'],
+        ['wa', 'wln', 'wln', 'wln', 'Walloon', 'walon'],
+        ['cy', 'cym', 'wel', 'cym', 'Welsh', 'Cymraeg'],
+        ['wo', 'wol', 'wol', 'wol', 'Wolof', 'Wollof'],
+        ['fy', 'fry', 'fry', 'fry', 'Western Frisian', 'Frysk'],
+        ['xh', 'xho', 'xho', 'xho', 'Xhosa', 'isiXhosa'],
+        ['yi', 'yid', 'yid', 'yid', 'Yiddish', 'ייִדיש'],
+        ['yo', 'yor', 'yor', 'yor', 'Yoruba', 'Yorùbá'],
+        ['za', 'zha', 'zha', 'zha', 'Zhuang, Chuang', 'Saɯ cueŋƅ, Saw cuengh'],
+        ['zu', 'zul', 'zul', 'zul', 'Zulu', 'isiZulu'],
+    ];
 
     /**
      * Whether mbstring extension is available
@@ -236,7 +235,7 @@ class ISO639
         if ($this->hasMbstring) {
             return mb_strtolower($string, 'UTF-8');
         }
-        
+
         return strtolower($string);
     }
 
@@ -248,7 +247,7 @@ class ISO639
         if ($this->hasMbstring) {
             return mb_convert_case($string, MB_CASE_TITLE, 'UTF-8');
         }
-        
+
         return ucwords($string);
     }
 
@@ -260,7 +259,7 @@ class ISO639
     private array $code2tToCode1 = [];
     private array $code1ToCode2t = [];
     private array $code2bToLang = [];
-    
+
     private function buildHashmap(): void
     {
         foreach ($this->languages as $lang) {
@@ -292,7 +291,6 @@ class ISO639
             $this->code2bToLang[$iso639_2b] = $lang;
         }
     }
-
 
     /*
      * Get all language data
@@ -347,7 +345,7 @@ class ISO639
      */
     public function nativeByCode2b($code): string
     {
-       return $this->iso639_2b[$this->toLower($code)][self::KEY_NATIVE] ?? '';
+        return $this->iso639_2b[$this->toLower($code)][self::KEY_NATIVE] ?? '';
     }
 
     /*
@@ -355,7 +353,7 @@ class ISO639
      */
     public function languageByCode3($code): string
     {
-       return $this->iso639_3[$this->toLower($code)][self::KEY_ENGLISH] ?? '';
+        return $this->iso639_3[$this->toLower($code)][self::KEY_ENGLISH] ?? '';
     }
 
     /*
@@ -369,7 +367,7 @@ class ISO639
     /*
      * Get ISO-639-1 (two-letters code) from language name
      */
-    public function code1ByLanguage(string$language): string
+    public function code1ByLanguage(string $language): string
     {
         return $this->langEnglish[$this->toLower($language)][self::KEY_CODE_1] ?? '';
     }

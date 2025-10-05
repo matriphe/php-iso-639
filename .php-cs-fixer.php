@@ -1,30 +1,24 @@
 <?php
 
 $finder = PhpCsFixer\Finder::create()
-    ->exclude('vendor')
-    ->exclude('storage')
-    ->in(__DIR__);
+    ->in([
+        __DIR__ . '/src',
+        __DIR__ . '/tests',
+    ])
+    ->exclude('vendor');
 
 return (new PhpCsFixer\Config())
     ->setRiskyAllowed(true)
     ->setRules([
         '@PSR12' => true,
-        'array_syntax' => ['syntax' => 'long'],
+        'array_syntax' => ['syntax' => 'short'],
         'binary_operator_spaces' => true,
-        'blank_line_after_namespace' => true,
         'blank_line_after_opening_tag' => true,
-        'blank_line_before_statement' => [
-            'statements' => ['return']
-        ],
         'cast_spaces' => true,
-        'class_definition' => true,
         'concat_space' => ['spacing' => 'one'],
-        'declare_equal_normalize' => true,
         'function_typehint_space' => true,
         'lowercase_cast' => true,
-        'lowercase_keywords' => true,
         'method_argument_space' => true,
-        'modernize_types_casting' => true,
         'native_function_casing' => true,
         'new_with_braces' => true,
         'no_blank_lines_after_class_opening' => true,
@@ -37,7 +31,6 @@ return (new PhpCsFixer\Config())
                 'extra',
                 'throw',
                 'use',
-                'use_trait',
             ]
         ],
         'no_leading_import_slash' => true,
@@ -50,31 +43,23 @@ return (new PhpCsFixer\Config())
         'no_spaces_around_offset' => true,
         'no_spaces_inside_parenthesis' => true,
         'no_trailing_comma_in_list_call' => true,
-        'no_trailing_comma_in_singleline_array' => true,
         'no_trailing_whitespace' => true,
         'no_trailing_whitespace_in_comment' => true,
-        'no_unneeded_control_parentheses' => true,
         'no_unused_imports' => true,
         'no_whitespace_before_comma_in_array' => true,
         'no_whitespace_in_blank_line' => true,
         'normalize_index_brace' => true,
         'object_operator_without_whitespace' => true,
         'ordered_imports' => true,
-        'protected_to_private' => true,
-        'psr_autoloading' => true,
         'return_type_declaration' => true,
-        'self_accessor' => true,
         'short_scalar_cast' => true,
         'single_blank_line_at_eof' => true,
-        'single_blank_line_before_namespace' => true,
         'single_class_element_per_statement' => true,
         'single_import_per_statement' => true,
         'single_line_after_imports' => true,
         'single_quote' => true,
         'space_after_semicolon' => true,
         'standardize_not_equals' => true,
-        'switch_case_semicolon_to_colon' => true,
-        'switch_case_space' => true,
         'ternary_operator_spaces' => true,
         'trailing_comma_in_multiline' => ['elements' => ['arrays']],
         'trim_array_spaces' => true,

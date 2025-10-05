@@ -40,7 +40,6 @@ class ISO639Test extends TestCase
         $this->assertSame($expected, $this->iso->languageByCode1($code));
     }
 
-
     public static function nativeByCode1DataProvider(): array
     {
         return [
@@ -326,7 +325,7 @@ class ISO639Test extends TestCase
     {
         return [
             ['null'],
-            ['abc']
+            ['abc'],
         ];
     }
 
