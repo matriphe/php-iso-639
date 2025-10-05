@@ -36,13 +36,49 @@ jobs:
           COMMIT_MESSAGE=$(git log -1 --pretty=%B)
           echo "Commit message: $COMMIT_MESSAGE"
           
-          # Check if this looks like a merge commit (contains "Merge pull request")
+          # Extract PR number from merge commit message
           if echo "$COMMIT_MESSAGE" | grep -q "Merge pull request"; then
             echo "Triggered by PR merge to master"
             echo "is-pr-merge=true" >> $GITHUB_OUTPUT
+            
+            # Extract PR number from commit message like "Merge pull request #123 from..."
+            PR_NUMBER=$(echo "$COMMIT_MESSAGE" | sed -n 's/.*Merge pull request #\([0-9]*\).*/\1/p')
+            echo "pr-number=$PR_NUMBER" >> $GITHUB_OUTPUT
+            echo "Found PR number: $PR_NUMBER"
           else
             echo "Not triggered by PR merge, skipping release"
             echo "is-pr-merge=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Get PR description
+        id: get-pr-description
+        if: steps.check-trigger.outputs.is-pr-merge == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Install jq if not available
+          which jq || sudo apt-get update && sudo apt-get install -y jq
+          
+          PR_NUMBER="${{ steps.check-trigger.outputs.pr-number }}"
+          
+          if [ -n "$PR_NUMBER" ]; then
+            echo "Fetching PR #$PR_NUMBER description..."
+            
+            # Get PR description using GitHub API
+            PR_DESCRIPTION=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+              "https://api.github.com/repos/${{ github.repository }}/pulls/$PR_NUMBER" | \
+              jq -r '.body // "No description provided"')
+            
+            echo "PR Description:"
+            echo "$PR_DESCRIPTION"
+            
+            # Save PR description for later use
+            echo "pr-description<<EOF" >> $GITHUB_OUTPUT
+            echo "$PR_DESCRIPTION" >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+          else
+            echo "No PR number found"
+            echo "pr-description=No description available" >> $GITHUB_OUTPUT
           fi
 
       - name: Check if changes are only in workflow files
@@ -159,40 +195,54 @@ jobs:
           echo "new-version=$NEW_VERSION" >> $GITHUB_OUTPUT
           echo "New version: $NEW_VERSION"
 
-      - name: Generate changelog
-        id: changelog
+      - name: Generate release description
+        id: release-description
         if: steps.check-trigger.outputs.is-pr-merge == 'true' && steps.check-changes.outputs.skip-release == 'false'
         run: |
+          PR_DESCRIPTION="${{ steps.get-pr-description.outputs.pr-description }}"
           LATEST_TAG="${{ steps.get-latest-release.outputs.latest-tag }}"
+          
+          # Create release description with PR description and changelog
+          echo "## Release Notes" > RELEASE_DESCRIPTION.md
+          echo "" >> RELEASE_DESCRIPTION.md
+          
+          if [ "$PR_DESCRIPTION" != "No description provided" ] && [ "$PR_DESCRIPTION" != "No description available" ] && [ -n "$PR_DESCRIPTION" ]; then
+            echo "$PR_DESCRIPTION" >> RELEASE_DESCRIPTION.md
+            echo "" >> RELEASE_DESCRIPTION.md
+          fi
+          
+          echo "## Changes" >> RELEASE_DESCRIPTION.md
+          echo "" >> RELEASE_DESCRIPTION.md
           
           # Generate changelog from commits
           if [ "${{ steps.get-latest-release.outputs.is-first-release }}" = "true" ]; then
             COMMITS=$(git log --oneline --no-merges --reverse)
-            echo "## Initial Release" > CHANGELOG.md
-            echo "" >> CHANGELOG.md
-            echo "$COMMITS" >> CHANGELOG.md
+            echo "### Initial Release" >> RELEASE_DESCRIPTION.md
+            echo "" >> RELEASE_DESCRIPTION.md
+            echo "$COMMITS" >> RELEASE_DESCRIPTION.md
           else
             COMMITS=$(git log --oneline --no-merges --reverse ${LATEST_TAG}..HEAD)
-            echo "## Changes" > CHANGELOG.md
-            echo "" >> CHANGELOG.md
-            echo "$COMMITS" >> CHANGELOG.md
+            echo "$COMMITS" >> RELEASE_DESCRIPTION.md
           fi
           
-          # Read changelog for output
-          CHANGELOG=$(cat CHANGELOG.md)
-          echo "changelog<<EOF" >> $GITHUB_OUTPUT
-          echo "$CHANGELOG" >> $GITHUB_OUTPUT
+          # Read release description for output
+          RELEASE_DESC=$(cat RELEASE_DESCRIPTION.md)
+          echo "release-description<<EOF" >> $GITHUB_OUTPUT
+          echo "$RELEASE_DESC" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
+          
+          echo "Final release description:"
+          echo "$RELEASE_DESC"
 
       - name: Create Release
         if: steps.check-trigger.outputs.is-pr-merge == 'true' && steps.check-changes.outputs.skip-release == 'false'
-        uses: actions/create-release@v1
+        uses: softprops/action-gh-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ steps.calculate-version.outputs.new-version }}
-          release_name: ${{ steps.calculate-version.outputs.new-version }}
-          body: ${{ steps.changelog.outputs.changelog }}
+          name: ${{ steps.calculate-version.outputs.new-version }}
+          body: ${{ steps.release-description.outputs.release-description }}
           draft: false
           prerelease: false
 
