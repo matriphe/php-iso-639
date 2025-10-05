@@ -4,3 +4,8 @@ composer.lock
 
 # PhpStorm IDE
 /.idea
+
+# Coverage reports
+/coverage
+coverage.xml
+.phpunit.cache
