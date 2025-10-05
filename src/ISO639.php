@@ -23,6 +23,7 @@ class ISO639
      * Source: https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
      */
     private array $languages = [
+        // ISO 639-1, ISO 639-2/T, ISO 639-2/B, ISO 639-3, English name, Native name
         ['ab', 'abk', 'abk', 'abk', 'Abkhaz', 'аҧсуа бызшәа, аҧсшәа'],
         ['aa', 'aar', 'aar', 'aar', 'Afar', 'Afaraf'],
         ['af', 'afr', 'afr', 'afr', 'Afrikaans', 'Afrikaans'],
@@ -42,7 +43,7 @@ class ISO639
         ['eu', 'eus', 'baq', 'eus', 'Basque', 'euskara, euskera'],
         ['be', 'bel', 'bel', 'bel', 'Belarusian', 'беларуская мова'],
         ['bn', 'ben', 'ben', 'ben', 'Bengali, Bangla', 'বাংলা'],
-        ['bh', 'bih', 'bih', '', 'Bihari', 'भोजपुरी'],
+        ['bh', 'bho', 'bih', 'bih', 'Bihari', 'भोजपुरी'],
         ['bi', 'bis', 'bis', 'bis', 'Bislama', 'Bislama'],
         ['bs', 'bos', 'bos', 'bos', 'Bosnian', 'bosanski jezik'],
         ['br', 'bre', 'bre', 'bre', 'Breton', 'brezhoneg'],
