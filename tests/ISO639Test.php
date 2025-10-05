@@ -152,6 +152,34 @@ class ISO639Test extends TestCase
         $this->assertSame($expected, $this->iso->nativeByCode2t($code));
     }
 
+    public static function nativeByCode2tCapitalizedDataProvider(): array
+    {
+        return [
+            ['eng', 'English'],
+            ['fra', 'Français, Langue Française'],
+            ['spa', 'Español'],
+            ['ind', 'Bahasa Indonesia'],
+            ['jav', 'Basa Jawa'],
+            ['hin', 'हिन्दी, हिंदी'],
+            ['tha', 'ไทย'],
+            ['kor', '한국어'],
+            ['jpn', '日本語 (にほんご)'],
+            ['zho', '中文 (Zhōngwén), 汉语, 漢語'],
+            ['rus', 'Русский'],
+            ['ara', 'العربية'],
+            ['vie', 'Việt Nam'],
+            ['msa', 'Bahasa Melayu, بهاس ملايو‎'],
+            ['sun', 'Basa Sunda'],
+        ];
+    }
+
+    /** @dataProvider nativeByCode2tCapitalizedDataProvider */
+    #[\PHPUnit\Framework\Attributes\DataProvider('nativeByCode2tCapitalizedDataProvider')]
+    public function testNativeISO6392tCapitalized(string $code, string $expected): void
+    {
+        $this->assertSame($expected, $this->iso->nativeByCode2t($code, true));
+    }
+
     public static function nativeByCode2bDataProvider(): array
     {
         return [
