@@ -37,6 +37,12 @@ class ISO639Test extends TestCase
             ['  fr  ', 'French'],
             ["\tes\t", 'Spanish'],
             ["\nid\n", 'Indonesian'],
+
+            // Edge cases with multi case
+            ['EN', 'English'],
+            ['Fr', 'French'],
+            ['eS', 'Spanish'],
+            ['iD', 'Indonesian'],
         ];
     }
 
@@ -94,6 +100,17 @@ class ISO639Test extends TestCase
             ['  fr  ', 'Français, Langue Française', true],
             ["\tes\t", 'Español', true],
             ["\nid\n", 'Bahasa Indonesia', true],
+
+            // Edge cases with multi case
+            ['EN', 'English', false],
+            ['Fr', 'français, langue française', false],
+            ['eS', 'español', false],
+            ['iD', 'Bahasa Indonesia', false],
+
+            ['EN', 'English', true],
+            ['Fr', 'Français, Langue Française', true],
+            ['eS', 'Español', true],
+            ['iD', 'Bahasa Indonesia', true],
         ];
     }
 
@@ -129,6 +146,12 @@ class ISO639Test extends TestCase
             ['  msa  ', 'Malay'],
             ["\tzho\t", 'Chinese'],
             ["\nmsa\n", 'Malay'],
+
+            // Edge cases with multi case
+            ['ENG', 'English'],
+            ['Fra', 'French'],
+            ['sPA', 'Spanish'],
+            ['iND', 'Indonesian'],
         ];
     }
 
@@ -186,6 +209,17 @@ class ISO639Test extends TestCase
             ['  msa  ', 'Bahasa Melayu, بهاس ملايو‎', true],
             ["\tzho\t", '中文 (Zhōngwén), 汉语, 漢語', true],
             ["\nmsa\n", 'Bahasa Melayu, بهاس ملايو‎', true],
+
+            // Edge cases with multi case
+            ['ENG', 'English', false],
+            ['Fra', 'français, langue française', false],
+            ['sPA', 'español', false],
+            ['iND', 'Bahasa Indonesia', false],
+
+            ['ENG', 'English', true],
+            ['Fra', 'Français, Langue Française', true],
+            ['sPA', 'Español', true],
+            ['iND', 'Bahasa Indonesia', true],
         ];
     }
 
@@ -221,6 +255,12 @@ class ISO639Test extends TestCase
             ['  may  ', 'Malay'],
             ["\tchi\t", 'Chinese'],
             ["\nmay\n", 'Malay'],
+
+            // Edge cases with multi case
+            ['ENG', 'English'],
+            ['Fre', 'French'],
+            ['sPA', 'Spanish'],
+            ['iND', 'Indonesian'],
         ];
     }
 
@@ -278,6 +318,17 @@ class ISO639Test extends TestCase
             ['  may  ', 'Bahasa Melayu, بهاس ملايو‎', true],
             ["\tchi\t", '中文 (Zhōngwén), 汉语, 漢語', true],
             ["\nmay\n", 'Bahasa Melayu, بهاس ملايو‎', true],
+
+            // Edge cases with multi case
+            ['ENG', 'English', false],
+            ['Fre', 'français, langue française', false],
+            ['sPA', 'español', false],
+            ['iND', 'Bahasa Indonesia', false],
+
+            ['ENG', 'English', true],
+            ['Fre', 'Français, Langue Française', true],
+            ['sPA', 'Español', true],
+            ['iND', 'Bahasa Indonesia', true],
         ];
     }
 
@@ -313,6 +364,12 @@ class ISO639Test extends TestCase
             ['  msa  ', 'Malay'],
             ["\tzho\t", 'Chinese'],
             ["\nmsa\n", 'Malay'],
+
+            // Edge cases with multi case
+            ['ENG', 'English'],
+            ['Fra', 'French'],
+            ['sPA', 'Spanish'],
+            ['iND', 'Indonesian'],  
         ];
     }
 
@@ -370,6 +427,17 @@ class ISO639Test extends TestCase
             ['  msa  ', 'Bahasa Melayu, بهاس ملايو‎', true],
             ["\tzho\t", '中文 (Zhōngwén), 汉语, 漢語', true],
             ["\nmsa\n", 'Bahasa Melayu, بهاس ملايو‎', true],
+
+            // Edge cases with multi case
+            ['ENG', 'English', false],
+            ['Fra', 'français, langue française', false],
+            ['sPA', 'español', false],
+            ['iND', 'Bahasa Indonesia', false],
+
+            ['ENG', 'English', true],
+            ['Fra', 'Français, Langue Française', true],
+            ['sPA', 'Español', true],
+            ['iND', 'Bahasa Indonesia', true],
         ];
     }
 
@@ -405,6 +473,10 @@ class ISO639Test extends TestCase
             ['ms', ' Malay '],
             ['zh', "\tChinese\t"],
             ['ms', "\nMalay\n"],
+
+            // Edge cases with multi case
+            ['en', 'ENGLISH'],
+            ['fr', 'FRench'],
         ];
     }
     /** @dataProvider code1ByLanguageDataProvider */
@@ -439,6 +511,10 @@ class ISO639Test extends TestCase
             ['msa', ' Malay '],
             ['zho', "\tChinese\t"],
             ['msa', "\nMalay\n"],
+
+            // Edge cases with multi case
+            ['eng', 'ENGLISH'],
+            ['fra', 'FRench'],
         ];
     }
 
@@ -474,6 +550,10 @@ class ISO639Test extends TestCase
             ['may', ' Malay '],
             ['chi', "\tChinese\t"],
             ['may', "\nMalay\n"],
+
+            // Edge cases with multi case
+            ['eng', 'ENGLISH'],
+            ['fre', 'FRench'],
         ];
     }
 
@@ -509,6 +589,10 @@ class ISO639Test extends TestCase
             ['msa', ' Malay '],
             ['zho', "\tChinese\t"],
             ['msa', "\nMalay\n"],
+
+            // Edge cases with multi case
+            ['eng', 'ENGLISH'],
+            ['fra', 'FRench'],
         ];
     }
 
