@@ -23,7 +23,7 @@ jobs:
         php-version: '8.4'
         extensions: mbstring
         coverage: none
-        
+
     - name: Cache Composer packages
       id: composer-cache
       uses: actions/cache@v3
@@ -31,8 +31,8 @@ jobs:
         path: vendor
         key: ${{ runner.os }}-php-8.4-${{ hashFiles('**/composer.lock') }}
         restore-keys: |
-          ${{ runner.os }}-php-8.4-
-          
+          ${{ runner.os }}-php-8.4
+
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress --no-interaction
       
