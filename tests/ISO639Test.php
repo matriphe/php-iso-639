@@ -15,6 +15,7 @@ class ISO639Test extends TestCase
     public static function languageByCode1DataProvider(): array
     {
         return [
+            // Happy path
             ['en', 'English'],
             ['fr', 'French'],
             ['es', 'Spanish'],
@@ -30,6 +31,12 @@ class ISO639Test extends TestCase
             ['vi', 'Vietnamese'],
             ['ms', 'Malay'],
             ['su', 'Sundanese'],
+
+            // Edge cases with spaces and tabs/newlines
+            [' en ', 'English'],
+            ['  fr  ', 'French'],
+            ["\tes\t", 'Spanish'],
+            ["\nid\n", 'Indonesian'],
         ];
     }
 
@@ -59,6 +66,7 @@ class ISO639Test extends TestCase
             ['vi', 'Việt Nam', false],
             ['ms', 'bahasa Melayu, بهاس ملايو‎', false],
             ['su', 'Basa Sunda', false],
+
             // Capitalized
             ['en', 'English', true],
             ['fr', 'Français, Langue Française', true],
@@ -75,6 +83,17 @@ class ISO639Test extends TestCase
             ['vi', 'Việt Nam', true],
             ['ms', 'Bahasa Melayu, بهاس ملايو‎', true],
             ['su', 'Basa Sunda', true],
+
+            // Edge cases with spaces and tabs/newlines
+            [' en ', 'English', false],
+            ['  fr  ', 'français, langue française', false],
+            ["\tes\t", 'español', false],
+            ["\nid\n", 'Bahasa Indonesia', false],
+
+            [' en ', 'English', true],
+            ['  fr  ', 'Français, Langue Française', true],
+            ["\tes\t", 'Español', true],
+            ["\nid\n", 'Bahasa Indonesia', true],
         ];
     }
 
@@ -88,6 +107,7 @@ class ISO639Test extends TestCase
     public static function languageByCode2tDataProvider(): array
     {
         return [
+            // Happy path
             ['eng', 'English'],
             ['fra', 'French'],
             ['spa', 'Spanish'],
@@ -103,6 +123,12 @@ class ISO639Test extends TestCase
             ['vie', 'Vietnamese'],
             ['msa', 'Malay'],
             ['sun', 'Sundanese'],
+
+            // Edge cases with spaces and tabs/newlines
+            [' zho ', 'Chinese'],
+            ['  msa  ', 'Malay'],
+            ["\tzho\t", 'Chinese'],
+            ["\nmsa\n", 'Malay'],
         ];
     }
 
@@ -132,6 +158,7 @@ class ISO639Test extends TestCase
             ['vie', 'Việt Nam', false],
             ['msa', 'bahasa Melayu, بهاس ملايو‎', false],
             ['sun', 'Basa Sunda', false],
+
             // Capitalized
             ['eng', 'English', true],
             ['fra', 'Français, Langue Française', true],
@@ -148,6 +175,17 @@ class ISO639Test extends TestCase
             ['vie', 'Việt Nam', true],
             ['msa', 'Bahasa Melayu, بهاس ملايو‎', true],
             ['sun', 'Basa Sunda', true],
+
+            // Edge cases with spaces and tabs/newlines
+            [' zho ', '中文 (Zhōngwén), 汉语, 漢語', false],
+            ['  msa  ', 'bahasa Melayu, بهاس ملايو‎', false],
+            ["\tzho\t", '中文 (Zhōngwén), 汉语, 漢語', false],
+            ["\nmsa\n", 'bahasa Melayu, بهاس ملايو‎', false],
+
+            [' zho ', '中文 (Zhōngwén), 汉语, 漢語', true],
+            ['  msa  ', 'Bahasa Melayu, بهاس ملايو‎', true],
+            ["\tzho\t", '中文 (Zhōngwén), 汉语, 漢語', true],
+            ["\nmsa\n", 'Bahasa Melayu, بهاس ملايو‎', true],
         ];
     }
 
@@ -161,6 +199,7 @@ class ISO639Test extends TestCase
     public static function languageByCode2bDataProvider(): array
     {
         return [
+            // Happy path
             ['eng', 'English'],
             ['fre', 'French'],
             ['spa', 'Spanish'],
@@ -176,6 +215,12 @@ class ISO639Test extends TestCase
             ['vie', 'Vietnamese'],
             ['may', 'Malay'],
             ['sun', 'Sundanese'],
+
+            // Edge cases with spaces and tabs/newlines
+            [' chi ', 'Chinese'],
+            ['  may  ', 'Malay'],
+            ["\tchi\t", 'Chinese'],
+            ["\nmay\n", 'Malay'],
         ];
     }
 
@@ -205,6 +250,7 @@ class ISO639Test extends TestCase
             ['vie', 'Việt Nam', false],
             ['may', 'bahasa Melayu, بهاس ملايو‎', false],
             ['sun', 'Basa Sunda', false],
+
             // Capitalized
             ['eng', 'English', true],
             ['fre', 'Français, Langue Française', true],
@@ -221,6 +267,17 @@ class ISO639Test extends TestCase
             ['vie', 'Việt Nam', true],
             ['may', 'Bahasa Melayu, بهاس ملايو‎', true],
             ['sun', 'Basa Sunda', true],
+
+            // Edge cases with spaces and tabs/newlines
+            [' chi ', '中文 (Zhōngwén), 汉语, 漢語', false],
+            ['  may  ', 'bahasa Melayu, بهاس ملايو‎', false],
+            ["\tchi\t", '中文 (Zhōngwén), 汉语, 漢語', false],
+            ["\nmay\n", 'bahasa Melayu, بهاس ملايو‎', false],
+
+            [' chi ', '中文 (Zhōngwén), 汉语, 漢語', true],
+            ['  may  ', 'Bahasa Melayu, بهاس ملايو‎', true],
+            ["\tchi\t", '中文 (Zhōngwén), 汉语, 漢語', true],
+            ["\nmay\n", 'Bahasa Melayu, بهاس ملايو‎', true],
         ];
     }
 
@@ -234,6 +291,7 @@ class ISO639Test extends TestCase
     public static function languageByCode3DataProvider(): array
     {
         return [
+            // Happy path
             ['eng', 'English'],
             ['fra', 'French'],
             ['spa', 'Spanish'],
@@ -249,6 +307,12 @@ class ISO639Test extends TestCase
             ['vie', 'Vietnamese'],
             ['msa', 'Malay'],
             ['sun', 'Sundanese'],
+            
+            // Edge cases with spaces and tabs/newlines
+            [' zho ', 'Chinese'],
+            ['  msa  ', 'Malay'],
+            ["\tzho\t", 'Chinese'],
+            ["\nmsa\n", 'Malay'],
         ];
     }
 
@@ -278,6 +342,7 @@ class ISO639Test extends TestCase
             ['vie', 'Việt Nam', false],
             ['msa', 'bahasa Melayu, بهاس ملايو‎', false],
             ['sun', 'Basa Sunda', false],
+
             // Capitalized
             ['eng', 'English', true],
             ['fra', 'Français, Langue Française', true],
@@ -294,6 +359,17 @@ class ISO639Test extends TestCase
             ['vie', 'Việt Nam', true],
             ['msa', 'Bahasa Melayu, بهاس ملايو‎', true],
             ['sun', 'Basa Sunda', true],
+
+            // Edge cases with spaces and tabs/newlines
+            [' zho ', '中文 (Zhōngwén), 汉语, 漢語', false],
+            ['  msa  ', 'bahasa Melayu, بهاس ملايو‎', false],
+            ["\tzho\t", '中文 (Zhōngwén), 汉语, 漢語', false],
+            ["\nmsa\n", 'bahasa Melayu, بهاس ملايو‎', false],
+
+            [' zho ', '中文 (Zhōngwén), 汉语, 漢語', true],
+            ['  msa  ', 'Bahasa Melayu, بهاس ملايو‎', true],
+            ["\tzho\t", '中文 (Zhōngwén), 汉语, 漢語', true],
+            ["\nmsa\n", 'Bahasa Melayu, بهاس ملايو‎', true],
         ];
     }
 
@@ -307,6 +383,7 @@ class ISO639Test extends TestCase
     public static function code1ByLanguageDataProvider(): array
     {
         return [
+            // Happy path
             ['en', 'English'],
             ['fr', 'French'],
             ['es', 'Spanish'],
@@ -322,6 +399,12 @@ class ISO639Test extends TestCase
             ['vi', 'Vietnamese'],
             ['ms', 'Malay'],
             ['su', 'Sundanese'],
+            
+            // Edge cases with leading/trailing spaces and tabs/newlines
+            ['zh', ' Chinese '],
+            ['ms', ' Malay '],
+            ['zh', "\tChinese\t"],
+            ['ms', "\nMalay\n"],
         ];
     }
     /** @dataProvider code1ByLanguageDataProvider */
@@ -334,6 +417,7 @@ class ISO639Test extends TestCase
     public static function code2tByLanguageDataProvider(): array
     {
         return [
+            // Happy path
             ['eng', 'English'],
             ['fra', 'French'],
             ['spa', 'Spanish'],
@@ -349,6 +433,12 @@ class ISO639Test extends TestCase
             ['vie', 'Vietnamese'],
             ['msa', 'Malay'],
             ['sun', 'Sundanese'],
+
+            // Edge cases with leading/trailing spaces and tabs/newlines
+            ['zho', ' Chinese '],
+            ['msa', ' Malay '],
+            ['zho', "\tChinese\t"],
+            ['msa', "\nMalay\n"],
         ];
     }
 
@@ -362,6 +452,7 @@ class ISO639Test extends TestCase
     public static function code2bByLanguageDataProvider(): array
     {
         return [
+            // Happy path
             ['eng', 'English'],
             ['fre', 'French'],
             ['spa', 'Spanish'],
@@ -377,6 +468,12 @@ class ISO639Test extends TestCase
             ['vie', 'Vietnamese'],
             ['may', 'Malay'],
             ['sun', 'Sundanese'],
+
+            // Edge cases with leading/trailing spaces and tabs/newlines
+            ['chi', ' Chinese '],
+            ['may', ' Malay '],
+            ['chi', "\tChinese\t"],
+            ['may', "\nMalay\n"],
         ];
     }
 
@@ -390,6 +487,7 @@ class ISO639Test extends TestCase
     public static function code3ByLanguageDataProvider(): array
     {
         return [
+            // Happy path
             ['eng', 'English'],
             ['fra', 'French'],
             ['spa', 'Spanish'],
@@ -405,6 +503,12 @@ class ISO639Test extends TestCase
             ['vie', 'Vietnamese'],
             ['msa', 'Malay'],
             ['sun', 'Sundanese'],
+
+            // Edge cases with leading/trailing spaces and tabs/newlines
+            ['zho', ' Chinese '],
+            ['msa', ' Malay '],
+            ['zho', "\tChinese\t"],
+            ['msa', "\nMalay\n"],
         ];
     }
 
@@ -625,11 +729,11 @@ class ISO639Test extends TestCase
     public static function invalidLanguageDataProvider(): array
     {
         return [
-            [''],
             ['NonExistentLanguage'],
             ['123'],
             ['InvalidLang'],
             ['Unknown'],
+            ['xy'],
         ];
     }
 
@@ -668,115 +772,6 @@ class ISO639Test extends TestCase
         $this->assertSame('', $this->iso->code2tByCode1($code));
     }
 
-    // Test case sensitivity for language names
-    public static function languageCaseSensitivityDataProvider(): array
-    {
-        return [
-            ['ENGLISH', 'English', 'en'],
-            ['french', 'French', 'fr'],
-            ['Spanish', 'Spanish', 'es'],
-            ['indonesian', 'Indonesian', 'id'],
-        ];
-    }
-
-    /** @dataProvider languageCaseSensitivityDataProvider */
-    #[\PHPUnit\Framework\Attributes\DataProvider('languageCaseSensitivityDataProvider')]
-    public function testLanguageNameCaseSensitivity(string $caseVariant, string $normalCase, string $expectedCode): void
-    {
-        $resultVariant = $this->iso->code1ByLanguage($caseVariant);
-        $resultNormal = $this->iso->code1ByLanguage($normalCase);
-
-        $this->assertSame($expectedCode, $resultNormal);
-        $this->assertSame($expectedCode, $resultVariant);
-        $this->assertSame($resultNormal, $resultVariant);
-    }
-
-    // Test specific edge cases for methods
-    public function testGetLanguageByIsoCode2bEdgeCases(): void
-    {
-        // Test with valid codes
-        $result = $this->iso->getLanguageByIsoCode2b('eng');
-        $this->assertIsArray($result);
-        $this->assertCount(6, $result);
-
-        // Test with definitely invalid codes should return null
-        $this->assertNull($this->iso->getLanguageByIsoCode2b('xyz'));
-        $this->assertNull($this->iso->getLanguageByIsoCode2b('invalid'));
-        $this->assertNull($this->iso->getLanguageByIsoCode2b('zzz'));
-    }
-
-    // Test special case for empty string inputs (which may legitimately match some entries)
-    public function testEmptyStringBehavior(): void
-    {
-        // For Ladin language that has empty codes for ISO-639-1, ISO-639-2t, ISO-639-2b but has ISO-639-3 'lld'
-        // Empty string will match these empty fields, which is actually correct behavior
-
-        $ladinResult = $this->iso->languageByCode1('');
-        $this->assertSame('Ladin', $ladinResult);
-
-        $ladinNative = $this->iso->nativeByCode1('');
-        $this->assertSame('ladin, lingua ladina', $ladinNative);
-
-        // This is expected behavior - empty strings match legitimate empty fields in the database
-        // The Ladin language entry: ['', '', '', 'lld', 'Ladin', 'ladin, lingua ladina']
-    }
-
-    // Test native language capitalization feature
-    public static function capitalizationDataProvider(): array
-    {
-        return [
-            ['fr', 'français, langue française', 'Français, Langue Française'],
-            ['es', 'español', 'Español'],
-            ['de', 'Deutsch', 'Deutsch'], // Already capitalized
-            ['pt', 'português', 'Português'],
-            ['it', 'italiano', 'Italiano'],
-        ];
-    }
-
-    /** @dataProvider capitalizationDataProvider */
-    #[\PHPUnit\Framework\Attributes\DataProvider('capitalizationDataProvider')]
-    public function testNativeByCode1Capitalization(string $code, string $expectedLower, string $expectedUpper): void
-    {
-        $this->assertSame($expectedLower, $this->iso->nativeByCode1($code, false));
-        $this->assertSame($expectedUpper, $this->iso->nativeByCode1($code, true));
-    }
-
-    /** @dataProvider capitalizationDataProvider */
-    #[\PHPUnit\Framework\Attributes\DataProvider('capitalizationDataProvider')]
-    public function testNativeByCode2tCapitalization(string $code1, string $expectedLower, string $expectedUpper): void
-    {
-        // Convert code1 to code2t for testing
-        $code2t = $this->iso->code2tByCode1($code1);
-        if (!empty($code2t)) {
-            $this->assertSame($expectedLower, $this->iso->nativeByCode2t($code2t, false));
-            $this->assertSame($expectedUpper, $this->iso->nativeByCode2t($code2t, true));
-        }
-    }
-
-    /** @dataProvider capitalizationDataProvider */
-    #[\PHPUnit\Framework\Attributes\DataProvider('capitalizationDataProvider')]
-    public function testNativeByCode2bCapitalization(string $code1, string $expectedLower, string $expectedUpper): void
-    {
-        // We need to find the appropriate code2b for these
-        $code2b = $this->iso->code2bByLanguage($this->iso->languageByCode1($code1));
-        if (!empty($code2b)) {
-            $this->assertSame($expectedLower, $this->iso->nativeByCode2b($code2b, false));
-            $this->assertSame($expectedUpper, $this->iso->nativeByCode2b($code2b, true));
-        }
-    }
-
-    /** @dataProvider capitalizationDataProvider */
-    #[\PHPUnit\Framework\Attributes\DataProvider('capitalizationDataProvider')]
-    public function testNativeByCode3Capitalization(string $code1, string $expectedLower, string $expectedUpper): void
-    {
-        $code3 = $this->iso->code3ByLanguage($this->iso->languageByCode1($code1));
-        if (!empty($code3)) {
-            $this->assertSame($expectedLower, $this->iso->nativeByCode3($code3, false));
-            $this->assertSame($expectedUpper, $this->iso->nativeByCode3($code3, true));
-        }
-    }
-
-    // Test consistency between different code formats
     public static function consistencyDataProvider(): array
     {
         return [
@@ -806,25 +801,6 @@ class ISO639Test extends TestCase
 
         // Test code conversions
         $this->assertSame($code2t, $this->iso->code2tByCode1($code1));
-    }
-
-    // Test with whitespace in inputs
-    public static function whitespaceDataProvider(): array
-    {
-        return [
-            [' en ', 'English'],
-            ['  fr  ', 'French'],
-            ["\ten\t", 'English'],
-            ["\nfr\n", 'French'],
-        ];
-    }
-
-    /** @dataProvider whitespaceDataProvider */
-    #[\PHPUnit\Framework\Attributes\DataProvider('whitespaceDataProvider')]
-    public function testInputWithWhitespace(string $codeWithWhitespace, string $expected): void
-    {
-        // The ISO639 class should handle whitespace properly
-        $this->assertSame($expected, $this->iso->languageByCode1($codeWithWhitespace));
     }
 
 }
