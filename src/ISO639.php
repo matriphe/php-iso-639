@@ -271,21 +271,22 @@ class ISO639
             $english = $lang[self::INDEX_ENGLISH_NAME];
             $native = $lang[self::INDEX_NATIVE_NAME];
 
-            $val = [self::KEY_ENGLISH => $english, self::KEY_NATIVE => $native];
+            $val = [
+                self::KEY_CODE_1 => $iso639_1,
+                self::KEY_CODE_2T => $iso639_2t,
+                self::KEY_CODE_2B => $iso639_2b,
+                self::KEY_CODE_3 => $iso639_3,
+                self::KEY_ENGLISH => $english,
+                self::KEY_NATIVE => $native,
+            ];
 
             $this->iso639_1[$iso639_1] = $val;
             $this->iso639_2t[$iso639_2t] = $val;
             $this->iso639_2b[$iso639_2b] = $val;
             $this->iso639_3[$iso639_3] = $val;
 
-            $codes = [
-                self::KEY_CODE_1 => $iso639_1,
-                self::KEY_CODE_2T => $iso639_2t,
-                self::KEY_CODE_2B => $iso639_2b,
-                self::KEY_CODE_3 => $iso639_3,
-            ];
-
-            $this->langEnglish[$this->toLower($english)] = $codes;
+            $this->langEnglish[$this->toLower($english)] = $val;
+            
             $this->code2tToCode1[$iso639_2t] = $iso639_1;
             $this->code1ToCode2t[$iso639_1] = $iso639_2t;
             $this->code2bToLang[$iso639_2b] = $lang;
