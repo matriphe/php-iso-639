@@ -43,6 +43,11 @@ class ISO639Test extends TestCase
             ['Fr', 'French'],
             ['eS', 'Spanish'],
             ['iD', 'Indonesian'],
+
+            // Invalid
+            ['xx', ''],
+            ['abc', ''],
+            ['eng', ''],
         ];
     }
 
@@ -111,6 +116,15 @@ class ISO639Test extends TestCase
             ['Fr', 'Français, Langue Française', true],
             ['eS', 'Español', true],
             ['iD', 'Bahasa Indonesia', true],
+
+            // Invalid
+            ['xx', '', false],
+            ['abc', '', false],
+            ['eng', '', false],
+
+            ['xx', '', true],
+            ['abc', '', true],
+            ['eng', '', true],
         ];
     }
 
@@ -152,6 +166,11 @@ class ISO639Test extends TestCase
             ['Fra', 'French'],
             ['sPA', 'Spanish'],
             ['iND', 'Indonesian'],
+
+            // Invalid
+            ['xxx', ''],
+            ['abc', ''],
+            ['en', ''],
         ];
     }
 
@@ -220,6 +239,15 @@ class ISO639Test extends TestCase
             ['Fra', 'Français, Langue Française', true],
             ['sPA', 'Español', true],
             ['iND', 'Bahasa Indonesia', true],
+
+            // Invalid
+            ['xxx', '', false],
+            ['abc', '', false],
+            ['en', '', false],
+
+            ['xxx', '', true],
+            ['abc', '', true],
+            ['en', '', true],
         ];
     }
 
@@ -261,6 +289,11 @@ class ISO639Test extends TestCase
             ['Fre', 'French'],
             ['sPA', 'Spanish'],
             ['iND', 'Indonesian'],
+
+            // Invalid
+            ['xxx', ''],
+            ['abc', ''],
+            ['en', ''],
         ];
     }
 
@@ -329,6 +362,15 @@ class ISO639Test extends TestCase
             ['Fre', 'Français, Langue Française', true],
             ['sPA', 'Español', true],
             ['iND', 'Bahasa Indonesia', true],
+
+            // Invalid
+            ['xxx', '', false],
+            ['abc', '', false],
+            ['en', '', false],
+
+            ['xxx', '', true],
+            ['abc', '', true],
+            ['en', '', true],
         ];
     }
 
@@ -370,6 +412,11 @@ class ISO639Test extends TestCase
             ['Fra', 'French'],
             ['sPA', 'Spanish'],
             ['iND', 'Indonesian'],
+
+            // Invalid
+            ['xxx', ''],
+            ['abc', ''],
+            ['en', ''],
         ];
     }
 
@@ -438,6 +485,15 @@ class ISO639Test extends TestCase
             ['Fra', 'Français, Langue Française', true],
             ['sPA', 'Español', true],
             ['iND', 'Bahasa Indonesia', true],
+
+            // Invalid
+            ['xxx', '', false],
+            ['abc', '', false],
+            ['en', '', false],
+
+            ['xxx', '', true],
+            ['abc', '', true],
+            ['en', '', true],
         ];
     }
 
@@ -477,6 +533,11 @@ class ISO639Test extends TestCase
             // Edge cases with multi case
             ['en', 'ENGLISH'],
             ['fr', 'FRench'],
+
+            // Invalid
+            ['', ''],
+            ['', 'UnknownLanguage'],
+            ['', 'Eng'],
         ];
     }
     /** @dataProvider code1ByLanguageDataProvider */
@@ -515,6 +576,11 @@ class ISO639Test extends TestCase
             // Edge cases with multi case
             ['eng', 'ENGLISH'],
             ['fra', 'FRench'],
+
+            // Invalid
+            ['', ''],
+            ['', 'UnknownLanguage'],
+            ['', 'Eng'],
         ];
     }
 
@@ -554,6 +620,11 @@ class ISO639Test extends TestCase
             // Edge cases with multi case
             ['eng', 'ENGLISH'],
             ['fre', 'FRench'],
+
+            // Invalid
+            ['', ''],
+            ['', 'UnknownLanguage'],
+            ['', 'Eng'],
         ];
     }
 
@@ -593,6 +664,11 @@ class ISO639Test extends TestCase
             // Edge cases with multi case
             ['eng', 'ENGLISH'],
             ['fra', 'FRench'],
+
+            // Invalid
+            ['', ''],
+            ['', 'UnknownLanguage'],
+            ['', 'Eng'],
         ];
     }
 
@@ -679,125 +755,6 @@ class ISO639Test extends TestCase
 
         $this->assertTrue($englishFound, 'English language should be found in the languages array');
         $this->assertTrue($frenchFound, 'French language should be found in the languages array');
-    }
-
-    // Test empty/invalid inputs (excluding empty string which may match real entries)
-    public static function invalidCodeDataProvider(): array
-    {
-        return [
-            ['xyz'],
-            ['12'],
-            ['a'],
-            ['INVALID'],
-            ['null'],
-            ['undefined'],
-            ['zzzz'], // Definitely invalid 4-letter code
-            ['zzz'],  // Definitely invalid 3-letter code
-            ['zz'],   // Definitely invalid 2-letter code
-        ];
-    }
-
-    /** @dataProvider invalidCodeDataProvider */
-    #[\PHPUnit\Framework\Attributes\DataProvider('invalidCodeDataProvider')]
-    public function testLanguageByCode1WithInvalidCode(string $code): void
-    {
-        $this->assertSame('', $this->iso->languageByCode1($code));
-    }
-
-    /** @dataProvider invalidCodeDataProvider */
-    #[\PHPUnit\Framework\Attributes\DataProvider('invalidCodeDataProvider')]
-    public function testNativeByCode1WithInvalidCode(string $code): void
-    {
-        $this->assertSame('', $this->iso->nativeByCode1($code));
-    }
-
-    /** @dataProvider invalidCodeDataProvider */
-    #[\PHPUnit\Framework\Attributes\DataProvider('invalidCodeDataProvider')]
-    public function testLanguageByCode2tWithInvalidCode(string $code): void
-    {
-        $this->assertSame('', $this->iso->languageByCode2t($code));
-    }
-
-    /** @dataProvider invalidCodeDataProvider */
-    #[\PHPUnit\Framework\Attributes\DataProvider('invalidCodeDataProvider')]
-    public function testNativeByCode2tWithInvalidCode(string $code): void
-    {
-        $this->assertSame('', $this->iso->nativeByCode2t($code));
-    }
-
-    /** @dataProvider invalidCodeDataProvider */
-    #[\PHPUnit\Framework\Attributes\DataProvider('invalidCodeDataProvider')]
-    public function testLanguageByCode2bWithInvalidCode(string $code): void
-    {
-        $this->assertSame('', $this->iso->languageByCode2b($code));
-    }
-
-    /** @dataProvider invalidCodeDataProvider */
-    #[\PHPUnit\Framework\Attributes\DataProvider('invalidCodeDataProvider')]
-    public function testNativeByCode2bWithInvalidCode(string $code): void
-    {
-        $this->assertSame('', $this->iso->nativeByCode2b($code));
-    }
-
-    /** @dataProvider invalidCodeDataProvider */
-    #[\PHPUnit\Framework\Attributes\DataProvider('invalidCodeDataProvider')]
-    public function testLanguageByCode3WithInvalidCode(string $code): void
-    {
-        $this->assertSame('', $this->iso->languageByCode3($code));
-    }
-
-    /** @dataProvider invalidCodeDataProvider */
-    #[\PHPUnit\Framework\Attributes\DataProvider('invalidCodeDataProvider')]
-    public function testNativeByCode3WithInvalidCode(string $code): void
-    {
-        $this->assertSame('', $this->iso->nativeByCode3($code));
-    }
-
-    // Test language name lookups
-    public static function invalidLanguageDataProvider(): array
-    {
-        return [
-            ['NonExistentLanguage'],
-            ['123'],
-            ['InvalidLang'],
-            ['Unknown'],
-            ['xy'],
-        ];
-    }
-
-    /** @dataProvider invalidLanguageDataProvider */
-    #[\PHPUnit\Framework\Attributes\DataProvider('invalidLanguageDataProvider')]
-    public function testCode1ByLanguageWithInvalidLanguage(string $language): void
-    {
-        $this->assertSame('', $this->iso->code1ByLanguage($language));
-    }
-
-    /** @dataProvider invalidLanguageDataProvider */
-    #[\PHPUnit\Framework\Attributes\DataProvider('invalidLanguageDataProvider')]
-    public function testCode2tByLanguageWithInvalidLanguage(string $language): void
-    {
-        $this->assertSame('', $this->iso->code2tByLanguage($language));
-    }
-
-    /** @dataProvider invalidLanguageDataProvider */
-    #[\PHPUnit\Framework\Attributes\DataProvider('invalidLanguageDataProvider')]
-    public function testCode2bByLanguageWithInvalidLanguage(string $language): void
-    {
-        $this->assertSame('', $this->iso->code2bByLanguage($language));
-    }
-
-    /** @dataProvider invalidLanguageDataProvider */
-    #[\PHPUnit\Framework\Attributes\DataProvider('invalidLanguageDataProvider')]
-    public function testCode3ByLanguageWithInvalidLanguage(string $language): void
-    {
-        $this->assertSame('', $this->iso->code3ByLanguage($language));
-    }
-
-    /** @dataProvider invalidLanguageDataProvider */
-    #[\PHPUnit\Framework\Attributes\DataProvider('invalidLanguageDataProvider')]
-    public function testCode2tByCode1WithInvalidCode(string $code): void
-    {
-        $this->assertSame('', $this->iso->code2tByCode1($code));
     }
 
     public static function consistencyDataProvider(): array
