@@ -286,7 +286,7 @@ class ISO639
             $this->iso639_3[$iso639_3] = $val;
 
             $this->langEnglish[$this->toLower($english)] = $val;
-            
+
             $this->code2tToCode1[$iso639_2t] = $iso639_1;
             $this->code1ToCode2t[$iso639_1] = $iso639_2t;
             $this->code2bToLang[$iso639_2b] = $lang;
@@ -392,7 +392,7 @@ class ISO639
     /*
      * Get ISO-639-3 (three-letter codes) from language name
      */
-    public function code3ByLanguage(string$language): string
+    public function code3ByLanguage(string $language): string
     {
         return $this->langEnglish[$this->toLower($language)][self::KEY_CODE_3] ?? '';
     }
