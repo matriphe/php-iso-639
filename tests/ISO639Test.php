@@ -358,7 +358,7 @@ class ISO639Test extends TestCase
             ['vie', 'Vietnamese'],
             ['msa', 'Malay'],
             ['sun', 'Sundanese'],
-            
+
             // Edge cases with spaces and tabs/newlines
             [' zho ', 'Chinese'],
             ['  msa  ', 'Malay'],
@@ -369,7 +369,7 @@ class ISO639Test extends TestCase
             ['ENG', 'English'],
             ['Fra', 'French'],
             ['sPA', 'Spanish'],
-            ['iND', 'Indonesian'],  
+            ['iND', 'Indonesian'],
         ];
     }
 
@@ -467,7 +467,7 @@ class ISO639Test extends TestCase
             ['vi', 'Vietnamese'],
             ['ms', 'Malay'],
             ['su', 'Sundanese'],
-            
+
             // Edge cases with leading/trailing spaces and tabs/newlines
             ['zh', ' Chinese '],
             ['ms', ' Malay '],
