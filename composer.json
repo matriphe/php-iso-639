@@ -4,7 +4,8 @@
     "keywords": ["iso", "iso-639", "639", "lang", "language", "laravel"],
     "type": "library",
     "require-dev": {
-        "phpunit/phpunit": ">=10"
+        "phpunit/phpunit": ">=10",
+        "friendsofphp/php-cs-fixer": "^3.75"
     },
     "license": "MIT",
     "authors": [
@@ -23,5 +24,14 @@
         "psr-4": {
             "Matriphe\\ISO639\\": "src/"
         }
+    },
+    "scripts": {
+        "lint": "php-cs-fixer fix --dry-run --diff",
+        "lint:fix": "php-cs-fixer fix",
+        "test": "phpunit",
+        "check": [
+            "@lint",
+            "@test"
+        ]
     }
 }
