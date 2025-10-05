@@ -35,7 +35,7 @@ class ISO639Test extends TestCase
 
     /** @dataProvider languageByCode1DataProvider */
     #[\PHPUnit\Framework\Attributes\DataProvider('languageByCode1DataProvider')]
-    public function testLanguageISO6391(string $code, string $expected): void
+    public function testLanguageByCode1(string $code, string $expected): void
     {
         $this->assertSame($expected, $this->iso->languageByCode1($code));
     }
@@ -80,37 +80,9 @@ class ISO639Test extends TestCase
 
     /** @dataProvider nativeByCode1DataProvider */
     #[\PHPUnit\Framework\Attributes\DataProvider('nativeByCode1DataProvider')]
-    public function testNativeISO6391(string $code, string $expected): void
+    public function testNativeByCode1(string $code, string $expected, bool $sCapitalized): void
     {
         $this->assertSame($expected, $this->iso->nativeByCode1($code));
-    }
-
-    public static function nativeByCode1CapitalizedDataProvider(): array
-    {
-        return [
-            ['en', 'English'],
-            ['fr', 'Français, Langue Française'],
-            ['es', 'Español'],
-            ['id', 'Bahasa Indonesia'],
-            ['jv', 'Basa Jawa'],
-            ['hi', 'हिन्दी, हिंदी'],
-            ['th', 'ไทย'],
-            ['ko', '한국어'],
-            ['ja', '日本語 (にほんご)'],
-            ['zh', '中文 (Zhōngwén), 汉语, 漢語'],
-            ['ru', 'Русский'],
-            ['ar', 'العربية'],
-            ['vi', 'Việt Nam'],
-            ['ms', 'Bahasa Melayu, بهاس ملايو‎'],
-            ['su', 'Basa Sunda'],
-        ];
-    }
-
-    /** @dataProvider nativeByCode1CapitalizedDataProvider */
-    #[\PHPUnit\Framework\Attributes\DataProvider('nativeByCode1CapitalizedDataProvider')]
-    public function testNativeISO6391Capitalized(string $code, string $expected): void
-    {
-        $this->assertSame($expected, $this->iso->nativeByCode1($code, true));
     }
 
     public static function languageByCode2tDataProvider(): array
@@ -144,77 +116,111 @@ class ISO639Test extends TestCase
     public static function nativeByCode2tDataProvider(): array
     {
         return [
-            ['eng', 'English'],
-            ['fra', 'français, langue française'],
-            ['spa', 'español'],
-            ['ind', 'Bahasa Indonesia'],
-            ['jav', 'basa Jawa'],
-            ['hin', 'हिन्दी, हिंदी'],
-            ['tha', 'ไทย'],
-            ['kor', '한국어'],
-            ['jpn', '日本語 (にほんご)'],
-            ['zho', '中文 (Zhōngwén), 汉语, 漢語'],
-            ['rus', 'Русский'],
-            ['ara', 'العربية'],
-            ['vie', 'Việt Nam'],
-            ['msa', 'bahasa Melayu, بهاس ملايو‎'],
-            ['sun', 'Basa Sunda'],
+            // Default not capitalized
+            ['eng', 'English', false],
+            ['fra', 'français, langue française', false],
+            ['spa', 'español', false],
+            ['ind', 'Bahasa Indonesia', false],
+            ['jav', 'basa Jawa', false],
+            ['hin', 'हिन्दी, हिंदी', false],
+            ['tha', 'ไทย', false],
+            ['kor', '한국어', false],
+            ['jpn', '日本語 (にほんご)', false],
+            ['zho', '中文 (Zhōngwén), 汉语, 漢語', false],
+            ['rus', 'Русский', false],
+            ['ara', 'العربية', false],
+            ['vie', 'Việt Nam', false],
+            ['msa', 'bahasa Melayu, بهاس ملايو‎', false],
+            ['sun', 'Basa Sunda', false],
+            // Capitalized
+            ['eng', 'English', true],
+            ['fra', 'Français, Langue Française', true],
+            ['spa', 'Español', true],
+            ['ind', 'Bahasa Indonesia', true],
+            ['jav', 'Basa Jawa', true],
+            ['hin', 'हिन्दी, हिंदी', true],
+            ['tha', 'ไทย', true],
+            ['kor', '한국어', true],
+            ['jpn', '日本語 (にほんご)', true],
+            ['zho', '中文 (Zhōngwén), 汉语, 漢語', true],
+            ['rus', 'Русский', true],
+            ['ara', 'العربية', true],
+            ['vie', 'Việt Nam', true],
+            ['msa', 'Bahasa Melayu, بهاس ملايو‎', true],
+            ['sun', 'Basa Sunda', true],
         ];
     }
 
     /** @dataProvider nativeByCode2tDataProvider */
     #[\PHPUnit\Framework\Attributes\DataProvider('nativeByCode2tDataProvider')]
-    public function testNativeISO6392t(string $code, string $expected): void
+    public function testNativeISO6392t(string $code, string $expected, bool $isCapitalized): void
     {
         $this->assertSame($expected, $this->iso->nativeByCode2t($code));
     }
 
-    public static function nativeByCode2tCapitalizedDataProvider(): array
+    public static function languageByCode2bDataProvider(): array
     {
         return [
             ['eng', 'English'],
-            ['fra', 'Français, Langue Française'],
-            ['spa', 'Español'],
-            ['ind', 'Bahasa Indonesia'],
-            ['jav', 'Basa Jawa'],
-            ['hin', 'हिन्दी, हिंदी'],
-            ['tha', 'ไทย'],
-            ['kor', '한국어'],
-            ['jpn', '日本語 (にほんご)'],
-            ['zho', '中文 (Zhōngwén), 汉语, 漢語'],
-            ['rus', 'Русский'],
-            ['ara', 'العربية'],
-            ['vie', 'Việt Nam'],
-            ['msa', 'Bahasa Melayu, بهاس ملايو‎'],
-            ['sun', 'Basa Sunda'],
+            ['fre', 'French'],
+            ['spa', 'Spanish'],
+            ['ind', 'Indonesian'],
+            ['jav', 'Javanese'],
+            ['hin', 'Hindi'],
+            ['tha', 'Thai'],
+            ['kor', 'Korean'],
+            ['jpn', 'Japanese'],
+            ['chi', 'Chinese'],
+            ['rus', 'Russian'],
+            ['ara', 'Arabic'],
+            ['vie', 'Vietnamese'],
+            ['may', 'Malay'],
+            ['sun', 'Sundanese'],
         ];
-    }
+    }   
 
-    /** @dataProvider nativeByCode2tCapitalizedDataProvider */
-    #[\PHPUnit\Framework\Attributes\DataProvider('nativeByCode2tCapitalizedDataProvider')]
-    public function testNativeISO6392tCapitalized(string $code, string $expected): void
+    /** @dataProvider languageByCode2bDataProvider */
+    #[\PHPUnit\Framework\Attributes\DataProvider('languageByCode2bDataProvider')]
+    public function testLanguageByCode2b(string $code, string $expected): void
     {
-        $this->assertSame($expected, $this->iso->nativeByCode2t($code, true));
+        $this->assertSame($expected, $this->iso->languageByCode2b($code));
     }
 
     public static function nativeByCode2bDataProvider(): array
     {
         return [
-            ['eng', 'English'],
-            ['fre', 'français, langue française'],
-            ['spa', 'español'],
-            ['ind', 'Bahasa Indonesia'],
-            ['jav', 'basa Jawa'],
-            ['hin', 'हिन्दी, हिंदी'],
-            ['tha', 'ไทย'],
-            ['kor', '한국어'],
-            ['jpn', '日本語 (にほんご)'],
-            ['chi', '中文 (Zhōngwén), 汉语, 漢語'],
-            ['rus', 'Русский'],
-            ['ara', 'العربية'],
-            ['vie', 'Việt Nam'],
-            ['may', 'bahasa Melayu, بهاس ملايو‎'],
-            ['sun', 'Basa Sunda'],
+            // Default not capitalized
+            ['eng', 'English', false],
+            ['fre', 'français, langue française', false],
+            ['spa', 'español', false],
+            ['ind', 'Bahasa Indonesia', false],
+            ['jav', 'basa Jawa', false],
+            ['hin', 'हिन्दी, हिंदी', false],
+            ['tha', 'ไทย', false],
+            ['kor', '한국어', false],
+            ['jpn', '日本語 (にほんご)', false],
+            ['chi', '中文 (Zhōngwén), 汉语, 漢語', false],
+            ['rus', 'Русский', false],
+            ['ara', 'العربية', false],
+            ['vie', 'Việt Nam', false],
+            ['may', 'bahasa Melayu, بهاس ملايو‎', false],
+            ['sun', 'Basa Sunda', false],
+            // Capitalized
+            ['eng', 'English', true],
+            ['fre', 'français, langue française', true],
+            ['spa', 'español', true],
+            ['ind', 'Bahasa Indonesia', true],
+            ['jav', 'basa Jawa', true],
+            ['hin', 'हिन्दी, हिंदी', true],
+            ['tha', 'ไทย', true],
+            ['kor', '한국어', true],
+            ['jpn', '日本語 (にほんご)', true],
+            ['chi', '中文 (Zhōngwén), 汉语, 漢語', true],
+            ['rus', 'Русский', true],
+            ['ara', 'العربية', true],
+            ['vie', 'Việt Nam', true],
+            ['may', 'Bahasa Melayu, بهاس ملايو‎', true],
+            ['sun', 'Basa Sunda', true],
         ];
     }
 
@@ -222,21 +228,7 @@ class ISO639Test extends TestCase
     #[\PHPUnit\Framework\Attributes\DataProvider('nativeByCode2bDataProvider')]
     public function testNativeISO6392b(string $code, string $expected): void
     {
-        $this->assertSame('English', $this->iso->languageByCode2b('eng'));
-        $this->assertSame('French', $this->iso->languageByCode2b('fre'));
-        $this->assertSame('Spanish', $this->iso->languageByCode2b('spa'));
-        $this->assertSame('Indonesian', $this->iso->languageByCode2b('ind'));
-        $this->assertSame('Javanese', $this->iso->languageByCode2b('jav'));
-        $this->assertSame('Hindi', $this->iso->languageByCode2b('hin'));
-        $this->assertSame('Thai', $this->iso->languageByCode2b('tha'));
-        $this->assertSame('Korean', $this->iso->languageByCode2b('kor'));
-        $this->assertSame('Japanese', $this->iso->languageByCode2b('jpn'));
-        $this->assertSame('Chinese', $this->iso->languageByCode2b('chi'));
-        $this->assertSame('Russian', $this->iso->languageByCode2b('rus'));
-        $this->assertSame('Arabic', $this->iso->languageByCode2b('ara'));
-        $this->assertSame('Vietnamese', $this->iso->languageByCode2b('vie'));
-        $this->assertSame('Malay', $this->iso->languageByCode2b('may'));
-        $this->assertSame('Sundanese', $this->iso->languageByCode2b('sun'));
+        $this->assertSame($expected, $this->iso->languageByCode2b($code));
     }
 
     public static function languageByCode3DataProvider(): array
@@ -262,7 +254,7 @@ class ISO639Test extends TestCase
 
     /** @dataProvider languageByCode3DataProvider */
     #[\PHPUnit\Framework\Attributes\DataProvider('languageByCode3DataProvider')]
-    public function testLanguageISO6393(string $code, string $expected): void
+    public function testLanguageByCode3(string $code, string $expected): void
     {
         $this->assertSame($expected, $this->iso->languageByCode3($code));
     }
@@ -270,27 +262,44 @@ class ISO639Test extends TestCase
     public static function nativeByCode3DataProvider(): array
     {
         return [
-            ['eng', 'English'],
-            ['fra', 'français, langue française'],
-            ['spa', 'español'],
-            ['ind', 'Bahasa Indonesia'],
-            ['jav', 'basa Jawa'],
-            ['hin', 'हिन्दी, हिंदी'],
-            ['tha', 'ไทย'],
-            ['kor', '한국어'],
-            ['jpn', '日本語 (にほんご)'],
-            ['zho', '中文 (Zhōngwén), 汉语, 漢語'],
-            ['rus', 'Русский'],
-            ['ara', 'العربية'],
-            ['vie', 'Việt Nam'],
-            ['msa', 'bahasa Melayu, بهاس ملايو‎'],
-            ['sun', 'Basa Sunda'],
+            // Default not capitalized
+            ['eng', 'English', false],
+            ['fra', 'français, langue française', false],
+            ['spa', 'español', false],
+            ['ind', 'Bahasa Indonesia', false],
+            ['jav', 'basa Jawa', false],
+            ['hin', 'हिन्दी, हिंदी', false],
+            ['tha', 'ไทย', false],
+            ['kor', '한국어', false],
+            ['jpn', '日本語 (にほんご)', false],
+            ['zho', '中文 (Zhōngwén), 汉语, 漢語', false],
+            ['rus', 'Русский', false],
+            ['ara', 'العربية', false],
+            ['vie', 'Việt Nam', false],
+            ['msa', 'bahasa Melayu, بهاس ملايو‎', false],
+            ['sun', 'Basa Sunda', false],
+            // Capitalized
+            ['eng', 'English', true],
+            ['fra', 'Français, Langue Française', true],
+            ['spa', 'Español', true],
+            ['ind', 'Bahasa Indonesia', true],
+            ['jav', 'Basa Jawa', true],
+            ['hin', 'हिन्दी, हिंदी', true],
+            ['tha', 'ไทย', true],
+            ['kor', '한국어', true],
+            ['jpn', '日本語 (にほんご)', true],
+            ['zho', '中文 (Zhōngwén), 汉语, 漢語', true],
+            ['rus', 'Русский', true],
+            ['ara', 'العربية', true],
+            ['vie', 'Việt Nam', true],
+            ['msa', 'Bahasa Melayu, بهاس ملايو‎', true],
+            ['sun', 'Basa Sunda', true],
         ];
     }
 
     /** @dataProvider nativeByCode3DataProvider */
     #[\PHPUnit\Framework\Attributes\DataProvider('nativeByCode3DataProvider')]
-    public function testNativeISO6393(string $code, string $expected): void
+    public function testNativeByCode3(string $code, string $expected, bool $isCapitalized): void
     {
         $this->assertSame($expected, $this->iso->nativeByCode3($code));
     }
