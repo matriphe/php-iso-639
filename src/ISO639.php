@@ -376,7 +376,7 @@ class ISO639
     /*
      * Get ISO-639-2/t (three-letter codes) terminologic from language name
      */
-    public function code2tByLanguage($language): string
+    public function code2tByLanguage(string $language): string
     {
         return $this->langEnglish[$this->toLower($language)][self::KEY_CODE_2T] ?? '';
     }
@@ -384,7 +384,7 @@ class ISO639
     /*
      * Get ISO-639-2/b (three-letter codes) bibliographic from language name
      */
-    public function code2bByLanguage($language): string
+    public function code2bByLanguage(string $language): string
     {
         return $this->langEnglish[$this->toLower($language)][self::KEY_CODE_2B] ?? '';
     }
@@ -392,7 +392,7 @@ class ISO639
     /*
      * Get ISO-639-3 (three-letter codes) from language name
      */
-    public function code3ByLanguage($language): string
+    public function code3ByLanguage(string$language): string
     {
         return $this->langEnglish[$this->toLower($language)][self::KEY_CODE_3] ?? '';
     }
