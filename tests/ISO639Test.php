@@ -96,6 +96,34 @@ class ISO639Test extends TestCase
         $this->assertSame($expected, $this->iso->nativeByCode1($code, true));
     }
 
+    public static function languageByCode2tDataProvider(): array
+    {
+        return [
+            ['eng', 'English'],
+            ['fra', 'French'],
+            ['spa', 'Spanish'],
+            ['ind', 'Indonesian'],
+            ['jav', 'Javanese'],
+            ['hin', 'Hindi'],
+            ['tha', 'Thai'],
+            ['kor', 'Korean'],
+            ['jpn', 'Japanese'],
+            ['zho', 'Chinese'],
+            ['rus', 'Russian'],
+            ['ara', 'Arabic'],
+            ['vie', 'Vietnamese'],
+            ['msa', 'Malay'],
+            ['sun', 'Sundanese'],
+        ];
+    }
+
+    /** @dataProvider languageByCode2tDataProvider */
+    #[\PHPUnit\Framework\Attributes\DataProvider('languageByCode2tDataProvider')]
+    public function testLanguageISO6392t(string $code, string $expected): void
+    {
+        $this->assertSame($expected, $this->iso->languageByCode2t($code));
+    }   
+
     public static function nativeByCode2tDataProvider(): array
     {
         return [
