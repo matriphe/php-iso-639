@@ -271,21 +271,22 @@ class ISO639
             $english = $lang[self::INDEX_ENGLISH_NAME];
             $native = $lang[self::INDEX_NATIVE_NAME];
 
-            $val = [self::KEY_ENGLISH => $english, self::KEY_NATIVE => $native];
+            $val = [
+                self::KEY_CODE_1 => $iso639_1,
+                self::KEY_CODE_2T => $iso639_2t,
+                self::KEY_CODE_2B => $iso639_2b,
+                self::KEY_CODE_3 => $iso639_3,
+                self::KEY_ENGLISH => $english,
+                self::KEY_NATIVE => $native,
+            ];
 
             $this->iso639_1[$iso639_1] = $val;
             $this->iso639_2t[$iso639_2t] = $val;
             $this->iso639_2b[$iso639_2b] = $val;
             $this->iso639_3[$iso639_3] = $val;
 
-            $codes = [
-                self::KEY_CODE_1 => $iso639_1,
-                self::KEY_CODE_2T => $iso639_2t,
-                self::KEY_CODE_2B => $iso639_2b,
-                self::KEY_CODE_3 => $iso639_3,
-            ];
+            $this->langEnglish[$this->toLower($english)] = $val;
 
-            $this->langEnglish[$this->toLower($english)] = $codes;
             $this->code2tToCode1[$iso639_2t] = $iso639_1;
             $this->code1ToCode2t[$iso639_1] = $iso639_2t;
             $this->code2bToLang[$iso639_2b] = $lang;
@@ -375,7 +376,7 @@ class ISO639
     /*
      * Get ISO-639-2/t (three-letter codes) terminologic from language name
      */
-    public function code2tByLanguage($language): string
+    public function code2tByLanguage(string $language): string
     {
         return $this->langEnglish[$this->toLower($language)][self::KEY_CODE_2T] ?? '';
     }
@@ -383,7 +384,7 @@ class ISO639
     /*
      * Get ISO-639-2/b (three-letter codes) bibliographic from language name
      */
-    public function code2bByLanguage($language): string
+    public function code2bByLanguage(string $language): string
     {
         return $this->langEnglish[$this->toLower($language)][self::KEY_CODE_2B] ?? '';
     }
@@ -391,7 +392,7 @@ class ISO639
     /*
      * Get ISO-639-3 (three-letter codes) from language name
      */
-    public function code3ByLanguage($language): string
+    public function code3ByLanguage(string $language): string
     {
         return $this->langEnglish[$this->toLower($language)][self::KEY_CODE_3] ?? '';
     }
