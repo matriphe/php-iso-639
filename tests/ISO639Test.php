@@ -82,7 +82,7 @@ class ISO639Test extends TestCase
     #[\PHPUnit\Framework\Attributes\DataProvider('nativeByCode1DataProvider')]
     public function testNativeByCode1(string $code, string $expected, bool $sCapitalized): void
     {
-        $this->assertSame($expected, $this->iso->nativeByCode1($code));
+        $this->assertSame($expected, $this->iso->nativeByCode1($code, $sCapitalized));
     }
 
     public static function languageByCode2tDataProvider(): array
@@ -155,7 +155,7 @@ class ISO639Test extends TestCase
     #[\PHPUnit\Framework\Attributes\DataProvider('nativeByCode2tDataProvider')]
     public function testNativeISO6392t(string $code, string $expected, bool $isCapitalized): void
     {
-        $this->assertSame($expected, $this->iso->nativeByCode2t($code));
+        $this->assertSame($expected, $this->iso->nativeByCode2t($code, $isCapitalized));
     }
 
     public static function languageByCode2bDataProvider(): array
@@ -207,10 +207,10 @@ class ISO639Test extends TestCase
             ['sun', 'Basa Sunda', false],
             // Capitalized
             ['eng', 'English', true],
-            ['fre', 'français, langue française', true],
-            ['spa', 'español', true],
+            ['fre', 'Français, Langue Française', true],
+            ['spa', 'Español', true],
             ['ind', 'Bahasa Indonesia', true],
-            ['jav', 'basa Jawa', true],
+            ['jav', 'Basa Jawa', true],
             ['hin', 'हिन्दी, हिंदी', true],
             ['tha', 'ไทย', true],
             ['kor', '한국어', true],
@@ -226,9 +226,9 @@ class ISO639Test extends TestCase
 
     /** @dataProvider nativeByCode2bDataProvider */
     #[\PHPUnit\Framework\Attributes\DataProvider('nativeByCode2bDataProvider')]
-    public function testNativeISO6392b(string $code, string $expected): void
+    public function testNativeByCode2b(string $code, string $expected, bool $isCapitalized): void
     {
-        $this->assertSame($expected, $this->iso->languageByCode2b($code));
+        $this->assertSame($expected, $this->iso->nativeByCode2b($code, $isCapitalized));
     }
 
     public static function languageByCode3DataProvider(): array
@@ -301,7 +301,7 @@ class ISO639Test extends TestCase
     #[\PHPUnit\Framework\Attributes\DataProvider('nativeByCode3DataProvider')]
     public function testNativeByCode3(string $code, string $expected, bool $isCapitalized): void
     {
-        $this->assertSame($expected, $this->iso->nativeByCode3($code));
+        $this->assertSame($expected, $this->iso->nativeByCode3($code, $isCapitalized));
     }
 
     public static function code1ByLanguageDataProvider(): array
