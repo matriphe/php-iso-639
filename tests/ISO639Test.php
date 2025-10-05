@@ -48,6 +48,9 @@ class ISO639Test extends TestCase
             ['xx', ''],
             ['abc', ''],
             ['eng', ''],
+
+            // Empty
+            ['', ''],
         ];
     }
 
@@ -125,6 +128,10 @@ class ISO639Test extends TestCase
             ['xx', '', true],
             ['abc', '', true],
             ['eng', '', true],
+
+            // Empty
+            ['', '', false],
+            ['', '', true],
         ];
     }
 
@@ -171,6 +178,9 @@ class ISO639Test extends TestCase
             ['xxx', ''],
             ['abc', ''],
             ['en', ''],
+
+            // Empty
+            ['', ''],
         ];
     }
 
@@ -248,6 +258,10 @@ class ISO639Test extends TestCase
             ['xxx', '', true],
             ['abc', '', true],
             ['en', '', true],
+
+            // Empty
+            ['', '', false],
+            ['', '', true],
         ];
     }
 
@@ -294,6 +308,9 @@ class ISO639Test extends TestCase
             ['xxx', ''],
             ['abc', ''],
             ['en', ''],
+
+            // Empty
+            ['', ''],
         ];
     }
 
@@ -371,6 +388,10 @@ class ISO639Test extends TestCase
             ['xxx', '', true],
             ['abc', '', true],
             ['en', '', true],
+
+            // Empty
+            ['', '', false],
+            ['', '', true],
         ];
     }
 
@@ -417,6 +438,9 @@ class ISO639Test extends TestCase
             ['xxx', ''],
             ['abc', ''],
             ['en', ''],
+
+            // Empty
+            ['', ''],
         ];
     }
 
@@ -494,6 +518,10 @@ class ISO639Test extends TestCase
             ['xxx', '', true],
             ['abc', '', true],
             ['en', '', true],
+
+            // Empty
+            ['', '', false],
+            ['', '', true],
         ];
     }
 
@@ -538,6 +566,9 @@ class ISO639Test extends TestCase
             ['', ''],
             ['', 'UnknownLanguage'],
             ['', 'Eng'],
+
+            // Empty
+            ['', ''],
         ];
     }
     /** @dataProvider code1ByLanguageDataProvider */
@@ -581,6 +612,9 @@ class ISO639Test extends TestCase
             ['', ''],
             ['', 'UnknownLanguage'],
             ['', 'Eng'],
+
+            // Empty
+            ['', ''],
         ];
     }
 
@@ -625,6 +659,9 @@ class ISO639Test extends TestCase
             ['', ''],
             ['', 'UnknownLanguage'],
             ['', 'Eng'],
+
+            // Empty
+            ['', ''],
         ];
     }
 
@@ -669,6 +706,9 @@ class ISO639Test extends TestCase
             ['', ''],
             ['', 'UnknownLanguage'],
             ['', 'Eng'],
+
+            // Empty
+            ['', ''],
         ];
     }
 
@@ -786,6 +826,13 @@ class ISO639Test extends TestCase
 
         // Test code conversions
         $this->assertSame($code2t, $this->iso->code2tByCode1($code1));
+    }
+
+    public function testSpecialCases(): void
+    {
+        // Ladin language only has ISO 639-3 code
+        $this->assertSame('lld', $this->iso->code3ByLanguage('Ladin'));
+        $this->assertSame('Ladin', $this->iso->languageByCode3('lld'));
     }
 
 }
