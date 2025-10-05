@@ -4,9 +4,9 @@ on:
   push:
     branches-ignore: 
       - master
-      - main
   pull_request:
-    branches: [ main, master, develop ]
+    branches:
+      - master
 
 jobs:
   lint:
