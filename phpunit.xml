@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit bootstrap="vendor/autoload.php">
+<phpunit bootstrap="vendor/autoload.php"
+    colors="true"
+    cacheDirectory=".phpunit.cache">
     <testsuites>
         <testsuite name="ISO-639 Test Unit">
-            <directory suffix=".php">tests</directory>
+            <directory>tests</directory>
         </testsuite>
     </testsuites>
+    <source>
+        <include>
+            <directory suffix=".php">src</directory>
+        </include>
+    </source>
 </phpunit>

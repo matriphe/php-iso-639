@@ -18,7 +18,8 @@
         "php": "8.*"
     },
     "suggest": {
-        "ext-mbstring": "For better multibyte character support in text transformations"
+        "ext-mbstring": "For better multibyte character support in text transformations",
+        "ext-xdebug": "For code coverage when running tests"
     },
     "autoload": {
         "psr-4": {
@@ -29,6 +30,10 @@
         "lint": "php-cs-fixer fix --dry-run --diff",
         "lint:fix": "php-cs-fixer fix",
         "test": "phpunit",
+        "test:coverage": "XDEBUG_MODE=coverage phpunit --coverage-text",
+        "test:coverage-html": "XDEBUG_MODE=coverage phpunit --coverage-html coverage",
+        "test:coverage-xml": "XDEBUG_MODE=coverage phpunit --coverage-clover coverage.xml",
+        "test:no-coverage": "phpunit --no-coverage",
         "check": [
             "@lint",
             "@test"

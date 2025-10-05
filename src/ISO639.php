@@ -312,9 +312,11 @@ class ISO639
     /*
      * Get native language name from ISO-639-1 (two-letters code)
      */
-    public function nativeByCode1(string $code): string
+    public function nativeByCode1(string $code, bool $isCapitalized = false): string
     {
-        return $this->iso639_1[$this->toLower($code)][self::KEY_NATIVE] ?? '';
+        $native = $this->iso639_1[$this->toLower($code)][self::KEY_NATIVE] ?? '';
+
+        return $isCapitalized ? $this->toTitleCase($native) : $native;
     }
 
     /*
@@ -328,9 +330,11 @@ class ISO639
     /*
      * Get native language name from ISO-639-2/t (three-letter codes) terminologic
      */
-    public function nativeByCode2t(string $code): string
+    public function nativeByCode2t(string $code, bool $isCapitalized = false): string
     {
-        return $this->iso639_2t[$this->toLower($code)][self::KEY_NATIVE] ?? '';
+        $native = $this->iso639_2t[$this->toLower($code)][self::KEY_NATIVE] ?? '';
+
+        return $isCapitalized ? $this->toTitleCase($native) : $native;
     }
 
     /*
@@ -344,9 +348,11 @@ class ISO639
     /*
      * Get native language name from ISO-639-2/b (three-letter codes) bibliographic
      */
-    public function nativeByCode2b($code): string
+    public function nativeByCode2b(string $code, bool $isCapitalized = false): string
     {
-        return $this->iso639_2b[$this->toLower($code)][self::KEY_NATIVE] ?? '';
+        $native = $this->iso639_2b[$this->toLower($code)][self::KEY_NATIVE] ?? '';
+
+        return $isCapitalized ? $this->toTitleCase($native) : $native;
     }
 
     /*
@@ -360,9 +366,11 @@ class ISO639
     /*
      * Get native language name from ISO-639-3 (three-letter codes)
      */
-    public function nativeByCode3(string $code): string
+    public function nativeByCode3(string $code, bool $isCapitalized = false): string
     {
-        return $this->iso639_3[$this->toLower($code)][self::KEY_NATIVE] ?? '';
+        $native = $this->iso639_3[$this->toLower($code)][self::KEY_NATIVE] ?? '';
+
+        return $isCapitalized ? $this->toTitleCase($native) : $native;
     }
 
     /*
