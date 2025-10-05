@@ -18,7 +18,8 @@
         "php": "8.*"
     },
     "suggest": {
-        "ext-mbstring": "For better multibyte character support in text transformations"
+        "ext-mbstring": "For better multibyte character support in text transformations",
+        "ext-xdebug": "For code coverage when running tests"
     },
     "autoload": {
         "psr-4": {
