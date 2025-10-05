@@ -14,23 +14,23 @@ class ISO639Test extends TestCase
 
     public static function languageByCode1DataProvider(): array
     {
-        return array(
-            array('en', 'English'),
-            array('fr', 'French'),
-            array('es', 'Spanish'),
-            array('id', 'Indonesian'),
-            array('jv', 'Javanese'),
-            array('hi', 'Hindi'),
-            array('th', 'Thai'),
-            array('ko', 'Korean'),
-            array('ja', 'Japanese'),
-            array('zh', 'Chinese'),
-            array('ru', 'Russian'),
-            array('ar', 'Arabic'),
-            array('vi', 'Vietnamese'),
-            array('ms', 'Malay'),
-            array('su', 'Sundanese'),
-        );
+        return [
+            ['en', 'English'],
+            ['fr', 'French'],
+            ['es', 'Spanish'],
+            ['id', 'Indonesian'],
+            ['jv', 'Javanese'],
+            ['hi', 'Hindi'],
+            ['th', 'Thai'],
+            ['ko', 'Korean'],
+            ['ja', 'Japanese'],
+            ['zh', 'Chinese'],
+            ['ru', 'Russian'],
+            ['ar', 'Arabic'],
+            ['vi', 'Vietnamese'],
+            ['ms', 'Malay'],
+            ['su', 'Sundanese'],
+        ];
     }
 
     /** @dataProvider languageByCode1DataProvider */
@@ -42,23 +42,23 @@ class ISO639Test extends TestCase
 
     public static function nativeByCode1DataProvider(): array
     {
-        return array(
-            array('en', 'English'),
-            array('fr', 'français, langue française'),
-            array('es', 'español'),
-            array('id', 'Bahasa Indonesia'),
-            array('jv', 'basa Jawa'),
-            array('hi', 'हिन्दी, हिंदी'),
-            array('th', 'ไทย'),
-            array('ko', '한국어'),
-            array('ja', '日本語 (にほんご)'),
-            array('zh', '中文 (Zhōngwén), 汉语, 漢語'),
-            array('ru', 'Русский'),
-            array('ar', 'العربية'),
-            array('vi', 'Việt Nam'),
-            array('ms', 'bahasa Melayu, بهاس ملايو‎'),
-            array('su', 'Basa Sunda'),
-        );
+        return [
+            ['en', 'English'],
+            ['fr', 'français, langue française'],
+            ['es', 'español'],
+            ['id', 'Bahasa Indonesia'],
+            ['jv', 'basa Jawa'],
+            ['hi', 'हिन्दी, हिंदी'],
+            ['th', 'ไทย'],
+            ['ko', '한국어'],
+            ['ja', '日本語 (にほんご)'],
+            ['zh', '中文 (Zhōngwén), 汉语, 漢語'],
+            ['ru', 'Русский'],
+            ['ar', 'العربية'],
+            ['vi', 'Việt Nam'],
+            ['ms', 'bahasa Melayu, بهاس ملايو‎'],
+            ['su', 'Basa Sunda'],
+        ];
     }
 
     /** @dataProvider nativeByCode1DataProvider */
@@ -70,23 +70,23 @@ class ISO639Test extends TestCase
 
     public static function nativeByCode2tDataProvider(): array
     {
-        return array(
-            array('eng', 'English'),
-            array('fra', 'français, langue française'),
-            array('spa', 'español'),
-            array('ind', 'Bahasa Indonesia'),
-            array('jav', 'basa Jawa'),
-            array('hin', 'हिन्दी, हिंदी'),
-            array('tha', 'ไทย'),
-            array('kor', '한국어'),
-            array('jpn', '日本語 (にほんご)'),
-            array('zho', '中文 (Zhōngwén), 汉语, 漢語'),
-            array('rus', 'Русский'),
-            array('ara', 'العربية'),
-            array('vie', 'Việt Nam'),
-            array('msa', 'bahasa Melayu, بهاس ملايو‎'),
-            array('sun', 'Basa Sunda'),
-        );
+        return [
+            ['eng', 'English'],
+            ['fra', 'français, langue française'],
+            ['spa', 'español'],
+            ['ind', 'Bahasa Indonesia'],
+            ['jav', 'basa Jawa'],
+            ['hin', 'हिन्दी, हिंदी'],
+            ['tha', 'ไทย'],
+            ['kor', '한국어'],
+            ['jpn', '日本語 (にほんご)'],
+            ['zho', '中文 (Zhōngwén), 汉语, 漢語'],
+            ['rus', 'Русский'],
+            ['ara', 'العربية'],
+            ['vie', 'Việt Nam'],
+            ['msa', 'bahasa Melayu, بهاس ملايو‎'],
+            ['sun', 'Basa Sunda'],
+        ];
     }
 
     /** @dataProvider nativeByCode2tDataProvider */
@@ -98,23 +98,23 @@ class ISO639Test extends TestCase
 
     public static function nativeByCode2bDataProvider(): array
     {
-        return array(
-            array('eng', 'English'),
-            array('fre', 'français, langue française'),
-            array('spa', 'español'),
-            array('ind', 'Bahasa Indonesia'),
-            array('jav', 'basa Jawa'),
-            array('hin', 'हिन्दी, हिंदी'),
-            array('tha', 'ไทย'),
-            array('kor', '한국어'),
-            array('jpn', '日本語 (にほんご)'),
-            array('chi', '中文 (Zhōngwén), 汉语, 漢語'),
-            array('rus', 'Русский'),
-            array('ara', 'العربية'),
-            array('vie', 'Việt Nam'),
-            array('may', 'bahasa Melayu, بهاس ملايو‎'),
-            array('sun', 'Basa Sunda'),
-        );
+        return [
+            ['eng', 'English'],
+            ['fre', 'français, langue française'],
+            ['spa', 'español'],
+            ['ind', 'Bahasa Indonesia'],
+            ['jav', 'basa Jawa'],
+            ['hin', 'हिन्दी, हिंदी'],
+            ['tha', 'ไทย'],
+            ['kor', '한국어'],
+            ['jpn', '日本語 (にほんご)'],
+            ['chi', '中文 (Zhōngwén), 汉语, 漢語'],
+            ['rus', 'Русский'],
+            ['ara', 'العربية'],
+            ['vie', 'Việt Nam'],
+            ['may', 'bahasa Melayu, بهاس ملايو‎'],
+            ['sun', 'Basa Sunda'],
+        ];
     }
 
     /** @dataProvider nativeByCode2bDataProvider */
@@ -140,23 +140,23 @@ class ISO639Test extends TestCase
 
     public static function languageByCode3DataProvider(): array
     {
-        return array(
-            array('eng', 'English'),
-            array('fra', 'French'),
-            array('spa', 'Spanish'),
-            array('ind', 'Indonesian'),
-            array('jav', 'Javanese'),
-            array('hin', 'Hindi'),
-            array('tha', 'Thai'),
-            array('kor', 'Korean'),
-            array('jpn', 'Japanese'),
-            array('zho', 'Chinese'),
-            array('rus', 'Russian'),
-            array('ara', 'Arabic'),
-            array('vie', 'Vietnamese'),
-            array('msa', 'Malay'),
-            array('sun', 'Sundanese'),
-        );
+        return [
+            ['eng', 'English'],
+            ['fra', 'French'],
+            ['spa', 'Spanish'],
+            ['ind', 'Indonesian'],
+            ['jav', 'Javanese'],
+            ['hin', 'Hindi'],
+            ['tha', 'Thai'],
+            ['kor', 'Korean'],
+            ['jpn', 'Japanese'],
+            ['zho', 'Chinese'],
+            ['rus', 'Russian'],
+            ['ara', 'Arabic'],
+            ['vie', 'Vietnamese'],
+            ['msa', 'Malay'],
+            ['sun', 'Sundanese'],
+        ];
     }
 
     /** @dataProvider languageByCode3DataProvider */
@@ -168,23 +168,23 @@ class ISO639Test extends TestCase
 
     public static function nativeByCode3DataProvider(): array
     {
-        return array(
-            array('eng', 'English'),
-            array('fra', 'français, langue française'),
-            array('spa', 'español'),
-            array('ind', 'Bahasa Indonesia'),
-            array('jav', 'basa Jawa'),
-            array('hin', 'हिन्दी, हिंदी'),
-            array('tha', 'ไทย'),
-            array('kor', '한국어'),
-            array('jpn', '日本語 (にほんご)'),
-            array('zho', '中文 (Zhōngwén), 汉语, 漢語'),
-            array('rus', 'Русский'),
-            array('ara', 'العربية'),
-            array('vie', 'Việt Nam'),
-            array('msa', 'bahasa Melayu, بهاس ملايو‎'),
-            array('sun', 'Basa Sunda'),
-        );
+        return [
+            ['eng', 'English'],
+            ['fra', 'français, langue française'],
+            ['spa', 'español'],
+            ['ind', 'Bahasa Indonesia'],
+            ['jav', 'basa Jawa'],
+            ['hin', 'हिन्दी, हिंदी'],
+            ['tha', 'ไทย'],
+            ['kor', '한국어'],
+            ['jpn', '日本語 (にほんご)'],
+            ['zho', '中文 (Zhōngwén), 汉语, 漢語'],
+            ['rus', 'Русский'],
+            ['ara', 'العربية'],
+            ['vie', 'Việt Nam'],
+            ['msa', 'bahasa Melayu, بهاس ملايو‎'],
+            ['sun', 'Basa Sunda'],
+        ];
     }
 
     /** @dataProvider nativeByCode3DataProvider */
@@ -196,23 +196,23 @@ class ISO639Test extends TestCase
 
     public static function code1ByLanguageDataProvider(): array
     {
-        return array(
-            array('en', 'English'),
-            array('fr', 'French'),
-            array('es', 'Spanish'),
-            array('id', 'Indonesian'),
-            array('jv', 'Javanese'),
-            array('hi', 'Hindi'),
-            array('th', 'Thai'),
-            array('ko', 'Korean'),
-            array('ja', 'Japanese'),
-            array('zh', 'Chinese'),
-            array('ru', 'Russian'),
-            array('ar', 'Arabic'),
-            array('vi', 'Vietnamese'),
-            array('ms', 'Malay'),
-            array('su', 'Sundanese'),
-        );
+        return [
+            ['en', 'English'],
+            ['fr', 'French'],
+            ['es', 'Spanish'],
+            ['id', 'Indonesian'],
+            ['jv', 'Javanese'],
+            ['hi', 'Hindi'],
+            ['th', 'Thai'],
+            ['ko', 'Korean'],
+            ['ja', 'Japanese'],
+            ['zh', 'Chinese'],
+            ['ru', 'Russian'],
+            ['ar', 'Arabic'],
+            ['vi', 'Vietnamese'],
+            ['ms', 'Malay'],
+            ['su', 'Sundanese'],
+        ];
     }
     /** @dataProvider code1ByLanguageDataProvider */
     #[\PHPUnit\Framework\Attributes\DataProvider('code1ByLanguageDataProvider')]
@@ -223,23 +223,23 @@ class ISO639Test extends TestCase
 
     public static function code2tByLanguageDataProvider(): array
     {
-        return array(
-            array('eng', 'English'),
-            array('fra', 'French'),
-            array('spa', 'Spanish'),
-            array('ind', 'Indonesian'),
-            array('jav', 'Javanese'),
-            array('hin', 'Hindi'),
-            array('tha', 'Thai'),
-            array('kor', 'Korean'),
-            array('jpn', 'Japanese'),
-            array('zho', 'Chinese'),
-            array('rus', 'Russian'),
-            array('ara', 'Arabic'),
-            array('vie', 'Vietnamese'),
-            array('msa', 'Malay'),
-            array('sun', 'Sundanese'),
-        );
+        return [
+            ['eng', 'English'],
+            ['fra', 'French'],
+            ['spa', 'Spanish'],
+            ['ind', 'Indonesian'],
+            ['jav', 'Javanese'],
+            ['hin', 'Hindi'],
+            ['tha', 'Thai'],
+            ['kor', 'Korean'],
+            ['jpn', 'Japanese'],
+            ['zho', 'Chinese'],
+            ['rus', 'Russian'],
+            ['ara', 'Arabic'],
+            ['vie', 'Vietnamese'],
+            ['msa', 'Malay'],
+            ['sun', 'Sundanese'],
+        ];
     }
 
     /** @dataProvider code2tByLanguageDataProvider */
@@ -251,23 +251,23 @@ class ISO639Test extends TestCase
 
     public static function code2bByLanguageDataProvider(): array
     {
-        return array(
-            array('eng', 'English'),
-            array('fre', 'French'),
-            array('spa', 'Spanish'),
-            array('ind', 'Indonesian'),
-            array('jav', 'Javanese'),
-            array('hin', 'Hindi'),
-            array('tha', 'Thai'),
-            array('kor', 'Korean'),
-            array('jpn', 'Japanese'),
-            array('chi', 'Chinese'),
-            array('rus', 'Russian'),
-            array('ara', 'Arabic'),
-            array('vie', 'Vietnamese'),
-            array('may', 'Malay'),
-            array('sun', 'Sundanese'),
-        );
+        return [
+            ['eng', 'English'],
+            ['fre', 'French'],
+            ['spa', 'Spanish'],
+            ['ind', 'Indonesian'],
+            ['jav', 'Javanese'],
+            ['hin', 'Hindi'],
+            ['tha', 'Thai'],
+            ['kor', 'Korean'],
+            ['jpn', 'Japanese'],
+            ['chi', 'Chinese'],
+            ['rus', 'Russian'],
+            ['ara', 'Arabic'],
+            ['vie', 'Vietnamese'],
+            ['may', 'Malay'],
+            ['sun', 'Sundanese'],
+        ];
     }
 
     /** @dataProvider code2bByLanguageDataProvider */
@@ -279,23 +279,23 @@ class ISO639Test extends TestCase
 
     public static function code3ByLanguageDataProvider(): array
     {
-        return array(
-            array('eng', 'English'),
-            array('fra', 'French'),
-            array('spa', 'Spanish'),
-            array('ind', 'Indonesian'),
-            array('jav', 'Javanese'),
-            array('hin', 'Hindi'),
-            array('tha', 'Thai'),
-            array('kor', 'Korean'),
-            array('jpn', 'Japanese'),
-            array('zho', 'Chinese'),
-            array('rus', 'Russian'),
-            array('ara', 'Arabic'),
-            array('vie', 'Vietnamese'),
-            array('msa', 'Malay'),
-            array('sun', 'Sundanese'),
-        );
+        return [
+            ['eng', 'English'],
+            ['fra', 'French'],
+            ['spa', 'Spanish'],
+            ['ind', 'Indonesian'],
+            ['jav', 'Javanese'],
+            ['hin', 'Hindi'],
+            ['tha', 'Thai'],
+            ['kor', 'Korean'],
+            ['jpn', 'Japanese'],
+            ['zho', 'Chinese'],
+            ['rus', 'Russian'],
+            ['ara', 'Arabic'],
+            ['vie', 'Vietnamese'],
+            ['msa', 'Malay'],
+            ['sun', 'Sundanese'],
+        ];
     }
 
     /** @dataProvider code3ByLanguageDataProvider */
@@ -307,11 +307,11 @@ class ISO639Test extends TestCase
 
     public static function getLanguageByIsoCode2bDataProvider(): array
     {
-        return array(
-            array(array('en', 'eng', 'eng', 'eng', 'English', 'English'), 'eng'),
-            array(array('fr', 'fra', 'fre', 'fra', 'French', 'français, langue française'), 'fre'),
-            array(array('id', 'ind', 'ind', 'ind', 'Indonesian', 'Bahasa Indonesia'), 'ind'),
-        );
+        return [
+            [['en', 'eng', 'eng', 'eng', 'English', 'English'], 'eng'],
+            [['fr', 'fra', 'fre', 'fra', 'French', 'français, langue française'], 'fre'],
+            [['id', 'ind', 'ind', 'ind', 'Indonesian', 'Bahasa Indonesia'], 'ind'],
+        ];
     }
 
     /** @dataProvider getLanguageByIsoCode2bDataProvider */
@@ -323,10 +323,10 @@ class ISO639Test extends TestCase
 
     public static function getLanguageByIsoCode2bNullDataProvider(): array
     {
-        return array(
-            array('null'),
-            array('abc'),
-        );
+        return [
+            ['null'],
+            ['abc'],
+        ];
     }
 
     /** @dataProvider getLanguageByIsoCode2bNullDataProvider */
@@ -338,12 +338,12 @@ class ISO639Test extends TestCase
 
     public static function code2tByCode1DataProvider(): array
     {
-        return array(
-            array('fra', 'fr'),
-            array('eng', 'en'),
-            array('spa', 'es'),
-            array('ind', 'id'),
-        );
+        return [
+            ['fra', 'fr'],
+            ['eng', 'en'],
+            ['spa', 'es'],
+            ['ind', 'id'],
+        ];
     }
 
     /** @dataProvider code2tByCode1DataProvider */

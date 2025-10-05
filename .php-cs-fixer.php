@@ -11,7 +11,7 @@ return (new PhpCsFixer\Config())
     ->setRiskyAllowed(true)
     ->setRules([
         '@PSR12' => true,
-        'array_syntax' => ['syntax' => 'long'],
+        'array_syntax' => ['syntax' => 'short'],
         'binary_operator_spaces' => true,
         'blank_line_after_opening_tag' => true,
         'cast_spaces' => true,
