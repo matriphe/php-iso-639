@@ -280,16 +280,29 @@ class ISO639
                 self::KEY_NATIVE => $native,
             ];
 
-            $this->iso639_1[$iso639_1] = $val;
-            $this->iso639_2t[$iso639_2t] = $val;
-            $this->iso639_2b[$iso639_2b] = $val;
-            $this->iso639_3[$iso639_3] = $val;
+            if (!empty($iso639_1)) {
+                $this->iso639_1[$iso639_1] = $val;
+            }
+            if (!empty($iso639_2t)) {
+                $this->iso639_2t[$iso639_2t] = $val;
+            }
+            if (!empty($iso639_2b)) {
+                $this->iso639_2b[$iso639_2b] = $val;
+
+                $this->code2bToLang[$iso639_2b] = $lang;
+            }
+            if (!empty($iso639_3)) {
+                $this->iso639_3[$iso639_3] = $val;
+            }
 
             $this->langEnglish[$this->toLower($english)] = $val;
 
-            $this->code2tToCode1[$iso639_2t] = $iso639_1;
-            $this->code1ToCode2t[$iso639_1] = $iso639_2t;
-            $this->code2bToLang[$iso639_2b] = $lang;
+            if (!empty($iso639_2t) && !empty($iso639_1)) {
+                $this->code2tToCode1[$iso639_2t] = $iso639_1;
+            }
+            if (!empty($iso639_1) && !empty($iso639_2t)) {
+                $this->code1ToCode2t[$iso639_1] = $iso639_2t;
+            }
         }
     }
 
