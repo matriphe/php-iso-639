@@ -2,9 +2,12 @@ name: Create Release
 
 on:
   workflow_run:
-    workflows: ["Run Test"]
-    types: [completed]
-    branches: [master]
+    workflows:
+      - Run Test
+    types:
+      - completed
+    branches:
+      - master
   workflow_dispatch:
 
 permissions:
@@ -19,7 +22,7 @@ jobs:
     
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}

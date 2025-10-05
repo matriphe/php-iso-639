@@ -1,28 +1,36 @@
 name: Code Linting
 
 on:
-  push:
-    branches-ignore: 
-      - master
-      - main
   pull_request:
-    branches: [ main, master, develop ]
+    branches:
+      - master
 
 jobs:
   lint:
-    name: PHP Code Style Check
+    name: Lint
     runs-on: ubuntu-latest
-    
+
+    permissions:
+      contents: read
+      packages: read
+      # To report GitHub Actions status checks
+      statuses: write
+
     steps:
     - name: Checkout code
-      uses: actions/checkout@v4
-      
+      uses: actions/checkout@v5
+      with:
+        # super-linter needs the full git history to get the
+        # list of files that changed across commits
+        fetch-depth: 0
+        persist-credentials: false
+
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
       with:
-        php-version: '8.4'
+        php-version: 8.4
         extensions: mbstring
-        coverage: none
+        tools: composer:v2
 
     - name: Cache Composer packages
       id: composer-cache
@@ -34,11 +42,17 @@ jobs:
           ${{ runner.os }}-php-8.4
 
     - name: Install dependencies
-      run: composer install --prefer-dist --no-progress --no-interaction
-      
-    - name: Run PHP CS Fixer (check only)
-      run: vendor/bin/php-cs-fixer fix --dry-run --diff --show-progress=dots
-      
-    - name: Lint Status
-      if: success()
-      run: echo "✅ Code style check passed! All files follow the coding standards."
+      run: composer install --prefer-dist --no-progress
+
+    - name: Run PHP-CS-Fixer
+      run: composer run-script lint
+
+    - name: Check for changes
+      run: |
+        if [ -n "$(git status --porcelain)" ]; then
+          echo "Code style issues found. Please run 'composer run-script fix' locally."
+          git diff
+          exit 1
+        else
+          echo "No code style issues found."
+        fi

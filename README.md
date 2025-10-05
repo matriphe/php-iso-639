@@ -83,6 +83,24 @@ echo $iso->getLanguageByIsoCode2b('ind'); // ['id', 'ind', 'ind', 'ind', 'Indone
 echo $iso->getLanguageByIsoCode2b('jav'); // ['jv', 'jav', 'jav', 'jav', 'Javanese', 'basa Jawa']
 ```
 
-## To Do
+## Contributing
 
-* Convert language name to ISO-639 code
+Do as usual contribution on open source projects by creating a pull request!
+
+### Install Composer
+
+```console
+composer install
+```
+
+### Run Test
+
+```console
+composer run-script test
+```
+
+### Run Linter Fix
+
+```console
+composer run-script lint:fix
+```
