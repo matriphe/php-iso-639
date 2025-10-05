@@ -129,36 +129,58 @@ jobs:
         id: version-bump
         if: steps.check-trigger.outputs.is-pr-merge == 'true' && steps.check-changes.outputs.skip-release == 'false'
         run: |
-          LATEST_TAG="${{ steps.get-latest-release.outputs.latest-tag }}"
+          # Get the branch name from the PR
+          PR_NUMBER="${{ steps.check-trigger.outputs.pr-number }}"
+          BRANCH_NAME=""
           
-          # Get commits since last release
-          if [ "${{ steps.get-latest-release.outputs.is-first-release }}" = "true" ]; then
-            COMMITS=$(git log --oneline --no-merges)
-          else
-            COMMITS=$(git log --oneline --no-merges ${LATEST_TAG}..HEAD)
+          if [ -n "$PR_NUMBER" ]; then
+            # Get branch name from GitHub API
+            BRANCH_NAME=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+              "https://api.github.com/repos/${{ github.repository }}/pulls/$PR_NUMBER" | \
+              jq -r '.head.ref // ""')
+            echo "Branch name: $BRANCH_NAME"
           fi
           
-          echo "Commits since last release:"
-          echo "$COMMITS"
-          
-          # Determine version bump based on conventional commits
+          # Initialize version bump flags
           MAJOR_BUMP=false
           MINOR_BUMP=false
           PATCH_BUMP=false
           
-          # Check for breaking changes (major version bump)
-          if echo "$COMMITS" | grep -qE "^[a-f0-9]+ (feat|fix|perf|refactor)(\(.+\))?!:|^[a-f0-9]+ BREAKING CHANGE:"; then
-            MAJOR_BUMP=true
-          # Check for new features (minor version bump)
-          elif echo "$COMMITS" | grep -qE "^[a-f0-9]+ feat(\(.+\))?:"; then
-            MINOR_BUMP=true
-          # Check for bug fixes, patches, docs, etc. (patch version bump)
-          elif echo "$COMMITS" | grep -qE "^[a-f0-9]+ (fix|perf|refactor|docs|style|test|chore)(\(.+\))?:"; then
-            PATCH_BUMP=true
+          # Check branch name for explicit version bump indicators
+          if [ -n "$BRANCH_NAME" ]; then
+            echo "Analyzing branch name: $BRANCH_NAME"
+            
+            # Convert to lowercase for case-insensitive matching
+            BRANCH_LOWER=$(echo "$BRANCH_NAME" | tr '[:upper:]' '[:lower:]')
+            
+            # Check for major version indicators in branch name
+            if echo "$BRANCH_LOWER" | grep -qE "(major|refactor|rewrite|breaking)"; then
+              echo "🔴 MAJOR version bump detected from branch name"
+              MAJOR_BUMP=true
+            # Check for minor version indicators in branch name
+            elif echo "$BRANCH_LOWER" | grep -qE "(minor|feature|feat|new)"; then
+              echo "🟡 MINOR version bump detected from branch name"
+              MINOR_BUMP=true
+            # Check for patch version indicators in branch name
+            elif echo "$BRANCH_LOWER" | grep -qE "(patch|fix|bug|hotfix|chore|docs|style|test)"; then
+              echo "🟢 PATCH version bump detected from branch name"
+              PATCH_BUMP=true
+            else
+              # If no keywords found in branch name, default to patch
+              echo "🟢 No version keywords found in branch name, defaulting to PATCH version bump"
+              PATCH_BUMP=true
+            fi
           else
-            # If no conventional commits, default to patch
+            # If no branch name found, default to patch
+            echo "🟢 No branch name found, defaulting to PATCH version bump"
             PATCH_BUMP=true
           fi
+          
+          echo "Version bump decision:"
+          echo "  Branch name: $BRANCH_NAME"
+          echo "  Major bump: $MAJOR_BUMP"
+          echo "  Minor bump: $MINOR_BUMP"
+          echo "  Patch bump: $PATCH_BUMP"
           
           echo "major-bump=$MAJOR_BUMP" >> $GITHUB_OUTPUT
           echo "minor-bump=$MINOR_BUMP" >> $GITHUB_OUTPUT
@@ -201,6 +223,7 @@ jobs:
         run: |
           PR_DESCRIPTION="${{ steps.get-pr-description.outputs.pr-description }}"
           LATEST_TAG="${{ steps.get-latest-release.outputs.latest-tag }}"
+          NEW_VERSION="${{ steps.calculate-version.outputs.new-version }}"
           
           # Create release description with PR description and changelog
           echo "## Release Notes" > RELEASE_DESCRIPTION.md
@@ -210,6 +233,18 @@ jobs:
             echo "$PR_DESCRIPTION" >> RELEASE_DESCRIPTION.md
             echo "" >> RELEASE_DESCRIPTION.md
           fi
+          
+          # Add version bump information
+          echo "## Version Information" >> RELEASE_DESCRIPTION.md
+          echo "" >> RELEASE_DESCRIPTION.md
+          if [ "${{ steps.version-bump.outputs.major-bump }}" = "true" ]; then
+            echo "🔴 **Major Release** - Contains breaking changes or major refactoring" >> RELEASE_DESCRIPTION.md
+          elif [ "${{ steps.version-bump.outputs.minor-bump }}" = "true" ]; then
+            echo "🟡 **Minor Release** - Contains new features" >> RELEASE_DESCRIPTION.md
+          elif [ "${{ steps.version-bump.outputs.patch-bump }}" = "true" ]; then
+            echo "🟢 **Patch Release** - Contains bug fixes and improvements" >> RELEASE_DESCRIPTION.md
+          fi
+          echo "" >> RELEASE_DESCRIPTION.md
           
           echo "## Changes" >> RELEASE_DESCRIPTION.md
           echo "" >> RELEASE_DESCRIPTION.md
