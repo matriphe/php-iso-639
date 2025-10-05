@@ -29,6 +29,7 @@
         "lint": "php-cs-fixer fix --dry-run --diff",
         "lint:fix": "php-cs-fixer fix",
         "test": "phpunit",
+        "test:coverage": "phpunit --coverage-text",
         "check": [
             "@lint",
             "@test"
