@@ -4,25 +4,25 @@ namespace Matriphe\ISO639;
 
 class ISO639
 {
-    public const INDEX_ISO639_1 = 0;
-    public const INDEX_ISO639_2T = 1;
-    public const INDEX_ISO639_2B = 2;
-    public const INDEX_ISO639_3 = 3;
-    public const INDEX_ENGLISH_NAME = 4;
-    public const INDEX_NATIVE_NAME = 5;
+    private const INDEX_ISO639_1 = 0;
+    private const INDEX_ISO639_2T = 1;
+    private const INDEX_ISO639_2B = 2;
+    private const INDEX_ISO639_3 = 3;
+    private const INDEX_ENGLISH_NAME = 4;
+    private const INDEX_NATIVE_NAME = 5;
 
-    public const KEY_CODE_1 = 'code1';
-    public const KEY_CODE_2T = 'code2t';
-    public const KEY_CODE_2B = 'code2b';
-    public const KEY_CODE_3 = 'code3';
-    public const KEY_ENGLISH = 'english';
-    public const KEY_NATIVE = 'native';
+    private const KEY_CODE_1 = 'code1';
+    private const KEY_CODE_2T = 'code2t';
+    private const KEY_CODE_2B = 'code2b';
+    private const KEY_CODE_3 = 'code3';
+    private const KEY_ENGLISH = 'english';
+    private const KEY_NATIVE = 'native';
 
     /*
      * Language database, based on Wikipedia.
      * Source: https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
      */
-    protected array $languages = array(
+    private array $languages = array(
         array('ab', 'abk', 'abk', 'abk', 'Abkhaz', 'аҧсуа бызшәа, аҧсшәа'),
         array('aa', 'aar', 'aar', 'aar', 'Afar', 'Afaraf'),
         array('af', 'afr', 'afr', 'afr', 'Afrikaans', 'Afrikaans'),
